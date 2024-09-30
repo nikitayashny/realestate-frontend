@@ -7,21 +7,23 @@ const RealtItem = ({realt}) => {    // , brand (так было)
     const navigate = useNavigate()
     
     return (
-        <Col md={3} className="mt-3" onClick={() => navigate(REALT_ROUTE + '/' + realt.id)}>
-            
-            <Card style={{width: 150, cursor: 'pointer'}} border={"light"} >
-                {/* <Image width={150} height={150} src={process.env.REACT_APP_API_URL + product.img} /> */}
-                <div className="text-black-50 mt-1 d-flex justify-content-between align-items-center">
-                    {/* <div>{brand}</div>
-                    <div className="d-flex align-items-center">
-                        <div>{product.rating}</div>
-                        <Image style={{margin: '2px 0 0 2px'}} width={15} height={15} src={star}/>
-                    </div> */}
-
+        <Col md={12} className="mt-3" onClick={() => navigate(REALT_ROUTE + '/' + realt.id)}>
+            <Card style={{cursor: 'pointer', background: "#FFF", height: ""}} border={"dark"}>
+                <div class="row g-0">
+                    <div class="col-md-5">
+                        <img style={{height: "280px", width: "450px"}} src={`data:image/jpeg;base64,${realt.images[0].bytes}`} alt="Image" />    
+                    </div>
+                    <div class="col-md-7">
+                        <div class="card-body">
+                            <h5 class="card-title">{realt.name}</h5>   
+                            <p className="card-text">{realt.dealType.id === 1 ? `${realt.price} $/мес.`  : realt.dealType.id === 2 ? `${realt.price} $.` : null}</p>
+                            <p className="card-text">{realt.type.id === 1 ? `Квартира ${realt.area} м²`  : realt.type.id === 2 ? `Дом ${realt.area} м²` : null}</p>
+                            <p className="card-text">{`Количество комнат: ${realt.roomsCount}`}</p>
+                            <p class="card-text">{`${realt.country}, г. ${realt.city}, ул.${realt.street}, д.${realt.house}`}</p> 
+                        </div>
+                    </div>
                 </div>
-                <div>{realt.name}</div>
-            </Card>
-           
+            </Card>          
         </Col>
     )
 }

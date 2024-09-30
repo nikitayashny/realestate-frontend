@@ -25,7 +25,6 @@ const Home = observer(() => {
   useEffect(() => {
     fetchRealts().then(data => {  
       realt.setRealts(data)
-      console.log(realt.realts)
     })
   }, [])
 
@@ -72,7 +71,7 @@ const Home = observer(() => {
 
         <Row className="mt-2">
   
-          <Col md={12}>
+          {/* <Col md={12}> */}
           {user.isAuth ?
                 <div>
                         <form onSubmit={handleSubmit} encType="multipart/form-data">
@@ -156,7 +155,7 @@ const Home = observer(() => {
                 <></>
             }
             <RealtList/>
-          </Col>
+          {/* </Col> */}
         </Row>
     </Container>
   )
