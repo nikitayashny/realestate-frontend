@@ -2,25 +2,14 @@
 import Auth from "./pages/Auth"
 //import Basket from "./pages/Basket"
 //import ProductPage from "./pages/ProductPage"
-import Shop from "./pages/Shop"
-//import Orders from "./pages/Orders"
-//import OrderPage from "./pages/OrderPage"
-//import Aboutus from "./pages/Aboutus"
-import {LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from "./utils/consts"
+import Home from "./pages/Home"
+import {LOGIN_ROUTE, REGISTRATION_ROUTE, HOME_ROUTE } from "./utils/consts"
 
 export const authRoutes = [
     // {
     //     path: BASKET_ROUTE,
     //     Component: Basket
     // },
-    // {
-    //     path: ORDER_ROUTE,
-    //     Component: Orders
-    // },
-    // {
-    //     path: ORDER_ROUTE + '/:userId' + '/:orderId',
-    //     Component: OrderPage
-    // }
 ]
 
 export const adminRoutes = [
@@ -32,8 +21,8 @@ export const adminRoutes = [
 
 export const publicRoutes = [
     {
-        path: SHOP_ROUTE,
-        Component: Shop
+        path: HOME_ROUTE,
+        Component: Home
     },
     {
         path: LOGIN_ROUTE,
@@ -47,8 +36,4 @@ export const publicRoutes = [
     //     path: PRODUCT_ROUTE + '/:id',
     //     Component: ProductPage
     // },
-    // {
-    //     path: ABOUTUS_ROUTE,
-    //     Component: Aboutus
-    // }
 ]

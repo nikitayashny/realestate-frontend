@@ -2,30 +2,15 @@ import { createContext } from 'react';
 import App from './App';
 import { createRoot } from 'react-dom/client';
 import UserStore from './store/UserStore';
-//import ProductStore from './store/ProductStore';
+import RealtStore from './store/RealtStore';
 
 export const Context = createContext(null)
 
 createRoot(document.getElementById('root')).render(
     <Context.Provider value={{
         user: new UserStore(),
-        //product: new ProductStore()
+        realt: new RealtStore()
     }}>
          <App />
     </Context.Provider>
 )
-
-// import React from 'react';
-// import ReactDOM from 'react-dom/client';
-// import './index.css';
-// import App from './components/App';
-// import reportWebVitals from './reportWebVitals';
-// import 'bootstrap/dist/css/bootstrap.min.css';
-
-// const root = ReactDOM.createRoot(document.getElementById('root'));
-// root.render(<App/>);
-
-// // If you want to start measuring performance in your app, pass a function
-// // to log results (for example: reportWebVitals(console.log))
-// // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-// reportWebVitals();
