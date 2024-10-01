@@ -1,31 +1,52 @@
 import { Card, Col, Image } from "react-bootstrap";
 import {useNavigate} from 'react-router-dom'
 import { REALT_ROUTE } from "../utils/consts";
+import { deleteRealt, fetchRealts } from "../http/realtAPI";
+import React, { useContext } from "react";
+import { Context } from "../index";
+import { observer } from "mobx-react-lite";
 
-
-const RealtItem = ({realt}) => {    // , brand (так было)
+const RealtItem = observer(({realtItem}) => {    // , brand (так было)
     const navigate = useNavigate()
+    const {realt} = useContext(Context)
+    const {user} = useContext(Context)
+
+    const removeRealt = (id) => {
+        deleteRealt(id)
+        .then(data => {  
+            realt.setRealts(data)
+        })
+    }
     
     return (
-        <Col md={12} className="mt-3" onClick={() => navigate(REALT_ROUTE + '/' + realt.id)}>
+        <Col md={12} className="mt-3" onClick={() => navigate(REALT_ROUTE + '/' + realtItem.id)}>
             <Card style={{cursor: 'pointer', background: "#FFF", height: ""}} border={"dark"}>
-                <div class="row g-0">
-                    <div class="col-md-5">
-                        <img style={{height: "280px", width: "450px"}} src={`data:image/jpeg;base64,${realt.images[0].bytes}`} alt="Image" />    
+                <div className="row g-0">
+                    <div className="col-md-5">
+                        <img style={{height: "280px", width: "450px"}} src={`data:image/jpeg;base64,${realtItem.images[0].bytes}`} alt="Image" />    
                     </div>
-                    <div class="col-md-7">
-                        <div class="card-body">
-                            <h5 class="card-title">{realt.name}</h5>   
-                            <p className="card-text">{realt.dealType.id === 1 ? `${realt.price} $/мес.`  : realt.dealType.id === 2 ? `${realt.price} $.` : null}</p>
-                            <p className="card-text">{realt.type.id === 1 ? `Квартира ${realt.area} м²`  : realt.type.id === 2 ? `Дом ${realt.area} м²` : null}</p>
-                            <p className="card-text">{`Количество комнат: ${realt.roomsCount}`}</p>
-                            <p class="card-text">{`${realt.country}, г. ${realt.city}, ул.${realt.street}, д.${realt.house}`}</p> 
+                    <div className="col-md-7">
+                        <div className="card-body">
+                            <h5 className="card-title">{realtItem.name}</h5>   
+                            <p className="card-text">{realtItem.dealType.id === 1 ? `${realtItem.price} $/мес.`  : realtItem.dealType.id === 2 ? `${realtItem.price} $.` : null}</p>
+                            <p className="card-text">{realtItem.type.id === 1 ? `Квартира ${realtItem.area} м²`  : realtItem.type.id === 2 ? `Дом ${realtItem.area} м²` : null}</p>
+                            <p className="card-text">{`Количество комнат: ${realtItem.roomsCount}`}</p>
+                            <p className="card-text">{`${realtItem.country}, г. ${realtItem.city}, ул.${realtItem.street}, д.${realtItem.house}`}</p> 
                         </div>
+                        {(user.isAuth && user.userId === realtItem.user.id)
+                        ?
+                            <div className="text-end mt-3">
+                                <button onClick={() => removeRealt(realtItem.id)} class="btn btn-danger">Удалить объявление</button>
+                            </div>
+                        :
+                        <></>
+                        }
+                        
                     </div>
                 </div>
             </Card>          
         </Col>
     )
-}
+})
 
 export default RealtItem

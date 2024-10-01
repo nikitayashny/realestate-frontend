@@ -59,7 +59,7 @@ const Home = observer(() => {
     formData.append("userId", user.userId);
 
     try {
-        const response = await createRealt(formData);
+        const response = await createRealt(formData)
         console.log('Объявление добавлено:', response);
     } catch (error) {
         console.error('Ошибка при добавлении объявления:', error);

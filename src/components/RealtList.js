@@ -15,7 +15,7 @@ const RealtList = observer(() => {
     return (
             <Row className="d-flex container vh-90">
                 { realt.realts.map(realt => (
-                    <RealtItem key={realt.id} realt={realt} />
+                    <RealtItem key={realt.id} realtItem={realt} />
                 ))}
             </Row>
         
