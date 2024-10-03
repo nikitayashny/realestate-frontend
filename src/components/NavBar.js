@@ -40,8 +40,8 @@ const NavBar = observer( () => {
                     {user.isAdmin &&
                         <Button variant="outline-dark" onClick={() => toAdmin()} className="mr-2">Админ панель</Button>
                     }
-                    <Button variant="outline-dark" onClick={() => toProfile()} className="mr-2">Личный кабинет</Button>
-                    <Button variant="outline-dark" onClick={() => toBasket()} className="mr-2">Избранное</Button>               
+                    <Button variant="outline-dark" onClick={() => toBasket()} className="mr-2">Избранное</Button>    
+                    <Button variant="outline-dark" onClick={() => toProfile()} className="mr-2">Личный кабинет</Button>           
                 </Nav>
                 :
                 <Nav style={{color: 'black'}}>

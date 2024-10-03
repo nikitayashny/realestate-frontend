@@ -34,10 +34,10 @@ export const fetchRealts = async () => {
     return data
 }
 
-// export const fetchOneProduct = async (id) => {
-//     const {data} = await $host.get('api/product/' + id)
-//     return data
-// }
+export const fetchOneRealt = async (id) => {
+    const {data} = await $host.get('api/realt/' + id)
+    return data
+}
 
 export const deleteRealt = async (id) => {
     const {data} = await $authHost.post(`api/realt/delete/${id}`)

@@ -1,10 +1,10 @@
 //import Admin from "./pages/Admin"
 import Auth from "./pages/Auth"
 //import Basket from "./pages/Basket"
-//import ProductPage from "./pages/ProductPage"
+import RealtPage from "./pages/RealtPage"
 import Home from "./pages/Home"
 import Profile from "./pages/Profile"
-import {LOGIN_ROUTE, REGISTRATION_ROUTE, HOME_ROUTE, PROFILE_ROUTE } from "./utils/consts"
+import {LOGIN_ROUTE, REGISTRATION_ROUTE, HOME_ROUTE, PROFILE_ROUTE, REALT_ROUTE } from "./utils/consts"
 
 export const authRoutes = [
     // {
@@ -37,8 +37,8 @@ export const publicRoutes = [
         path: REGISTRATION_ROUTE,
         Component: Auth
     },
-    // {
-    //     path: PRODUCT_ROUTE + '/:id',
-    //     Component: ProductPage
-    // },
+    {
+        path: REALT_ROUTE + '/:id',
+        Component: RealtPage
+    },
 ]
