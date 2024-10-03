@@ -11,21 +11,23 @@ const RealtItem = observer(({realtItem}) => {    // , brand (так было)
     const {realt} = useContext(Context)
     const {user} = useContext(Context)
 
-    const removeRealt = (id) => {
+    const removeRealt = (event, id) => {
+        event.preventDefault(); 
+        event.stopPropagation();
         deleteRealt(id)
-        .then(data => {  
-            realt.setRealts(data)
-        })
-    }
+            .then(data => {
+                realt.setRealts(data);
+            });
+    };
     
     return (
         <Col md={12} className="mt-3" onClick={() => navigate(REALT_ROUTE + '/' + realtItem.id)}>
             <Card style={{cursor: 'pointer', background: "#FFF", height: ""}} border={"dark"}>
                 <div className="row g-0">
-                    <div className="col-md-5">
-                        <img style={{height: "280px", width: "450px"}} src={`data:image/jpeg;base64,${realtItem.images[0].bytes}`} alt="Image" />    
+                    <div className="col-md-4">
+                        <img style={{height: "280px", width: "100%"}} src={`data:image/jpeg;base64,${realtItem.images[0].bytes}`} alt="Image" />    
                     </div>
-                    <div className="col-md-7">
+                    <div className="col-md-8">
                         <div className="card-body">
                             <h5 className="card-title">{realtItem.name}</h5>   
                             <p className="card-text">{realtItem.dealType.id === 1 ? `${realtItem.price} $/мес.`  : realtItem.dealType.id === 2 ? `${realtItem.price} $.` : null}</p>
@@ -35,8 +37,8 @@ const RealtItem = observer(({realtItem}) => {    // , brand (так было)
                         </div>
                         {(user.isAuth && user.userId === realtItem.user.id)
                         ?
-                            <div className="text-end mt-3">
-                                <button onClick={() => removeRealt(realtItem.id)} class="btn btn-danger">Удалить объявление</button>
+                            <div className="text-end m-3">
+                                <button onClick={(event) => removeRealt(event, realtItem.id)} class="btn btn-danger">Удалить объявление</button>
                             </div>
                         :
                         <></>

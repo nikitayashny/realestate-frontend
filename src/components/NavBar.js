@@ -4,7 +4,7 @@ import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import Container from 'react-bootstrap/Container'
 import { NavLink } from "react-router-dom";
-import { ADMIN_ROUTE, BASKET_ROUTE, LOGIN_ROUTE, HOME_ROUTE } from "../utils/consts";
+import { ADMIN_ROUTE, BASKET_ROUTE, LOGIN_ROUTE, HOME_ROUTE, PROFILE_ROUTE } from "../utils/consts";
 import Button from "react-bootstrap/Button";
 import { observer } from "mobx-react-lite";
 import {useNavigate} from 'react-router-dom'
@@ -12,14 +12,6 @@ import {useNavigate} from 'react-router-dom'
 const NavBar = observer( () => {
     const {user} = useContext(Context)
     const navigate = useNavigate()
-
-    const logOut = () => {
-        localStorage.removeItem('token');
-        user.setUser({})
-        user.setIsAuth(false)
-        user.setIsAdmin(false)
-        user.setUserId(null)
-    }
 
     const toAdmin = () => {
         if (user.isAdmin === true) {
@@ -33,6 +25,10 @@ const NavBar = observer( () => {
         //navigate(BASKET_ROUTE)
     }
 
+    const toProfile = async () => {
+        navigate(PROFILE_ROUTE)
+    }
+
     return (
         <Navbar bg="light" data-bs-theme="light" expand="md">
     <Container>
@@ -44,8 +40,8 @@ const NavBar = observer( () => {
                     {user.isAdmin &&
                         <Button variant="outline-dark" onClick={() => toAdmin()} className="mr-2">Админ панель</Button>
                     }
-                    <Button variant="outline-dark" onClick={() => toBasket()} className="mr-2">Избранное</Button>
-                    <Button variant="outline-dark" onClick={() => logOut()} className="mr-2">Выйти</Button>
+                    <Button variant="outline-dark" onClick={() => toProfile()} className="mr-2">Личный кабинет</Button>
+                    <Button variant="outline-dark" onClick={() => toBasket()} className="mr-2">Избранное</Button>               
                 </Nav>
                 :
                 <Nav style={{color: 'black'}}>

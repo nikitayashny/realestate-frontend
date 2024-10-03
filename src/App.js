@@ -6,14 +6,17 @@ import { observer } from "mobx-react-lite";
 import { Context } from "./index";
 import { check } from "./http/userAPI"
 import { Spinner } from "react-bootstrap";
+import { fetchRealts } from "./http/realtAPI";
 
 const App = observer(() => {
     const {user} = useContext(Context)
+    const {realt} = useContext(Context)
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         check().then(data => {
             if (data) {
+                user.setUserName(data.name)
                 user.setUser(true)
                 user.setIsAuth(true)
                 if (data.role === 'ADMIN') 
@@ -23,6 +26,12 @@ const App = observer(() => {
             
         }).finally(() => setLoading(false))
     }, [])
+
+    useEffect(() => {
+        fetchRealts().then(data => {  
+          realt.setRealts(data)
+        })
+      }, [])
 
     if (loading) {
         return <Spinner animation={"grow"} />
