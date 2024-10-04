@@ -4,8 +4,11 @@ import { useParams } from 'react-router-dom';
 import { fetchOneRealt } from "../http/realtAPI";
 import { observer } from "mobx-react-lite";
 import { Carousel } from "react-bootstrap";
+//import {useNavigate} from 'react-router-dom'
+import { USER_ROUTE } from "../utils/consts";
 
 const RealtPage = observer(() => {
+    //const navigate = useNavigate()
     const [realt, setRealt] = useState({});
     const { id } = useParams();
 
@@ -50,6 +53,15 @@ const RealtPage = observer(() => {
                             </p>
                             <p className="card-text">{`Количество комнат: ${realt.roomsCount}`}</p>
                             <p className="card-text">{`${realt.country}, г. ${realt.city}, ул.${realt.street}, д.${realt.house}`}</p>
+                            <p className="card-text">
+                                {'Автор: '} 
+                                {realt.user 
+                                ?
+                                    <a href={USER_ROUTE + '/' + realt.user.id}>{`${realt.user.firstName} ${realt.user.lastName}`}</a>
+                                : 
+                                <>{'Загрузка...'}</>
+                                }
+                            </p>
                         </div>
                     </div>
                 </div>

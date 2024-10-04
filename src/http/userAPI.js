@@ -13,6 +13,11 @@ export const login = async (login, password) => {
     return jwtDecode(data.token)
 }
 
+export const fetchUser = async (id) => {
+    const {data} = await $host.get('api/user/' + id)
+    return data
+}
+
 export const check = async () => {
     try {
         const {data} = await $authHost.get('/api/user/auth')
