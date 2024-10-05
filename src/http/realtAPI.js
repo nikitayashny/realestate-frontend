@@ -44,25 +44,20 @@ export const deleteRealt = async (id) => {
     return data
 }
 
-// export const updateProduct = async (id, product) => {
-//     const {data} = await $authHost.put(`api/product/${id}`, product)
-//     return data
-// }
+export const fetchFavorites = async (id) => {
+    const {data} = await $authHost.get(`api/favorite/${id}`)
+    return data
+}
 
-// export const createRate = async (rate) => {
-//     const {data} = await $authHost.post(`api/rate`, rate)
-//     return data
-// }
+export const addToFavorites = async (params) => {
+    const {data} = await $authHost.post(`api/favorite/add`, params)
+    return data
+}
 
-// export const getBasket = async (userId) => {
-//     const {data} = await $authHost.get(`api/basket/${userId}`)
-//     return data
-// }
-
-// export const addToBasket = async (params) => {
-//     const {data} = await $authHost.post(`api/basket`, params)
-//     return data
-// }
+export const deleteFromFavorites = async (params) => {
+    const {data} = await $authHost.post(`api/favorite/delete`, params)
+    return data
+}
 
 // export const deleteFromBasket = async (userId, productId) => {
 //     const {data} = await $authHost.delete(`api/basket/${userId}/${productId}`)

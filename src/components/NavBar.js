@@ -4,7 +4,7 @@ import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import Container from 'react-bootstrap/Container'
 import { NavLink } from "react-router-dom";
-import { ADMIN_ROUTE, BASKET_ROUTE, LOGIN_ROUTE, HOME_ROUTE, PROFILE_ROUTE } from "../utils/consts";
+import { ADMIN_ROUTE, FAVORITE_ROUTE, LOGIN_ROUTE, HOME_ROUTE, PROFILE_ROUTE } from "../utils/consts";
 import Button from "react-bootstrap/Button";
 import { observer } from "mobx-react-lite";
 import {useNavigate} from 'react-router-dom'
@@ -22,7 +22,7 @@ const NavBar = observer( () => {
     }
 
     const toBasket = async () => {
-        //navigate(BASKET_ROUTE)
+        navigate(FAVORITE_ROUTE)
     }
 
     const toProfile = async () => {

@@ -1,17 +1,17 @@
 //import Admin from "./pages/Admin"
 import Auth from "./pages/Auth"
-//import Basket from "./pages/Basket"
+import FavoritePage from "./pages/FavoritePage"
 import RealtPage from "./pages/RealtPage"
 import UserPage from "./pages/UserPage"
 import Home from "./pages/Home"
 import Profile from "./pages/Profile"
-import {LOGIN_ROUTE, REGISTRATION_ROUTE, HOME_ROUTE, PROFILE_ROUTE, REALT_ROUTE, USER_ROUTE } from "./utils/consts"
+import {LOGIN_ROUTE, REGISTRATION_ROUTE, HOME_ROUTE, PROFILE_ROUTE, REALT_ROUTE, USER_ROUTE, FAVORITE_ROUTE } from "./utils/consts"
 
 export const authRoutes = [
-    // {
-    //     path: BASKET_ROUTE,
-    //     Component: Basket
-    // },
+    {
+        path: FAVORITE_ROUTE,
+        Component: FavoritePage
+    },
     {
         path: PROFILE_ROUTE,
         Component: Profile

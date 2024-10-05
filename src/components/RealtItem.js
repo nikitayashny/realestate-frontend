@@ -1,7 +1,7 @@
 import { Card, Col, Image } from "react-bootstrap";
 import {useNavigate} from 'react-router-dom'
 import { REALT_ROUTE } from "../utils/consts";
-import { deleteRealt, fetchRealts } from "../http/realtAPI";
+import { addToFavorites, deleteFromFavorites, deleteRealt, fetchRealts } from "../http/realtAPI";
 import React, { useContext } from "react";
 import { Context } from "../index";
 import { observer } from "mobx-react-lite";
@@ -13,12 +13,32 @@ const RealtItem = observer(({realtItem}) => {
     const {user} = useContext(Context)
 
     const removeRealt = (event, id) => {
-        event.preventDefault(); 
-        event.stopPropagation();
+        event.preventDefault()
+        event.stopPropagation()
         deleteRealt(id)
             .then(data => {
                 realt.setRealts(data);
             });
+    };
+
+    const addFavorite = (event, id) => {
+        event.preventDefault()
+        event.stopPropagation()
+        const params = {
+            userId: user.userId,
+            realtId: id
+        };
+        addToFavorites(params)
+    };
+
+    const deleteFavorite = (event, id) => {
+        event.preventDefault()
+        event.stopPropagation()
+        const params = {
+            userId: user.userId,
+            realtId: id
+        };
+        deleteFromFavorites(params)
     };
     
     return (
@@ -43,7 +63,23 @@ const RealtItem = observer(({realtItem}) => {
                             </div>
                         :
                         <></>
-                        }               
+                        }  
+                        {user.isAuth
+                        ?
+                            <div className="text-end m-3">
+                                <button onClick={(event) => addFavorite(event, realtItem.id)} class="btn btn-primary">Добавить в избранное</button>
+                            </div>
+                        :
+                        <></>
+                        }    
+                        {user.isAuth
+                        ?
+                            <div className="text-end m-3">
+                                <button onClick={(event) => deleteFavorite(event, realtItem.id)} class="btn btn-danger">Удалить из избранного</button>
+                            </div>
+                        :
+                        <></>
+                        }           
                     </div>
                 </div>
             </Card>          
