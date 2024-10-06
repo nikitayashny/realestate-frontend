@@ -5,6 +5,7 @@ export default class RealtStore {
         this._types = []
         this._dealTypes = []
         this._realts = []
+        this._favorites = []
         this._selectedType = {}
         this._selectedDealType = {}
         // this._page = 1
@@ -29,6 +30,9 @@ export default class RealtStore {
     setSelectedDealType(dealType) {
         //this.setPage(1)
         this._selectedDealType = dealType;
+    }
+    setFavorites(favorites) {
+        this._favorites = favorites
     }
     // setPage(page) {
     //     this._page = page;
@@ -55,6 +59,9 @@ export default class RealtStore {
     }
     get selectedDealType() {
         return this._selectedDealType
+    }
+    get favorites() {
+        return this._favorites
     }
     // get totalCount() {
     //     return this._totalCount

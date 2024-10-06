@@ -23,49 +23,6 @@ const Home = observer(() => {
   // }, [product.page, product.selectedType, product.selectedBrand])
 
 
-//   const handleSubmit = async (event) => {
-//     event.preventDefault();
-
-//     const formData = new FormData();
-//     const formElements = event.target.elements;
-
-//     const realtItem = {
-//         type: formElements.type.value,
-//         dealType: formElements.dealType.value,
-//         name: formElements.name.value,
-//         price: formElements.price.value,
-//         roomsCount: formElements.roomsCount.value,
-//         country: formElements.country.value,
-//         city: formElements.city.value,
-//         street: formElements.street.value,
-//         house: formElements.house.value,
-//         area: formElements.area.value,
-//         article: formElements.article.value,
-//     };
-
-//     Object.keys(realtItem).forEach(key => {
-//         formData.append(key, realtItem[key]);
-//     });
-
-//     formData.append("file1", formElements.file1.files[0]);
-//     formData.append("file2", formElements.file2.files[0]);
-//     formData.append("file3", formElements.file3.files[0]);
-
-//     formData.append("userId", user.userId);
-
-//     try {
-//         const response = await createRealt(formData)
-//         console.log('Объявление добавлено:', response);
-
-//         fetchRealts().then(data => {  
-//           realt.setRealts(data)
-//         })
-        
-//     } catch (error) {
-//         console.error('Ошибка при добавлении объявления:', error);
-//     }
-// };
-
   return (
     <Container>
 

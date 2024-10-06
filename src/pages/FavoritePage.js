@@ -6,19 +6,13 @@ import RealtItem from '../components/RealtItem';
 import { fetchFavorites } from "../http/realtAPI"; 
 
 const FavoritePage = observer(() => {
-    const { user } = useContext(Context); 
-    const [favorites, setFavorites] = useState([]);
-
-    useEffect(() => {
-      fetchFavorites(user.userId).then(data => {  
-          setFavorites(data);
-      });
-    }, [user.userId]);
+    const { realt } = useContext(Context)
 
     return (
         <Container>
+            <h1>Избранное</h1>
             <Row className="d-flex container vh-90">
-              {favorites.map(realt => (
+              {realt.favorites.map(realt => (
                   <RealtItem key={realt.id} realtItem={realt} />
               ))}
             </Row>

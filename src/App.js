@@ -6,7 +6,7 @@ import { observer } from "mobx-react-lite";
 import { Context } from "./index";
 import { check } from "./http/userAPI"
 import { Spinner } from "react-bootstrap";
-import { fetchRealts } from "./http/realtAPI";
+import { fetchRealts, fetchFavorites } from "./http/realtAPI";
 
 const App = observer(() => {
     const {user} = useContext(Context)
@@ -22,6 +22,9 @@ const App = observer(() => {
                 if (data.role === 'ADMIN') 
                     user.setIsAdmin(true)
                 user.setUserId(data.id)
+                fetchFavorites(data.id).then(data => {  
+                    realt.setFavorites(data);
+                });
             }
             
         }).finally(() => setLoading(false))
