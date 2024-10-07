@@ -1,32 +1,59 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Container } from "react-bootstrap";
 import { useParams } from 'react-router-dom';
-import { fetchOneRealt } from "../http/realtAPI";
+import { fetchOneRealt, addToFavorites, deleteFromFavorites } from "../http/realtAPI";
 import { observer } from "mobx-react-lite";
 import { Carousel } from "react-bootstrap";
-//import {useNavigate} from 'react-router-dom'
 import { USER_ROUTE } from "../utils/consts";
+import { Context } from "..";
 
 const RealtPage = observer(() => {
-    //const navigate = useNavigate()
-    const [realt, setRealt] = useState({});
+    const [realtItem, setRealt] = useState({});
     const { id } = useParams();
+    const {realt} = useContext(Context)
+    const {user} = useContext(Context)
 
     useEffect(() => {
         fetchOneRealt(id).then(data => setRealt(data));
     }, [id]);
+
+    const addFavorite = (event, id) => {
+        event.preventDefault()
+        event.stopPropagation()
+        const params = {
+            userId: user.userId,
+            realtId: id
+        };
+        addToFavorites(params)
+        .then(data => {  
+            realt.setFavorites(data);
+        });
+    };
+
+    const deleteFavorite = (event, id) => {
+        event.preventDefault()
+        event.stopPropagation()
+        const params = {
+            userId: user.userId,
+            realtId: id
+        };
+        deleteFromFavorites(params)
+        .then(data => {  
+            realt.setFavorites(data);
+        });
+    };
 
     return (
         <Container className="mt-3">
             <div className="row">
                 <div className="col-md-6">
                     <Carousel>
-                        {realt.images && realt.images.length > 0 ? (
-                            realt.images.map((image) => (
+                        {realtItem.images && realtItem.images.length > 0 ? (
+                            realtItem.images.map((image) => (
                                 <Carousel.Item>
                                     <img
                                         className="d-block w-100"
-                                        style={{width: "600px", height: "400px", objectFit: "cover"}}
+                                        style={{ width: "600px", height: "400px", objectFit: "cover" }}
                                         src={`data:image/jpeg;base64,${image.bytes}`}
                                         alt={`Изображение`}
                                     />
@@ -41,27 +68,43 @@ const RealtPage = observer(() => {
                     <div className="card position-relative">
                         <div className="card-body">
                             <h3 className="card-title">
-                                <span>{realt.name}</span>
+                                <span>{realtItem.name}</span>
                             </h3>
                             <p className="card-text">
-                                {realt.dealType?.id === 1 ? `${realt.price} $/мес.` : 
-                                 realt.dealType?.id === 2 ? `${realt.price} $` : null}
+                                {realtItem.dealType?.id === 1 ? `${realtItem.price} $/мес.` :
+                                    realtItem.dealType?.id === 2 ? `${realtItem.price} $` : null}
                             </p>
                             <p className="card-text">
-                                {realt.type?.id === 1 ? `Квартира ${realt.area} м²` : 
-                                 realt.type?.id === 2 ? `Дом ${realt.area} м²` : null}
+                                {realtItem.type?.id === 1 ? `Квартира ${realtItem.area} м²` :
+                                    realtItem.type?.id === 2 ? `Дом ${realtItem.area} м²` : null}
                             </p>
-                            <p className="card-text">{`Количество комнат: ${realt.roomsCount}`}</p>
-                            <p className="card-text">{`${realt.country}, г. ${realt.city}, ул.${realt.street}, д.${realt.house}`}</p>
+                            <p className="card-text">{`Количество комнат: ${realtItem.roomsCount}`}</p>
+                            <p className="card-text">{`${realtItem.country}, г. ${realtItem.city}, ул.${realtItem.street}, д.${realtItem.house}`}</p>
                             <p className="card-text">
-                                {'Автор: '} 
-                                {realt.user 
-                                ?
-                                    <a href={USER_ROUTE + '/' + realt.user.id}>{`${realt.user.firstName} ${realt.user.lastName}`}</a>
-                                : 
-                                <>{'Загрузка...'}</>
+                                {'Автор: '}
+                                {realtItem.user
+                                    ?
+                                    <a href={USER_ROUTE + '/' + realtItem.user.id}>{`${realtItem.user.firstName} ${realtItem.user.lastName}`}</a>
+                                    :
+                                    <>{'Загрузка...'}</>
                                 }
                             </p>
+                            
+                            {user.isAuth
+                            ?
+                            <div style={{ position: 'absolute', top: '10px', right: '10px' }}>
+                                <button 
+                                    onClick={(event) => user.isAuth ? (realt.favorites.some(favorite => favorite.id === realtItem.id) ? deleteFavorite(event, realtItem.id) : addFavorite(event, realtItem.id)) : null}
+                                    className="btn" 
+                                    style={{ background: 'transparent', border: 'none', cursor: 'pointer' }}
+                                >
+                                    <i className={`fa${realt.favorites.some(favorite => favorite.id === realtItem.id) ? 's' : 'r'} fa-heart`} style={{ color: realt.favorites.some(favorite => favorite.id === realtItem.id) ? 'red' : 'gray', fontSize: '24px' }}></i>
+                                </button>
+                            </div>
+                            :
+                            <></>
+                            }
+
                         </div>
                     </div>
                 </div>
@@ -71,7 +114,7 @@ const RealtPage = observer(() => {
                             <div className="col-md-12">
                                 <h5 className="card-title">Описание:</h5>
                                 <p className="card-text">
-                                    <span>{realt.article}</span>
+                                    <span>{realtItem.article}</span>
                                 </p>
                             </div>
                         </div>
