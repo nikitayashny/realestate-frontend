@@ -1,34 +1,33 @@
 import { observer } from "mobx-react-lite";
 import { useContext, useEffect } from "react";
 import { Context } from "../index";
-import { Row, Col } from "react-bootstrap";
 import RealtItem from "./RealtItem";
 import { fetchFavorites } from "../http/realtAPI";
 
-const RealtList = observer(({ userId }) => {
+const RealtList = observer(({ userId, filters }) => {
     const { realt } = useContext(Context);
     const { user } = useContext(Context)
 
-    // const getBrandNameByProductId = (brandId) => {
-    //     const brand = product.brands.find(brand => brand.id === brandId);
-    //     return brand.name;
-    // }
+    const allRealts = realt.realts;
 
     const filteredRealts = userId 
-        ? realt.realts.filter(realt => realt.user.id === userId) 
-        : realt.realts;
+        ? allRealts.filter(realt => realt.user.id === userId)
+        : allRealts.filter(realt => {
+            const matchesType = filters.typeId ? realt.type.id === filters.typeId : true;
+            const matchesDealType = filters.dealTypeId ? realt.dealType.id === filters.dealTypeId : true;
+            return matchesType && matchesDealType;
+        });
 
-        useEffect(() => {
-            if (user.userId) {
-                fetchFavorites(user.userId).then(data => {  
-                    realt.setFavorites(data)
-                  })
-            }
-            
-          }, [])
+    useEffect(() => {
+        if (user.userId) {
+            fetchFavorites(user.userId).then(data => {  
+                realt.setFavorites(data);
+            });
+        }
+    }, [user.userId, realt]);
 
     return (
-        <div className=" container">
+        <div className="container">
             {filteredRealts.map(realt => (
                 <RealtItem key={realt.id} realtItem={realt} />
             ))}
@@ -37,24 +36,4 @@ const RealtList = observer(({ userId }) => {
 });
 
 export default RealtList;
-
-// const RealtList = observer(() => {
-//     const {realt} = useContext(Context)
-
-//     // const getBrandNameByProductId = (brandId) => {
-//     //     const brand = product.brands.find(brand => brand.id === brandId);
-//     //     return brand.name;
-//     // }
-
-//     return (
-//             <Row className="d-flex container vh-90">
-//                 { realt.realts.map(realt => (
-//                     <RealtItem key={realt.id} realtItem={realt} />
-//                 ))}
-//             </Row>
-        
-//     )
-// })
-
-// export default RealtList
 

@@ -56,10 +56,10 @@ const RealtItem = observer(({realtItem}) => {
         <Col md={12} className="mt-3" onClick={() => navigate(REALT_ROUTE + '/' + realtItem.id)}>
             <Card style={{ position: 'relative', cursor: 'pointer', background: "#FFF" }} border={"dark"}>
                 <div className="row g-0">
-                    <div className="col-md-4">
-                        <img style={{ height: "280px", width: "100%" }} src={`data:image/jpeg;base64,${realtItem.images[0].bytes}`} alt="Image" />
+                    <div className="col-md-5">
+                        <img style={{ height: "280px", width: "100%", objectFit: "cover" }} src={`data:image/jpeg;base64,${realtItem.images[0].bytes}`} alt="Image" />
                     </div>
-                <div className="col-md-8">
+                <div className="col-md-7">
                     <div className="card-body">
                         <h5 className="card-title">{realtItem.name}</h5>
                         <p className="card-text">{realtItem.dealType.id === 1 ? `${realtItem.price} $/мес.` : realtItem.dealType.id === 2 ? `${realtItem.price} $` : null}</p>
