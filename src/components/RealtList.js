@@ -28,11 +28,11 @@ const RealtList = observer(({ userId }) => {
           }, [])
 
     return (
-        <Row className="d-flex container vh-90">
+        <div className=" container">
             {filteredRealts.map(realt => (
                 <RealtItem key={realt.id} realtItem={realt} />
             ))}
-        </Row>
+        </div>
     );
 });
 

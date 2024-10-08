@@ -11,11 +11,11 @@ const FavoritePage = observer(() => {
     return (
         <Container>
             <h1>Избранное</h1>
-            <Row className="d-flex container vh-90">
+            <div className="d-flex container vh-90">
               {realt.favorites.map(realt => (
                   <RealtItem key={realt.id} realtItem={realt} />
               ))}
-            </Row>
+            </div>
         </Container>
     );
 });

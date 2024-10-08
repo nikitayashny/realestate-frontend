@@ -6,6 +6,7 @@ import { observer } from "mobx-react-lite";
 import { Carousel } from "react-bootstrap";
 import { USER_ROUTE } from "../utils/consts";
 import { Context } from "..";
+import Map from "../components/Map"
 
 const RealtPage = observer(() => {
     const [realtItem, setRealt] = useState({});
@@ -108,7 +109,7 @@ const RealtPage = observer(() => {
                         </div>
                     </div>
                 </div>
-                <div className="row mt-4">
+                <div className=" mt-4">
                     <div className="card">
                         <div className="card-body">
                             <div className="col-md-12">
@@ -121,6 +122,9 @@ const RealtPage = observer(() => {
                     </div>
                 </div>
             </div>
+
+            <Map address={realtItem.country + ', ' + realtItem.city + ', ул.' + realtItem.street + ', ' + realtItem.house}/>
+
         </Container>
     );
 });
