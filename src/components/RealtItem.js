@@ -53,8 +53,8 @@ const RealtItem = observer(({realtItem}) => {
     };
     
     return (
-        <Col md={12} className="mt-3" onClick={() => navigate(REALT_ROUTE + '/' + realtItem.id)}>
-            <Card style={{ position: 'relative', cursor: 'pointer', background: "#FFF" }} border={"dark"}>
+        <Col md={12}  className="mt-3" onClick={() => navigate(REALT_ROUTE + '/' + realtItem.id)}>
+            <Card style={{ position: 'relative', cursor: 'pointer' }} bg="light" data-bs-theme="light" >
                 <div className="row g-0">
                     <div className="col-md-5">
                         <img style={{ height: "280px", width: "100%", objectFit: "cover" }} src={`data:image/jpeg;base64,${realtItem.images[0].bytes}`} alt="Image" />

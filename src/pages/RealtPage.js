@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Container } from "react-bootstrap";
+import { Container, Card } from "react-bootstrap";
 import { useParams } from 'react-router-dom';
 import { fetchOneRealt, addToFavorites, deleteFromFavorites } from "../http/realtAPI";
 import { observer } from "mobx-react-lite";
@@ -66,7 +66,7 @@ const RealtPage = observer(() => {
                     </Carousel>
                 </div>
                 <div className="col-md-6">
-                    <div className="card position-relative">
+                    <Card className="position-relative" bg="light" data-bs-theme="light">
                         <div className="card-body">
                             <h3 className="card-title">
                                 <span>{realtItem.name}</span>
@@ -107,10 +107,10 @@ const RealtPage = observer(() => {
                             }
 
                         </div>
-                    </div>
+                    </Card>
                 </div>
                 <div className=" mt-4">
-                    <div className="card">
+                    <Card bg="light" data-bs-theme="light">
                         <div className="card-body">
                             <div className="col-md-12">
                                 <h5 className="card-title">Описание:</h5>
@@ -119,7 +119,7 @@ const RealtPage = observer(() => {
                                 </p>
                             </div>
                         </div>
-                    </div>
+                    </Card>
                 </div>
             </div>
 

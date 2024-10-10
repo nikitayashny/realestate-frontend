@@ -18,6 +18,11 @@ export const fetchUser = async (id) => {
     return data
 }
 
+export const fetchUsers = async () => {
+    const {data} = await $authHost.get('api/users')
+    return data
+}
+
 export const check = async () => {
     try {
         const {data} = await $authHost.get('/api/user/auth')

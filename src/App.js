@@ -5,7 +5,7 @@ import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import { observer } from "mobx-react-lite";
 import { Context } from "./index";
-import { check } from "./http/userAPI"
+import { check, fetchUsers } from "./http/userAPI"
 import { Spinner } from "react-bootstrap";
 import { fetchRealts, fetchFavorites } from "./http/realtAPI";
 
@@ -20,8 +20,12 @@ const App = observer(() => {
                 user.setUserName(data.name)
                 user.setUser(true)
                 user.setIsAuth(true)
-                if (data.role === 'ADMIN') 
-                    user.setIsAdmin(true)
+                if (data.role === 'ADMIN') {
+                    user.setIsAdmin(true)  
+                    fetchUsers().then(data => {
+                        user.setUsers(data)
+                    })              
+                }
                 user.setUserId(data.id)
                 fetchFavorites(data.id).then(data => {  
                     realt.setFavorites(data);
@@ -42,6 +46,7 @@ const App = observer(() => {
     }
 
     return (
+        
         <BrowserRouter>
             <NavBar />
             <AppRouter />

@@ -17,6 +17,7 @@ const Home = observer(() => {
         user.setIsAdmin(false);
         user.setUserId(null);
         user.setUserName(null);
+        user.setUsers([]);
     };
 
     return (
