@@ -1,6 +1,6 @@
 import { Container} from "react-bootstrap";
 import { observer } from "mobx-react-lite";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import { fetchUser } from "../http/userAPI";
 import RealtList from "../components/RealtList";
@@ -23,7 +23,7 @@ const UserPage = observer(() => {
             <hr></hr>
             <h4>Товары пользователя:</h4>
 
-            <RealtList userId={user.id}/>
+            <RealtList userId={user.id} filters={{typeId: null, dealTypeId: null}}/>
         </Container>
     );
 });

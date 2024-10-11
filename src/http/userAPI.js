@@ -23,6 +23,16 @@ export const fetchUsers = async () => {
     return data
 }
 
+export const banUser = async (id) => {
+    const {data} = await $authHost.post('api/users/ban/' + id)
+    return data
+}
+
+export const changeUser = async (id) => {
+    const {data} = await $authHost.post('api/users/change/' + id)
+    return data
+}
+
 export const check = async () => {
     try {
         const {data} = await $authHost.get('/api/user/auth')
