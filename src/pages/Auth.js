@@ -1,11 +1,12 @@
 import React, { useContext, useState } from "react";
-import { Container, Form, Card, Button } from "react-bootstrap";
+import { Container, Form, Card, Button, ToastContainer } from "react-bootstrap";
 import { NavLink, useLocation } from "react-router-dom";
 import { LOGIN_ROUTE, REGISTRATION_ROUTE, HOME_ROUTE } from "../utils/consts";
 import { login, registration, fetchUsers } from "../http/userAPI";
 import { observer } from "mobx-react-lite";
 import { Context } from "../index";
 import {useNavigate} from 'react-router-dom'
+import Notification from "../components/Notification";
 
 const Auth = observer(() => {
     const {user} = useContext(Context)
@@ -17,12 +18,15 @@ const Auth = observer(() => {
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [phoneNumber, setPhoneNumber] = useState('')
+    const [showNotification, setShowNotification] = useState(false);
+    const [notificationMessage, setNotificationMessage] = useState('');
 
     const click = async () => {
         try {
             if (!validateEmail(email))
             {
-                alert('Некорректный формат email')
+                setNotificationMessage("Некорректный формат email");
+                setShowNotification(true)
                 return
             }
             let data
@@ -44,7 +48,8 @@ const Auth = observer(() => {
                
             navigate(HOME_ROUTE)
         } catch(e) {
-            alert(e.response.data.message)
+            setNotificationMessage('Неверные данные или нет доступа.')
+            setShowNotification(true);       
         }
     }
 
@@ -58,10 +63,19 @@ const Auth = observer(() => {
     };
 
     return (
+        
         <Container 
             className="d-flex justify-content-center align-items-center"
             style={{height: "90vh"}}
         >
+            <ToastContainer position="bottom-start" className="p-5">
+                <Notification
+                    show={showNotification}
+                    message={notificationMessage}
+                    onClose={() => setShowNotification(false)}
+                />
+            </ToastContainer>
+
             <Card style={{width: 600}} className="p-5">
                 <h2 className="m-auto">{isLogin ? 'Авторизация' : 'Регистрация'}</h2>
                 <Form className="d-flex flex-column">
