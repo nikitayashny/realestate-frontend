@@ -1,9 +1,8 @@
 import { Container, Row } from "react-bootstrap";
 import { observer } from "mobx-react-lite";
 import { Context } from "../index";
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import RealtItem from '../components/RealtItem';
-import { fetchFavorites } from "../http/realtAPI"; 
 
 const FavoritePage = observer(() => {
     const { realt } = useContext(Context)

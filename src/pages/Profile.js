@@ -7,7 +7,6 @@ import AddRealtModal from '../components/modals/AddRealtModal';
 
 const Home = observer(() => {
     const { user } = useContext(Context);
-    const { realt } = useContext(Context)
     const [showModal, setShowModal] = useState(false); 
 
     const logOut = () => {

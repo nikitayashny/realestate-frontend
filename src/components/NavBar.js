@@ -4,7 +4,7 @@ import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import Container from 'react-bootstrap/Container'
 import { NavLink } from "react-router-dom";
-import { ADMIN_ROUTE, FAVORITE_ROUTE, LOGIN_ROUTE, HOME_ROUTE, PROFILE_ROUTE } from "../utils/consts";
+import { ADMIN_ROUTE, FAVORITE_ROUTE, LOGIN_ROUTE, HOME_ROUTE, PROFILE_ROUTE, NEWS_ROUTE } from "../utils/consts";
 import Button from "react-bootstrap/Button";
 import { observer } from "mobx-react-lite";
 import {useNavigate} from 'react-router-dom'
@@ -32,7 +32,8 @@ const NavBar = observer( () => {
     return (
         <Navbar bg="light" data-bs-theme="light" expand="md">
     <Container>
-        <NavLink style={{color: "black"}} to={HOME_ROUTE}>HomeHub</NavLink>  
+        <NavLink style={{color: "black", marginRight: "20px"}} to={HOME_ROUTE}>HomeHub</NavLink>  
+        <NavLink style={{color: "black"}} to={NEWS_ROUTE}>Новости</NavLink>  
         <Navbar.Toggle aria-controls="navbar-nav" />
         <Navbar.Collapse id="navbar-nav" className="justify-content-end">
             {user.isAuth ?
