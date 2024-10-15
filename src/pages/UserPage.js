@@ -1,18 +1,25 @@
-import { Container} from "react-bootstrap";
+import { Container, Row} from "react-bootstrap";
 import { observer } from "mobx-react-lite";
 import React, { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import { fetchUser } from "../http/userAPI";
-import RealtList from "../components/RealtList";
+import { fetchUsersRealts } from "../http/realtAPI";
+import RealtItem from "../components/RealtItem";
 
 const UserPage = observer(() => {
 
     const [user, setUser] = useState({});
     const { id } = useParams();
+    const [realts, setRealts] = useState([])
 
     useEffect(() => {
-        fetchUser(id).then(data => setUser(data));
+        fetchUser(id).then(data => setUser(data))
+        
+        fetchUsersRealts(id).then(data => {  
+            setRealts(data);
+         });
     }, [id]);
+
 
     return (
         <Container>
@@ -23,7 +30,11 @@ const UserPage = observer(() => {
             <hr></hr>
             <h4>Товары пользователя:</h4>
 
-            <RealtList userId={user.id} filters={{typeId: null, dealTypeId: null}}/>
+            <Row className="d-flex container vh-90">
+                {realts.map(realt => (
+                    <RealtItem key={realt.id} realtItem={realt} />
+                ))}
+            </Row>
         </Container>
     );
 });

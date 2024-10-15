@@ -1,7 +1,7 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { Context } from '../../index';
-import { createRealt, fetchRealts} from '../../http/realtAPI';
+import { createRealt, fetchRealts, fetchUsersRealts} from '../../http/realtAPI';
 
 const AddRealtModal = ({ show, onHide }) => {
     const { user } = useContext(Context);
@@ -41,9 +41,14 @@ const AddRealtModal = ({ show, onHide }) => {
             const response = await createRealt(formData)
             console.log('Объявление добавлено:', response);
     
-            fetchRealts().then(data => {  
-              realt.setRealts(data)
+            fetchRealts(realt.limit, realt.page, realt.selectedType, realt.selectedDealType, 0).then(data => {  
+                realt.setRealts(data.realts)
+                realt.setTotalCount(data.totalCount)
             })
+
+            fetchUsersRealts(user.userId).then(data => {  
+                realt.setUsersRealts(data);
+            });
             onHide();
         } catch (error) {
             console.error('Ошибка при добавлении объявления:', error);

@@ -1,25 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { observer } from "mobx-react-lite";
 import RealtList from '../components/RealtList';
 import FilterComponent from "../components/FilterComponent";
+import Pages from "../components/Pages"
 
 const Home = observer(() => {
-
-  const [filters, setFilters] = useState({
-    typeId: null,
-    dealTypeId: null,
-  });
-
-  const handleFilterChange = (filter) => {
-    const { type, value } = filter; 
-    
-    setFilters((prevFilters) => ({
-        ...prevFilters,
-        [type]: value,
-    }));
-
-  };
 
   return (
 
@@ -27,10 +13,11 @@ const Home = observer(() => {
     
         <Row>
           <Col md={3}>
-            <FilterComponent onFilterChange={handleFilterChange} />
+            <FilterComponent />
           </Col>
           <Col md={9}>
-            <RealtList filters={filters}/>
+            <RealtList/>
+            <Pages/>
           </Col>
         </Row>
 

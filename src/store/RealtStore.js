@@ -6,11 +6,12 @@ export default class RealtStore {
         this._dealTypes = []
         this._realts = []
         this._favorites = []
-        this._selectedType = {}
-        this._selectedDealType = {}
-        // this._page = 1
-        // this._totalCount = 0
-        // this._limit = 8
+        this._usersRealts = []
+        this._selectedType = 0
+        this._selectedDealType = 0
+        this._page = 1
+        this._totalCount = 0
+        this._limit = 4
         makeAutoObservable(this)
     }
 
@@ -23,26 +24,29 @@ export default class RealtStore {
     setRealts(realts) {
         this._realts = realts
     }
+    setUsersRealts(usersRealts) {
+        this._usersRealts = usersRealts
+    }
     setSelectedType(type) {
-        //this.setPage(1)
+        this.setPage(1)
         this._selectedType = type;
     }
     setSelectedDealType(dealType) {
-        //this.setPage(1)
+        this.setPage(1)
         this._selectedDealType = dealType;
     }
     setFavorites(favorites) {
         this._favorites = favorites
     }
-    // setPage(page) {
-    //     this._page = page;
-    // }
-    // setTotalCount(count) {
-    //     this._totalCount = count;
-    // }
-    // setLimit(limit) {
-    //     this._limit = limit;
-    // }
+    setPage(page) {
+        this._page = page;
+    }
+    setTotalCount(count) {
+        this._totalCount = count;
+    }
+    setLimit(limit) {
+        this._limit = limit;
+    }
 
 
     get types() {
@@ -54,6 +58,9 @@ export default class RealtStore {
     get realts() {
         return this._realts
     }
+    get usersRealts() {
+        return this._usersRealts
+    }
     get selectedType() {
         return this._selectedType
     }
@@ -63,13 +70,13 @@ export default class RealtStore {
     get favorites() {
         return this._favorites
     }
-    // get totalCount() {
-    //     return this._totalCount
-    // }
-    // get page() {
-    //     return this._page
-    // }
-    // get limit() {
-    //     return this._limit
-    // }
+    get totalCount() {
+        return this._totalCount
+    }
+    get page() {
+        return this._page
+    }
+    get limit() {
+        return this._limit
+    }
 }

@@ -36,10 +36,11 @@ const App = observer(() => {
     }, [])
 
     useEffect(() => {
-        fetchRealts().then(data => {  
-          realt.setRealts(data)
+        fetchRealts(realt.limit, realt.page, realt.selectedType, realt.selectedDealType, 0).then(data => {  
+          realt.setRealts(data.realts)
+          realt.setTotalCount(data.totalCount)
         })
-      }, [])
+      }, [realt.page, realt.selectedType, realt.selectedDealType])
 
     if (loading) {
         return <Spinner animation={"grow"} />

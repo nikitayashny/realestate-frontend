@@ -1,7 +1,7 @@
-import { Card, Col, Image } from "react-bootstrap";
+import { Card, Col } from "react-bootstrap";
 import {useNavigate} from 'react-router-dom'
 import { REALT_ROUTE } from "../utils/consts";
-import { addToFavorites, deleteFromFavorites, deleteRealt, fetchRealts, fetchFavorites } from "../http/realtAPI";
+import { addToFavorites, deleteFromFavorites, deleteRealt, fetchRealts, fetchFavorites, fetchUsersRealts } from "../http/realtAPI";
 import React, { useContext } from "react";
 import { Context } from "../index";
 import { observer } from "mobx-react-lite";
@@ -16,14 +16,22 @@ const RealtItem = observer(({realtItem}) => {
         event.preventDefault()
         event.stopPropagation()
         deleteRealt(id)
-            .then(data => {
-                realt.setRealts(data)
+            .then(() => {
+                fetchRealts(realt.limit, realt.page, realt.selectedType, realt.selectedDealType, 0).then(data => {  
+                    realt.setRealts(data.realts)
+                    realt.setTotalCount(data.totalCount)
+                })
             })
             .then(() => {
                 fetchFavorites(user.userId).then(data => {  
                     realt.setFavorites(data)
-                })}
-            )
+                })
+            })
+            .then(() => {
+                fetchUsersRealts(user.userId).then(data => {  
+                    realt.setUsersRealts(data);
+                });
+            })
     };
 
     const addFavorite = (event, id) => {

@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Form, Card } from 'react-bootstrap';
+import { Context } from '..';
 
-const FilterComponent = ({ onFilterChange }) => {
+const FilterComponent = () => {
+
+    const {realt} = useContext(Context)
     
     return (
         <Card className="mt-3" bg="light" data-bs-theme="light">
@@ -14,23 +17,23 @@ const FilterComponent = ({ onFilterChange }) => {
                         <Form.Check 
                             type="radio"
                             label="Аренда"
-                            name="typeId"
+                            name="dealTypeId"
                             id="rent"
-                            onChange={() => onFilterChange({type: 'typeId', value: 1})}
+                            onChange={() => realt.setSelectedDealType(1)}
                         />
                         <Form.Check 
                             type="radio"
                             label="Покупка"
-                            name="typeId"
+                            name="dealTypeId"
                             id="buy"
-                            onChange={() => onFilterChange({type: 'typeId', value: 2})}
+                            onChange={() => realt.setSelectedDealType(2)}
                         />
                         <Form.Check 
                             type="radio"
                             label="Любой"
-                            name="typeId"
+                            name="dealTypeId"
                             id="any"
-                            onChange={() => onFilterChange({type: 'typeId', value: null})}
+                            onChange={() => realt.setSelectedDealType(0)}
                         />
                     </Form.Group>
                     <hr></hr>
@@ -39,23 +42,23 @@ const FilterComponent = ({ onFilterChange }) => {
                         <Form.Check 
                             type="radio"
                             label="Квартира"
-                            name="dealTypeId"
+                            name="typeId"
                             id="apartment"
-                            onChange={() => onFilterChange({type: 'dealTypeId', value: 1})}
+                            onChange={() => realt.setSelectedType(1)}
                         />
                         <Form.Check 
                             type="radio"
                             label="Дом"
-                            name="dealTypeId"
+                            name="typeId"
                             id="house"
-                            onChange={() => onFilterChange({type: 'dealTypeId', value: 2})}
+                            onChange={() => realt.setSelectedType(2)}
                         />
                         <Form.Check 
                             type="radio"
                             label="Любая"
-                            name="dealTypeId"
+                            name="typeId"
                             id="anyDeal"
-                            onChange={() => onFilterChange({type: 'dealTypeId', value: null})}
+                            onChange={() => realt.setSelectedType(0)}
                         />
                     </Form.Group>
                 </Form>
