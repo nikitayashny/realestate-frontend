@@ -1,7 +1,6 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext } from "react";
 import { Context } from "../index";
-import { Pagination } from "react-bootstrap";
 
 const Pages = observer(() => {
     const {realt} = useContext(Context)
@@ -12,18 +11,41 @@ const Pages = observer(() => {
         pages.push(i + 1)
     }
 
+    const paginationStyle = {
+        display: 'flex',
+        justifyContent: 'center',
+        margin: '1rem',
+    };
+
+    const itemStyle = {
+        padding: '10px 15px',
+        margin: '0 5px',
+        cursor: 'pointer',
+        border: 'transparent',
+        transition: 'background-color 0.3s, color 0.3s',
+        borderRadius: '5px',
+        color: 'black',
+    };
+
+    const activeItemStyle = {
+        ...itemStyle,
+        backgroundColor: 'black',
+        color: 'white',
+    };
+
     return (
-        <Pagination className="mt-3 mb-3">
-            {pages.map(page =>
-                <Pagination.Item
+        
+        <div style={paginationStyle}>
+            {pages.map(page => (
+                <div
                     key={page}
-                    active={realt.page === page}
+                    style={realt.page === page ? activeItemStyle : itemStyle}
                     onClick={() => realt.setPage(page)}
                 >
                     {page}
-                </Pagination.Item>
-            )}
-        </Pagination>
+                </div>
+            ))}
+        </div>
     )
 })
 

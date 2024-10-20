@@ -63,10 +63,9 @@ const Auth = observer(() => {
     };
 
     return (
-        
         <Container 
             className="d-flex justify-content-center align-items-center"
-            style={{height: "90vh"}}
+            style={{height: "83.947vh"}}
         >
             <ToastContainer position="bottom-start" className="p-5">
                 <Notification
@@ -76,8 +75,8 @@ const Auth = observer(() => {
                 />
             </ToastContainer>
 
-            <Card style={{width: 600}} className="p-5">
-                <h2 className="m-auto">{isLogin ? 'Авторизация' : 'Регистрация'}</h2>
+            <Card style={{width: 600}} className="p-5" bg="dark">
+                <h2 className="m-auto" style={{color: 'white'}}>{isLogin ? 'Авторизация' : 'Регистрация'}</h2>
                 <Form className="d-flex flex-column">
                 {isLogin ?
                 <>
@@ -133,15 +132,15 @@ const Auth = observer(() => {
                     <div className="d-flex justify-content-between mt-3 pl-3 pr-3">
                         {isLogin ?
                             <div>
-                                <NavLink to={REGISTRATION_ROUTE}>У меня нет аккаунта</NavLink>
+                                <NavLink style={{color: 'white'}} to={REGISTRATION_ROUTE}>У меня нет аккаунта</NavLink>
                             </div>                        
                             :
                             <div>
-                                <NavLink to={LOGIN_ROUTE}>У меня есть аккаунт</NavLink>
+                                <NavLink style={{color: 'white'}} to={LOGIN_ROUTE}>У меня есть аккаунт</NavLink>
                             </div>  
                             }
                         <Button 
-                            variant="outline-success"
+                            variant="outline-light"
                             onClick={click}
                             >
                             {isLogin ? 'Войти' : 'Зарегистрироваться'}
@@ -150,6 +149,7 @@ const Auth = observer(() => {
                 </Form>
             </Card>
         </Container>
+
     )
 })
 

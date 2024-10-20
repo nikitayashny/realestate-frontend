@@ -18,8 +18,8 @@ const FavoritePage = observer(() => {
     }, [user.userId, realt]);
 
     return (
-        <Container>
-            <h3>Избранное</h3>
+        <Container className="mt-5 mb-3" style={{ minHeight: '74.74vh'}}>
+            <h4>Избранное</h4>
             <Row className="d-flex container vh-90">
               {realt.favorites.map(realt => (
                   <RealtItem key={realt.id} realtItem={realt} />

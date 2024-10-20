@@ -20,10 +20,9 @@ const UserPage = observer(() => {
          });
     }, [id]);
 
-
     return (
-        <Container>
-            <h3>{user.firstName + ' ' + user.lastName}</h3>
+        <Container className="mt-5 mb-3" style={{ minHeight: '74.74vh'}}>
+            <h4>{user.firstName + ' ' + user.lastName}</h4>
 
             <p>Номер телефона: <span>{user.phoneNumber}</span></p>
             <p>Email: <span>{user.login}</span></p>

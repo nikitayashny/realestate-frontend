@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Context } from "../index";
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
@@ -8,50 +8,77 @@ import { ADMIN_ROUTE, FAVORITE_ROUTE, LOGIN_ROUTE, HOME_ROUTE, PROFILE_ROUTE, NE
 import Button from "react-bootstrap/Button";
 import { observer } from "mobx-react-lite";
 import {useNavigate} from 'react-router-dom'
+import { DARK_GREY } from "../utils/consts";
 
 const NavBar = observer( () => {
     const {user} = useContext(Context)
+    const [collapsed, setCollapsed] = useState(true);
     const navigate = useNavigate()
 
-    const toAdmin = () => {
-        if (user.isAdmin === true) {
-            navigate(ADMIN_ROUTE)
-        } else {
-            alert('Нет доступа')
-        }
-    }
-
-    const toBasket = async () => {
-        navigate(FAVORITE_ROUTE)
-    }
-
-    const toProfile = async () => {
-        navigate(PROFILE_ROUTE)
-    }
-
     return (
-        <Navbar bg="light" data-bs-theme="light" expand="md">
-    <Container>
-        <NavLink style={{color: "black", marginRight: "20px"}} to={HOME_ROUTE}>HomeHub</NavLink>  
-        <NavLink style={{color: "black"}} to={NEWS_ROUTE}>Новости</NavLink>  
-        <Navbar.Toggle aria-controls="navbar-nav" />
-        <Navbar.Collapse id="navbar-nav" className="justify-content-end">
-            {user.isAuth ?
-                <Nav style={{color: 'black'}}>
-                    {user.isAdmin &&
-                        <Button variant="outline-dark" onClick={() => toAdmin()} className="mr-2">Админ панель</Button>
-                    }
-                    <Button variant="outline-dark" onClick={() => toBasket()} className="mr-2">Избранное</Button>    
-                    <Button variant="outline-dark" onClick={() => toProfile()} className="mr-2">Личный кабинет</Button>           
-                </Nav>
-                :
-                <Nav style={{color: 'black'}}>
-                    <Button variant="outline-dark" onClick={() => navigate(LOGIN_ROUTE)}>Авторизация</Button>
-                </Nav>
-            }
-        </Navbar.Collapse>
-    </Container>
-</Navbar>
+        <Navbar style={{ background: DARK_GREY }} expand="md">
+            <Container>
+                <NavLink
+                    style={{
+                        color: "white",
+                        marginRight: "20px",
+                        textDecoration: "none",
+                        fontSize: "18px"
+                    }}
+                    to={HOME_ROUTE}
+                >
+                    HomeHub
+                </NavLink>
+                <NavLink
+                    style={{
+                        color: "white",
+                        textDecoration: "none",
+                    }}
+                    to={NEWS_ROUTE}
+                >
+                    Новости
+                </NavLink>
+                <Navbar.Toggle 
+                    aria-controls="navbar-nav" 
+                    onClick={() => setCollapsed(!collapsed)}
+                />
+                <Navbar.Collapse id="navbar-nav" className="justify-content-end">
+                    {user.isAuth ? (
+                        <Nav>
+                            {user.isAdmin && (
+                                <Button
+                                    variant="outline-light ms-1"
+                                    onClick={() => navigate(ADMIN_ROUTE)}
+                                    className="mr-2"
+                                >
+                                    {!collapsed ? 'Панель администратора' : <i className="fa fa-gear"></i>}
+                                </Button>
+                            )}
+                            <Button
+                                variant="outline-light ms-1"
+                                onClick={() => navigate(FAVORITE_ROUTE)}
+                                className="mr-2"
+                            >
+                                {!collapsed ? 'Избранное' : <i className="fa fa-heart"></i>}
+                            </Button>
+                            <Button
+                                variant="outline-light ms-1"
+                                onClick={() => navigate(PROFILE_ROUTE)}
+                                className="mr-2"
+                            >
+                                {!collapsed ? 'Профиль' : <i className="fa fa-user"></i>}
+                            </Button>
+                        </Nav>
+                    ) : (
+                        <Nav>
+                            <Button variant="outline-light" onClick={() => navigate(LOGIN_ROUTE)}>
+                                Авторизация
+                            </Button>
+                        </Nav>
+                    )}
+                </Navbar.Collapse>
+            </Container>
+        </Navbar>
     )
 })
 

@@ -65,7 +65,7 @@ const RealtItem = observer(({realtItem}) => {
             <Card style={{ position: 'relative', cursor: 'pointer' }} bg="light" data-bs-theme="light" >
                 <div className="row g-0">
                     <div className="col-md-5">
-                        <img style={{ height: "280px", width: "100%", objectFit: "cover" }} src={`data:image/jpeg;base64,${realtItem.images[0].bytes}`} alt="Image" />
+                        <img style={{ height: "280px", width: "100%", objectFit: "cover" }} src={`data:image/jpeg;base64,${realtItem.images[0].bytes}`} alt="Изображение загружается..." />
                     </div>
                 <div className="col-md-7">
                     <div className="card-body">

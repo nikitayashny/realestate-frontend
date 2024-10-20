@@ -7,7 +7,7 @@ import { observer } from "mobx-react-lite";
 import { Context } from "./index";
 import { check, fetchUsers } from "./http/userAPI"
 import { Spinner } from "react-bootstrap";
-import { fetchRealts, fetchFavorites } from "./http/realtAPI";
+import { fetchFavorites } from "./http/realtAPI";
 
 const App = observer(() => {
     const {user} = useContext(Context)
@@ -34,13 +34,6 @@ const App = observer(() => {
             
         }).finally(() => setLoading(false))
     }, [])
-
-    useEffect(() => {
-        fetchRealts(realt.limit, realt.page, realt.selectedType, realt.selectedDealType, 0).then(data => {  
-          realt.setRealts(data.realts)
-          realt.setTotalCount(data.totalCount)
-        })
-      }, [realt.page, realt.selectedType, realt.selectedDealType])
 
     if (loading) {
         return <Spinner animation={"grow"} />

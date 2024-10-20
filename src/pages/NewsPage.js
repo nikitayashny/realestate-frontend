@@ -1,8 +1,9 @@
 import { Container, Button } from "react-bootstrap";
 import { observer } from "mobx-react-lite";
 import React, { useState, useEffect, useContext } from "react";
-import { createNews, fetchNews } from "../http/newsAPI";
+import { createNews, deleteNews, fetchNews } from "../http/newsAPI";
 import { Context } from "..";
+import { LIGHT_YELLOW } from "../utils/consts";
 
 const NewsPage = observer(() => {
 
@@ -14,6 +15,17 @@ const NewsPage = observer(() => {
             setNews(data)
         })
     }, []);
+
+    const removeNews = (event, id) => {
+        event.preventDefault()
+        event.stopPropagation()
+        deleteNews(id)
+            .then(() => {
+                fetchNews().then(data => {  
+                    setNews(data)
+                })
+            })
+    };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -45,8 +57,8 @@ const NewsPage = observer(() => {
 
 
     return (
-        <Container>
-            <h3>Новости</h3>
+        <Container className="mt-5" style={{ minHeight: '77vh'}}>
+            <h4 className="mb-4">Новости</h4>
             {user.isAdmin
             ?
             <form onSubmit={handleSubmit}>
@@ -69,10 +81,11 @@ const NewsPage = observer(() => {
             }
 
             {news.map(post => (
-                <div className="alert alert-info mt-2" >
+                <div className="alert mt-2" style={{background: LIGHT_YELLOW}}>
                     <h3>{post.title}</h3>
                     <p>{post.title}</p>
-                    <a className="btn btn-warning">Детальнее</a>
+                    <a className="btn btn-dark">Детальнее</a>
+                    <button onClick={(event) => removeNews(event, post.id)} className="btn btn-danger text-end ms-3">Удалить пост</button>
                 </div>
             ))}
 

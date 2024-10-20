@@ -1,23 +1,25 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { observer } from "mobx-react-lite";
 import { Container } from "react-bootstrap";
 import { Context } from "../index";
 import { USER_ROUTE } from "../utils/consts";
-import { banUser, changeUser } from "../http/userAPI";
+import { banUser, changeUser, fetchUsers } from "../http/userAPI";
 
 const Admin = observer(() => {
-
     const {user} = useContext(Context)
     const thisUserId = user.userId
+    const [searchTerm, setSearchTerm] = useState("");
 
     const ban = (event, id) => {
         event.preventDefault()
         event.stopPropagation()
        
         banUser(id)
-        .then(data => {  
-            user.setUsers(data);
-        });
+        .then(() => {
+            fetchUsers().then(data => {
+                user.setUsers(data)
+            })  
+        })
     };
 
     const change = (event, id) => {
@@ -25,22 +27,38 @@ const Admin = observer(() => {
         event.stopPropagation()
        
         changeUser(id)
-        .then(data => {  
-            user.setUsers(data);
-        });
+        .then(() => {
+            fetchUsers().then(data => {
+                user.setUsers(data)
+            })  
+        })
     };
 
-    const sortedUsers = [...user.users].sort((a, b) => a.id - b.id);
+    const sortedUsers = [...user.users]
+        .sort((a, b) => a.id - b.id)
+        .filter(user => 
+            user.login.toLowerCase().includes(searchTerm.toLowerCase()) || 
+            user.phoneNumber.includes(searchTerm) ||
+            (user.firstName + ' ' + user.lastName).toLowerCase().includes(searchTerm.toLowerCase())
+        );
 
     return (
-        <Container className="mt-5">
+        <Container className="mt-5" style={{ minHeight: '77vh'}}>
             <h4 className="mb-4">Панель администратора</h4>
+            <input
+                type="text"
+                placeholder="Поиск"
+                className="form-control mb-3"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+            />
             <div className="table-responsive">
                 <table className="table table-striped table-bordered">
-                    <thead className="table-light">
-                        <tr>
+                    <thead className="table-dark">
+                        <tr>                         
                             <th>Email</th>
                             <th>Номер телефона</th>
+                            <th>Имя</th>
                             <th>Активность</th>
                             <th>Роль</th>
                             <th>Бан</th>
@@ -50,10 +68,13 @@ const Admin = observer(() => {
                     </thead>
                     <tbody>
                     {sortedUsers.map(user => (
-                        <tr key={user.id}>
+                        <tr key={user.id}>                     
                             <td>{user.login}</td>
                             <td>{user.phoneNumber}</td>
-                            <td>{user.active ? 'Активный' : 'Неактивный'}</td>
+                            <td>{user.firstName + ' ' + user.lastName}</td>
+                            <td style={{ color: user.active ? 'green' : 'red' }}>
+                                {user.active ? 'Активный' : 'Неактивный'}
+                            </td>
                             <td>{user.role} </td>
                             <td>         
                                 {user.id !== thisUserId 
