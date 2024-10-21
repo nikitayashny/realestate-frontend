@@ -7,9 +7,11 @@ import { observer } from "mobx-react-lite";
 import { Context } from "../index";
 import {useNavigate} from 'react-router-dom'
 import Notification from "../components/Notification";
+import { fetchFavorites } from "../http/realtAPI";
 
 const Auth = observer(() => {
     const {user} = useContext(Context)
+    const {realt} = useContext(Context)
     const location = useLocation()
     const navigate = useNavigate()
     const isLogin = location.pathname === LOGIN_ROUTE
@@ -39,6 +41,9 @@ const Auth = observer(() => {
             user.setUserName(data.name)
             user.setIsAuth(true)
             user.setUserId(data.id)
+            fetchFavorites(data.id).then(data => {  
+                realt.setFavorites(data);
+            });
             if (data.role === 'ADMIN') {
                 user.setIsAdmin(true)
                 fetchUsers().then(data => {
