@@ -3,11 +3,11 @@ import { observer } from "mobx-react-lite";
 import React, { useState, useEffect, useContext } from "react";
 import { createNews, deleteNews, fetchNews } from "../http/newsAPI";
 import { Context } from "..";
-import { LIGHT_YELLOW } from "../utils/consts";
 import { createComment, deleteComment } from "../http/commentAPI";
+import AddNewsModal from '../components/modals/AddNewsModal'; 
 
 const NewsPage = observer(() => {
-
+    const [showModal, setShowModal] = useState(false); 
     const [news, setNews] = useState([]);
     const [visibleArticles, setVisibleArticles] = useState({});
     const {user} = useContext(Context)
@@ -73,58 +73,30 @@ const NewsPage = observer(() => {
             })
     };
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-    
-        const formData = new FormData();
-        const formElements = event.target.elements;
-    
-        const realtItem = {
-            title: formElements.title.value,
-            anons: formElements.anons.value,
-            full_text: formElements.full_text.value,
-        };
-    
-        Object.keys(realtItem).forEach(key => {
-            formData.append(key, realtItem[key]);
-        });
-    
+    const handleModalSubmit = async (formData) => {
         try {
-            const response = await createNews(formData)
-            console.log('Новость добавлена:', response);
-    
+            const response = await createNews(formData);
+            console.log('News added:', response);
             fetchNews().then(data => {  
-                setNews(data)
-            })
+                setNews(data);
+            });
+            setShowModal(false); 
         } catch (error) {
-            console.error('Ошибка при добавлении новости:', error);
+            console.error('Error adding news:', error);
         }
     };
 
-
     return (
         <Container className="mt-5" style={{ minHeight: '77vh'}}>
-            <h4 className="mb-4">Новости</h4>
-            {user.isAdmin
-            ?
-            <form onSubmit={handleSubmit}>
-                <div className="mb-3">
-                    <label htmlFor="title" className="form-label">Заголовок:</label>
-                    <input type="text" className="form-control" id="title" name="title" required />
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="anons" className="form-label">Анонс:</label>
-                    <textarea className="form-control" id="anons" name="anons" required></textarea>
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="full_text" className="form-label">Текст:</label>
-                    <textarea className="form-control" id="full_text" name="full_text" required></textarea>
-                </div>
-                <Button type="submit" variant="primary">Добавить пост</Button>
-            </form>
-            :
-            <></>
-            }
+
+            <div className="d-flex justify-content-between align-items-center mb-4">
+                <h4>Новости</h4>
+                {user.isAdmin && (
+                    <Button variant="primary" onClick={() => setShowModal(true)}>Добавить новость</Button>
+                )}
+            </div>
+
+            <AddNewsModal show={showModal} onHide={() => setShowModal(false)}  onSubmit={handleModalSubmit} />
 
             {news.map(post => (
                 <div className="alert mt-2" style={{ background: "#f0f0f0" }} key={post.id}>
@@ -186,7 +158,7 @@ const NewsPage = observer(() => {
                     )}
                 </div>
             ))}
-
+          
         </Container>
     );
 });
