@@ -58,7 +58,7 @@ const NewsPage = observer(() => {
 
     useEffect(() => {
         fetchNews().then(data => {  
-            setNews(data)
+            setNews(data.sort((a, b) => b.id - a.id))
         })
     }, []);
 
@@ -100,23 +100,74 @@ const NewsPage = observer(() => {
 
             {news.map(post => (
                 <div className="alert mt-2" style={{ background: "#f0f0f0" }} key={post.id}>
-                    <h3>{post.title}</h3>
+                    <div className="d-flex justify-content-between align-items-center">
+                        <h3>{post.title}</h3>
+                        <div>
+                            {(() => {
+                                const dateOfCreated = post.dateOfCreated;
+                                const date = new Date(Date.UTC(
+                                    dateOfCreated[0],    
+                                    dateOfCreated[1] - 1, 
+                                    dateOfCreated[2],       
+                                    dateOfCreated[3],     
+                                    dateOfCreated[4],    
+                                    dateOfCreated[5]      
+                                ));
+                                const options = {
+                                    year: 'numeric',
+                                    month: 'long',
+                                    day: 'numeric',
+                                    hour: '2-digit',
+                                    minute: '2-digit',
+                                    hour12: false,
+                                    timeZone: 'UTC',
+                                };
+                                return date.toLocaleString('ru-RU', options);
+                            })()}
+                        </div>
+                    </div>
                     <p>{post.anons}</p>
                     {visibleArticles[post.id] && (
                         <div className="mt-2">
                             <div>{post.full_text}</div>
-                            <div className="mt-3">
+                            <div className="mt-3 alert bg-light">
                                 <h4>Комментарии:</h4>
+                                <hr></hr>
                                 {post.comments && post.comments.length > 0 ? (
                                     post.comments.map(comment => (
-                                        <div key={comment.id} className="comment">
-                                            <p><strong>{comment.user.firstName + ' ' + comment.user.lastName}:</strong> {comment.text}</p>
-                                            
-                                            {((user.isAuth && user.userId === comment.user.id)) || user.isAdmin ? (
-                                                <div className="text-end m-3">
-                                                    <button onClick={(event) => removeComment(event, comment.id)} className="btn btn-danger">Удалить</button>
-                                                </div>
-                                            ) : null}
+                                        <div key={comment.id} >                                            
+                                            <div className="d-flex justify-content-between align-items-start">
+                                                <strong>{comment.user.firstName + ' ' + comment.user.lastName}</strong>   
+                                                <p>
+                                                {(() => {
+                                                    const dateOfCreated = comment.dateOfCreated;
+                                                    const date = new Date(Date.UTC(
+                                                        dateOfCreated[0],    
+                                                        dateOfCreated[1] - 1, 
+                                                        dateOfCreated[2],       
+                                                        dateOfCreated[3],     
+                                                        dateOfCreated[4],    
+                                                        dateOfCreated[5]      
+                                                    ));
+                                                    const options = {
+                                                        year: 'numeric',
+                                                        month: 'numeric',
+                                                        day: 'numeric',
+                                                        hour: '2-digit',
+                                                        minute: '2-digit',
+                                                        hour12: false,
+                                                        timeZone: 'UTC',
+                                                    };
+                                                    return date.toLocaleString('ru-RU', options);
+                                                })()} 
+                                            </p>
+                                            </div>          
+                                            <div className="d-flex justify-content-between align-items-start">
+                                            <article style={{ flex: '1', marginRight: '10px', wordBreak: 'break-word' }}>{comment.text}</article>
+                                                {((user.isAuth && user.userId === comment.user.id)) || user.isAdmin ? (
+                                                    <button onClick={(event) => removeComment(event, comment.id)} className="btn btn-danger btn-sm">Удалить</button>
+                                                ) : null}
+                                            </div>
                                             <hr></hr>
                                         </div>                                                                      
                                     ))
