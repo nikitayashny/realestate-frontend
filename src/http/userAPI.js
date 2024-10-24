@@ -23,6 +23,16 @@ export const fetchUsers = async () => {
     return data
 }
 
+export const fetchUserFilter = async (id) => {
+    const {data} = await $authHost.get(`api/userfilter/${id}`)
+    return data
+}
+
+export const changeUserFilter = async (formData) => {
+    const {data} = await $authHost.post('api/userfilter', formData)
+    return data
+}
+
 export const banUser = async (id) => {
     const {data} = await $authHost.post('api/users/ban/' + id)
     return data

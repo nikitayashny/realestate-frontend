@@ -5,11 +5,13 @@ import React, { useContext, useState, useEffect } from "react";
 import AddRealtModal from '../components/modals/AddRealtModal'; 
 import {  fetchUsersRealts } from "../http/realtAPI";
 import RealtItem from "../components/RealtItem";
+import UserFilterModal from "../components/modals/UserFilterModal";
 
 const Home = observer(() => {
-    const { user } = useContext(Context);
-    const [showModal, setShowModal] = useState(false); 
+    const { user } = useContext(Context)
     const {realt} = useContext(Context)
+    const [showModal, setShowModal] = useState(false)
+    const [showUserFilterModal, setShowUserFilterModal] = useState(false)
 
     const logOut = () => {
         localStorage.removeItem('token');
@@ -37,7 +39,10 @@ const Home = observer(() => {
             <div className="d-flex justify-content-between align-items-center">
                 <h4 className="mb-4">{user.userName}</h4>
                 <div className="ms-2">
-                    <Button variant="primary" onClick={() => setShowModal(true)}>
+                    <Button variant="primary" onClick={() => setShowUserFilterModal(true)}>
+                        Мои пожелания
+                    </Button>
+                    <Button variant="primary" onClick={() => setShowModal(true)} className="ms-2">
                         Добавить объявление
                     </Button>
                     <Button variant="outline-dark" onClick={logOut} className="ms-2">Выйти</Button>
@@ -52,6 +57,7 @@ const Home = observer(() => {
                 ))}
             </Row>
             <AddRealtModal show={showModal} onHide={() => setShowModal(false)} />
+            <UserFilterModal show={showUserFilterModal} onHide={() => setShowUserFilterModal(false)} />
         </Container>
     );
 });
