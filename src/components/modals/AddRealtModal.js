@@ -38,6 +38,7 @@ const AddRealtModal = ({ show, onHide }) => {
         formData.append("userId", user.userId);
     
         try {
+            onHide();
             const response = await createRealt(formData)
             console.log('Объявление добавлено:', response);
     
@@ -49,7 +50,7 @@ const AddRealtModal = ({ show, onHide }) => {
             fetchUsersRealts(user.userId).then(data => {  
                 realt.setUsersRealts(data);
             });
-            onHide();
+            
         } catch (error) {
             console.error('Ошибка при добавлении объявления:', error);
         }
