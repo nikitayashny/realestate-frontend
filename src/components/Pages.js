@@ -22,6 +22,7 @@ const Pages = observer(() => {
         margin: '0 5px',
         cursor: 'pointer',
         border: 'transparent',
+        backgroundColor: 'white',
         transition: 'background-color 0.3s, color 0.3s',
         borderRadius: '5px',
         color: 'black',

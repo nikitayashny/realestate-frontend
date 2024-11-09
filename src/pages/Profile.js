@@ -35,7 +35,7 @@ const Home = observer(() => {
     }, [user.userId, realt]);
 
     return (
-        <Container className="mt-5 mb-3"  style={{ minHeight: '74.74vh'}}>
+        <Container className="mt-5 mb-5"  style={{ minHeight: '74.74vh', background: "rgba(255,255,255,1)", borderRadius: "20px", padding: "20px"}}>
             <div className="d-flex justify-content-between align-items-center">
                 <h4 className="mb-4">{user.userName}</h4>
                 <div className="ms-2">
@@ -51,7 +51,7 @@ const Home = observer(() => {
             <hr></hr>
             <h4 className="text-center">Мои объявления</h4>
             
-            <Row className="d-flex container vh-90">
+            <Row className="vh-90">
                 {realt.usersRealts.map(realt => (
                     <RealtItem key={realt.id} realtItem={realt} />
                 ))}

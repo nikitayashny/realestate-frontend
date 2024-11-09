@@ -20,7 +20,7 @@ const FilterComponent = () => {
     });
     
     return (
-        <Card className="mt-3" bg="light" data-bs-theme="light">
+        <Card className="mt-3" bg='light'>
             <Card.Body>
                 <Card.Title>Фильтры</Card.Title>
                 <hr></hr>

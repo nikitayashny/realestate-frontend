@@ -43,7 +43,7 @@ const Admin = observer(() => {
         );
 
     return (
-        <Container className="mt-5" style={{ minHeight: '77vh'}}>
+        <Container className="mt-5 mb-5" style={{ minHeight: '71vh', background: "rgba(255,255,255,1)", borderRadius: "20px", padding: "20px"}}>
             <h4 className="mb-4">Панель администратора</h4>
             <input
                 type="text"

@@ -8,6 +8,7 @@ import { Context } from "../index";
 import {useNavigate} from 'react-router-dom'
 import Notification from "../components/Notification";
 import { fetchFavorites } from "../http/realtAPI";
+import authBg from '../img/auth_bg.jpg';
 
 const Auth = observer(() => {
     const {user} = useContext(Context)
@@ -68,9 +69,24 @@ const Auth = observer(() => {
     };
 
     return (
+        <div style={{ position: 'relative'}}>
+        <div 
+            style={{
+                backgroundImage: `url(${authBg})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                filter: "grayscale(100%)",
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                zIndex: 0,
+            }}
+        />
         <Container 
             className="d-flex justify-content-center align-items-center"
-            style={{height: "83.947vh"}}
+            style={{height: "83.947vh"}}        
         >
             <ToastContainer position="bottom-start" className="p-5">
                 <Notification
@@ -80,7 +96,7 @@ const Auth = observer(() => {
                 />
             </ToastContainer>
 
-            <Card style={{width: 600}} className="p-5" bg="dark">
+            <Card style={{ width: 600, backgroundColor: 'rgba(0, 0, 0, 0.7)' }} className="p-5">
                 <h2 className="m-auto" style={{color: 'white'}}>{isLogin ? 'Авторизация' : 'Регистрация'}</h2>
                 <Form className="d-flex flex-column">
                 {isLogin ?
@@ -154,7 +170,7 @@ const Auth = observer(() => {
                 </Form>
             </Card>
         </Container>
-
+        </div>
     )
 })
 

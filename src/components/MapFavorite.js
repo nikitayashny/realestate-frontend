@@ -58,8 +58,7 @@ const MapFavorite = ({ realts }) => {
   }, [realts]);
 
   return (
-    <Container className='mt-3'>
-      <MapContainer center={[53.9045, 27.5590]} zoom={12} style={{ height: '450px', width: '98%' }}>
+      <MapContainer center={[53.9045, 27.5590]} zoom={12} style={{ height: '450px', width: '100%' }}>
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -76,7 +75,6 @@ const MapFavorite = ({ realts }) => {
           </Marker>
         ))}
       </MapContainer>
-    </Container>
   );
 };
 

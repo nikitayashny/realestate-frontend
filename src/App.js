@@ -8,6 +8,7 @@ import { Context } from "./index";
 import { check, fetchUsers } from "./http/userAPI"
 import { Spinner } from "react-bootstrap";
 import { fetchFavorites } from "./http/realtAPI";
+import authBg from './img/auth_bg.jpg';
 
 const App = observer(() => {
     const {user} = useContext(Context)
@@ -43,7 +44,23 @@ const App = observer(() => {
         
         <BrowserRouter>
             <NavBar />
-            <AppRouter />
+            <div style={{ position: 'relative'}}>
+                <div 
+                    style={{
+                        backgroundImage: `url(${authBg})`,
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                        filter: "grayscale(100%)",
+                        position: 'fixed',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        zIndex: -1,
+                    }}
+                />
+                <AppRouter />
+            </div>
             <Footer />
         </BrowserRouter>
     )

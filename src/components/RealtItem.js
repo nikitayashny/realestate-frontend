@@ -62,7 +62,7 @@ const RealtItem = observer(({realtItem}) => {
     
     return (
         <Col md={12}  className="mt-3" onClick={() => navigate(REALT_ROUTE + '/' + realtItem.id)}>
-            <Card style={{ position: 'relative', cursor: 'pointer' }} bg="light" data-bs-theme="light" >
+            <Card style={{ position: 'relative', cursor: 'pointer'}} bg="light">
                 <div className="row g-0">
                     <div className="col-md-5">
                         <img style={{ height: "280px", width: "100%", objectFit: "cover" }} src={`data:image/jpeg;base64,${realtItem.images[0].bytes}`} alt="Изображение загружается..." />
@@ -77,7 +77,7 @@ const RealtItem = observer(({realtItem}) => {
                     </div>
                     {((user.isAuth && user.userId === realtItem.user.id)) || user.isAdmin ? (
                     <div className="text-end m-3">
-                        <button onClick={(event) => removeRealt(event, realtItem.id)} className="btn btn-danger">Удалить объявление</button>
+                        <button onClick={(event) => removeRealt(event, realtItem.id)} className="btn btn-dark">Удалить объявление</button>
                     </div>
                 ) : null}
                 </div>

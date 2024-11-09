@@ -20,17 +20,17 @@ const Home = observer(() => {
   }, [realt.page, realt.selectedType, realt.selectedDealType])
 
   return (
-        <Container style={{ minHeight: '83.947vh'}}>
-
-          <Row>
-            <Col md={3}>
-              <FilterComponent />
-            </Col>
-            <Col md={9}>
-              <RealtList/>
-              <Pages/>
-            </Col>
-          </Row>
+      <Container className="mt-5 mb-5" style={{ minHeight: '83.947vh', background: "rgba(255,255,255,1)", borderRadius: "20px", padding: "20px"}}>
+        <h4>Главная</h4>
+        <Row>
+          <Col md={3}>
+            <FilterComponent />
+          </Col>
+          <Col md={9}>
+            <RealtList/>
+            <Pages/>
+          </Col>
+        </Row>
 
         </Container>
   )

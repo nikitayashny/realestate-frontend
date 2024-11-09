@@ -8,7 +8,6 @@ import { ADMIN_ROUTE, FAVORITE_ROUTE, LOGIN_ROUTE, HOME_ROUTE, PROFILE_ROUTE, NE
 import Button from "react-bootstrap/Button";
 import { observer } from "mobx-react-lite";
 import {useNavigate} from 'react-router-dom'
-import { DARK_GREY } from "../utils/consts";
 
 const NavBar = observer( () => {
     const {user} = useContext(Context)
@@ -16,7 +15,7 @@ const NavBar = observer( () => {
     const navigate = useNavigate()
 
     return (
-        <Navbar style={{ background: DARK_GREY }} expand="md">
+        <Navbar bg="dark" expand="md">
             <Container>
                 <NavLink
                     style={{

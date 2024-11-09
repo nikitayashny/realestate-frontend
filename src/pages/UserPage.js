@@ -6,6 +6,7 @@ import { fetchUser } from "../http/userAPI";
 import { fetchUsersRealts } from "../http/realtAPI";
 import RealtItem from "../components/RealtItem";
 
+
 const UserPage = observer(() => {
 
     const [user, setUser] = useState({});
@@ -21,7 +22,8 @@ const UserPage = observer(() => {
     }, [id]);
 
     return (
-        <Container className="mt-5 mb-3" style={{ minHeight: '74.74vh'}}>
+        
+        <Container className="mt-5 mb-5" style={{ minHeight: '74.74vh', background: "rgba(255,255,255,1)", borderRadius: "20px", padding: "20px"}}>
             <h4>{user.firstName + ' ' + user.lastName}</h4>
 
             <p>Номер телефона: <span>{user.phoneNumber}</span></p>
@@ -29,7 +31,7 @@ const UserPage = observer(() => {
             <hr></hr>
             <h4>Товары пользователя:</h4>
 
-            <Row className="d-flex container vh-90">
+            <Row className="vh-90">
                 {realts.map(realt => (
                     <RealtItem key={realt.id} realtItem={realt} />
                 ))}

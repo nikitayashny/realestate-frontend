@@ -45,7 +45,7 @@ const RealtPage = observer(() => {
     };
 
     return (
-        <Container className="mt-3">
+        <Container className="mt-5 mb-5" style={{background: "rgba(255,255,255,1)", borderRadius: "20px", padding: "20px"}}>
             <div className="row">
                 <div className="col-md-6">
                     <Carousel>
@@ -109,7 +109,7 @@ const RealtPage = observer(() => {
                         </div>
                     </Card>
                 </div>
-                <div className=" mt-4">
+                <div className="mb-4 mt-4">
                     <Card bg="light" data-bs-theme="light">
                         <div className="card-body">
                             <div className="col-md-12">
@@ -122,7 +122,7 @@ const RealtPage = observer(() => {
                     </Card>
                 </div>
             </div>
-
+            <h5 className="ms-3 mb-3">Местоположение</h5>           
             <Map address={realtItem.country + ', ' + realtItem.city + ', ул.' + realtItem.street + ', ' + realtItem.house}/>
 
         </Container>
