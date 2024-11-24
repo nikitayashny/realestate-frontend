@@ -3,7 +3,6 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import axios from 'axios';
 import L from 'leaflet';
-import { Container } from 'react-bootstrap';
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -66,11 +65,30 @@ const MapFavorite = ({ realts }) => {
         {markers.map((realt) => (
           <Marker key={realt.id} position={realt.coordinates}>
             <Popup>
-              <strong>{realt.name}</strong><br />
-              {realt.city}, {realt.street} {realt.house}<br />
-              {realt.dealType.id === 2 ? <>Цена: {realt.price}$</> : <>Цена аренды: {realt.price}$/мес.</>}<br />
-              {realt.type.typeName}: {realt.area} м²<br/>
-              Количество комнат: {realt.roomsCount}
+              <div >
+                <div style={{ position: 'relative' }}>
+                  <img 
+                    src={`data:image/jpeg;base64,${realt.images[0].bytes}`} 
+                    alt={realt.name} 
+                    style={{ width: '200px', height: 'auto' }} 
+                  />
+                  <div 
+                    style={{
+                      position: 'absolute', 
+                      top: '5px', 
+                      left: '5px',                  
+                      backgroundColor: 'rgba(255, 255, 255, 0.9)', 
+                      padding: '5px 10px', 
+                      borderRadius: '5px'
+                    }}
+                  >
+                    {realt.dealType.id === 2 ? <>{realt.price}$</> : <>{realt.price}$/мес.</>}
+                  </div>
+                </div>
+                {realt.city}, {realt.street} {realt.house}<br />
+                {realt.type.typeName}: {realt.area} м²<br/>
+                Количество комнат: {realt.roomsCount}
+              </div>
             </Popup>
           </Marker>
         ))}

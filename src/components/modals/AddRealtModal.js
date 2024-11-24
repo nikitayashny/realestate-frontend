@@ -57,7 +57,7 @@ const AddRealtModal = ({ show, onHide }) => {
     };
 
     return (
-        <Modal show={show} onHide={onHide} dialogClassName="modal-lg">
+        <Modal show={show} onHide={onHide} fullscreen={true}>
             <Modal.Header closeButton>
                 <Modal.Title>Добавить новое объявление</Modal.Title>
             </Modal.Header>
