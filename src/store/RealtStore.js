@@ -4,6 +4,8 @@ export default class RealtStore {
     constructor() {
         this._types = []
         this._dealTypes = []
+        this._roomsCount = 0
+        this._maxPrice = -1
         this._realts = []
         this._favorites = []
         this._usersRealts = []
@@ -20,6 +22,12 @@ export default class RealtStore {
     }
     setDealTypes(dealTypes) {
         this._dealTypes = dealTypes
+    }
+    setRoomsCount(roomsCount) {
+        this._roomsCount = roomsCount
+    }
+    setMaxPrice(maxPrice) {
+        this._maxPrice = maxPrice
     }
     setRealts(realts) {
         this._realts = realts
@@ -54,6 +62,12 @@ export default class RealtStore {
     }
     get dealTypes() {
         return this._dealTypes
+    }
+    get roomsCount() {
+        return this._roomsCount
+    }
+    get maxPrice() {
+        return this._maxPrice
     }
     get realts() {
         return this._realts

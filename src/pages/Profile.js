@@ -24,6 +24,8 @@ const Home = observer(() => {
         realt.setUsersRealts([])
         realt.setSelectedType(0)
         realt.setSelectedDealType(0)
+        realt.setRoomsCount(0)
+        realt.setMaxPrice(-1)
     };
     
     useEffect(() => {
@@ -39,18 +41,17 @@ const Home = observer(() => {
             <div className="d-flex justify-content-between align-items-center">
                 <h4 className="mb-4">{user.userName}</h4>
                 <div className="ms-2">
-                    <Button variant="primary" onClick={() => setShowUserFilterModal(true)}>
+                    <Button variant="outline-dark" onClick={() => setShowUserFilterModal(true)}>
                         Мои пожелания
                     </Button>
-                    <Button variant="primary" onClick={() => setShowModal(true)} className="ms-2">
+                    <Button variant="outline-dark" onClick={() => setShowModal(true)} className="ms-2">
                         Добавить объявление
                     </Button>
-                    <Button variant="outline-dark" onClick={logOut} className="ms-2">Выйти</Button>
+                    <Button variant="dark" onClick={logOut} className="ms-2">Выйти</Button>
                 </div>
             </div>
             <hr></hr>
-            <h4 className="text-center">Мои объявления</h4>
-            
+            <h4 className="text-center">Мои объявления</h4>          
             <Row className="vh-90">
                 {realt.usersRealts.map(realt => (
                     <RealtItem key={realt.id} realtItem={realt} />

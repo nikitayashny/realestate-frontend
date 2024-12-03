@@ -17,7 +17,7 @@ const AddNewsModal = ({ show, onHide, onSubmit }) => {
 
     return (
         <Modal show={show} onHide={onHide}>
-            <Modal.Header closeButton>
+            <Modal.Header closeButton className='bg-dark text-white'>
                 <Modal.Title>Добавить новость</Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -54,7 +54,7 @@ const AddNewsModal = ({ show, onHide, onSubmit }) => {
                             required 
                         />
                     </Form.Group>
-                    <Button className='mt-2' variant="primary" type="submit">
+                    <Button className='mt-2' variant="dark" type="submit">
                         Добавить
                     </Button>
                 </Form>

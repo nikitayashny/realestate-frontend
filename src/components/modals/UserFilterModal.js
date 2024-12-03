@@ -52,7 +52,7 @@ const UserFilterModal = ({ show, onHide }) => {
 
     return (
         <Modal show={show} onHide={onHide} dialogClassName="modal-lg">
-            <Modal.Header closeButton>
+            <Modal.Header closeButton className='bg-dark text-white'>
                 <Modal.Title>Мои пожелания</Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -107,12 +107,9 @@ const UserFilterModal = ({ show, onHide }) => {
                         <label className="form-check-label" htmlFor="active">Оповещать меня о появлении товара</label>
                     </div>
                     <input type="hidden" name="userId" value={user.userId} />
-                    <Button type="submit" variant="primary">Подтвердить</Button>
+                    <Button type="submit" variant="dark">Подтвердить</Button>
                 </form>
             </Modal.Body>
-            <Modal.Footer>
-                <Button variant="secondary" onClick={onHide}>Закрыть</Button>
-            </Modal.Footer>
         </Modal>
     );
 };

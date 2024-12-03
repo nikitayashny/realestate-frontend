@@ -116,6 +116,8 @@ const Auth = observer(() => {
                     <Notification
                         show={showNotification}
                         message={notificationMessage}
+                        color='danger'
+                        header='Ошибка'
                         onClose={() => setShowNotification(false)}
                     />
                 </ToastContainer>

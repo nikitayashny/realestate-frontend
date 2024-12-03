@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Container, Card } from "react-bootstrap";
+import { Container, Card, ToastContainer } from "react-bootstrap";
 import { useParams } from 'react-router-dom';
-import { fetchOneRealt, addToFavorites, deleteFromFavorites } from "../http/realtAPI";
+import { fetchOneRealt, addToFavorites, deleteFromFavorites, repostRealt } from "../http/realtAPI";
 import { observer } from "mobx-react-lite";
 import { Carousel } from "react-bootstrap";
 import { USER_ROUTE } from "../utils/consts";
 import { Context } from "..";
+import Notification from "../components/Notification";
 import Map from "../components/Map"
 
 const RealtPage = observer(() => {
@@ -13,6 +14,10 @@ const RealtPage = observer(() => {
     const { id } = useParams();
     const {realt} = useContext(Context)
     const {user} = useContext(Context)
+    const [showNotification, setShowNotification] = useState(false);
+    const [notificationMessage, setNotificationMessage] = useState('');
+    const [notificationColor, setNotificationColor] = useState('');
+    const [notificationHeader, setNotificationHeader] = useState('');
 
     useEffect(() => {
         fetchOneRealt(id).then(data => setRealt(data));
@@ -44,8 +49,41 @@ const RealtPage = observer(() => {
         });
     };
 
+    const repost = async (event) => {
+        event.preventDefault()
+        event.stopPropagation()
+
+        const currentUrl = window.location.href;
+        const baseUrl = new URL(currentUrl).origin;
+        const link = `${baseUrl}/realt/${realtItem.id}`;
+
+        try {
+            navigator.clipboard.writeText(link);
+            setNotificationMessage('Ссылка скопирована в буфер обмена')
+            setNotificationColor('success')
+            setNotificationHeader('Успешно')
+            setShowNotification(true)
+        } catch (err) {
+            setNotificationMessage('Не удалось скопировать ссылку')
+            setNotificationColor('danger')
+            setNotificationHeader('Ошибка')
+            setShowNotification(true)
+        }
+
+        await repostRealt(realtItem.id)
+    }
+
     return (
         <Container className="mt-5 mb-5" style={{background: "rgba(255,255,255,1)", borderRadius: "20px", padding: "20px"}}>
+            <ToastContainer position="top-center">
+                <Notification
+                    show={showNotification}
+                    message={notificationMessage}
+                    color={notificationColor}
+                    header={notificationHeader}
+                    onClose={() => setShowNotification(false)}
+                />
+            </ToastContainer>
             <div className="row">
                 <div className="col-md-6">
                     <Carousel>
@@ -90,6 +128,20 @@ const RealtPage = observer(() => {
                                     <>{'Загрузка...'}</>
                                 }
                             </p>
+
+                            <div style={{ position: 'absolute', top: '14px', right: '100px' }}>
+                                {realtItem.views} views
+                            </div>
+
+                            <div style={{ position: 'absolute', top: '10px', right: '50px' }}>
+                                <button 
+                                    onClick={(event) => repost(event)}
+                                    className="btn" 
+                                    style={{ background: 'transparent', border: 'none', cursor: 'pointer' }}
+                                >
+                                    <i className={`fa fa-share-alt`} style={{fontSize: '24px'}}></i>
+                                </button>
+                            </div>
                             
                             {user.isAuth
                             ?

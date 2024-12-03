@@ -1,5 +1,18 @@
 import {$host, $authHost} from './index'
 
+export const viewRealt = async (id) => {
+    const { data } = await $host.post(`api/realt/view/${id}`);
+    return data;
+}
+
+export const likeRealt = async (id) => {
+    await $authHost.post(`api/realt/like/${id}`);
+}
+
+export const repostRealt = async (id) => {
+    await $host.post(`api/realt/repost/${id}`);
+}
+
 export const createRealt = async (formData) => {
     const { data } = await $authHost.post('api/realt/create', formData, {
         headers: {
@@ -9,13 +22,15 @@ export const createRealt = async (formData) => {
     return data;
 };
 
-export const fetchRealts = async (limit, page, selectedType, selectedDealType, userId) => {
+export const fetchRealts = async (limit, page, selectedType, selectedDealType, roomsCount, maxPrice, userId) => {
     const { data } = await $host.get('api/realt', {
         params: {
             limit,
             page,
             selectedType,
             selectedDealType,
+            roomsCount,
+            maxPrice,
             userId
         }
     });
@@ -44,6 +59,11 @@ export const fetchFavorites = async (id) => {
 
 export const addToFavorites = async (params) => {
     const {data} = await $authHost.post(`api/favorite/add`, params)
+    try {
+        await likeRealt(params.realtId)
+    } catch(e) {
+        alert(e)
+    }
     return data
 }
 

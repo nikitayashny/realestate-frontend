@@ -93,7 +93,7 @@ const NewsPage = observer(() => {
             <div className="d-flex justify-content-between align-items-center mb-4">
                 <h4>Новости</h4>
                 {user.isAdmin && (
-                    <Button variant="primary" onClick={() => setShowModal(true)}>Добавить новость</Button>
+                    <Button variant="dark" onClick={() => setShowModal(true)}>Добавить новость</Button>
                 )}
             </div>
 
@@ -166,7 +166,7 @@ const NewsPage = observer(() => {
                                             <div className="d-flex justify-content-between align-items-start">
                                             <article style={{ flex: '1', marginRight: '10px', wordBreak: 'break-word' }}>{comment.text}</article>
                                                 {((user.isAuth && user.userId === comment.user.id)) || user.isAdmin ? (
-                                                    <button onClick={(event) => removeComment(event, comment.id)} className="btn btn-danger btn-sm">Удалить</button>
+                                                    <Button onClick={(event) => removeComment(event, comment.id)} variant="outline-danger" className="btn-sm">Удалить</Button>
                                                 ) : null}
                                             </div>
                                             <hr></hr>
@@ -187,7 +187,8 @@ const NewsPage = observer(() => {
                                             className="form-control"
                                         />
                                         <Button 
-                                            className="btn btn-primary mt-2"
+                                            variant="primary"
+                                            className="mt-2"
                                             onClick={() => addComment(post.id)}
                                             disabled={!newComment[post.id]}
                                         >
@@ -198,13 +199,11 @@ const NewsPage = observer(() => {
                             </div>
                         </div>
                     )}
-                    <Button className="btn btn-dark mt-3" onClick={() => toggleArticleVisibility(post.id)}>
+                    <Button variant="outline-dark" className="mt-3" onClick={() => toggleArticleVisibility(post.id)}>
                         {visibleArticles[post.id] ? 'Скрыть' : 'Детальнее'}
                     </Button>
                     {user.isAdmin && (
-                        <Button 
-                            onClick={(event) => removeNews(event, post.id)}
-                            className="btn btn-danger text-end ms-3 mt-3">
+                        <Button variant="outline-danger" onClick={(event) => removeNews(event, post.id)} className="text-end ms-3 mt-3">
                             Удалить пост
                         </Button>
                     )}
