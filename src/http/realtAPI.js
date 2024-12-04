@@ -22,7 +22,7 @@ export const createRealt = async (formData) => {
     return data;
 };
 
-export const fetchRealts = async (limit, page, selectedType, selectedDealType, roomsCount, maxPrice, userId) => {
+export const fetchRealts = async (limit, page, selectedType, selectedDealType, roomsCount, maxPrice, sortType, userId) => {
     const { data } = await $host.get('api/realt', {
         params: {
             limit,
@@ -31,6 +31,7 @@ export const fetchRealts = async (limit, page, selectedType, selectedDealType, r
             selectedDealType,
             roomsCount,
             maxPrice,
+            sortType,
             userId
         }
     });

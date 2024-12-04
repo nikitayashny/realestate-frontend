@@ -26,6 +26,7 @@ const Home = observer(() => {
         realt.setSelectedDealType(0)
         realt.setRoomsCount(0)
         realt.setMaxPrice(-1)
+        realt.setSortType(1)
     };
     
     useEffect(() => {

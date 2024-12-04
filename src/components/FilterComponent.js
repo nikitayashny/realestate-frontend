@@ -25,11 +25,9 @@ const FilterComponent = () => {
         const value = event.target.value;
         if (value === '') {
             setMaxPrice(-1);
-            //realt.setMaxPrice(-1);
         } else {
             const numericValue = Number(value);
             setMaxPrice(numericValue);
-            //realt.setMaxPrice(numericValue);
         }
     }
 
@@ -198,6 +196,7 @@ const FilterComponent = () => {
                     </Col>
 
                 </Row>
+                
             </Card.Body>
         </Card>
     );

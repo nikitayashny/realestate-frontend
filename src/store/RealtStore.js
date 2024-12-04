@@ -6,6 +6,7 @@ export default class RealtStore {
         this._dealTypes = []
         this._roomsCount = 0
         this._maxPrice = -1
+        this._sortType = 1
         this._realts = []
         this._favorites = []
         this._usersRealts = []
@@ -28,6 +29,9 @@ export default class RealtStore {
     }
     setMaxPrice(maxPrice) {
         this._maxPrice = maxPrice
+    }
+    setSortType(sortType) {
+        this._sortType = sortType
     }
     setRealts(realts) {
         this._realts = realts
@@ -68,6 +72,9 @@ export default class RealtStore {
     }
     get maxPrice() {
         return this._maxPrice
+    }
+    get sortType() {
+        return this._sortType
     }
     get realts() {
         return this._realts
