@@ -1,4 +1,4 @@
-import { Container, Button, Row } from "react-bootstrap";
+import { Container, Button, Row, Col, Card, CardBody } from "react-bootstrap";
 import { observer } from "mobx-react-lite";
 import { Context } from "../index";
 import React, { useContext, useState, useEffect } from "react";
@@ -55,7 +55,29 @@ const Home = observer(() => {
             <h4 className="text-center">Мои объявления</h4>          
             <Row className="vh-90">
                 {realt.usersRealts.map(realt => (
-                    <RealtItem key={realt.id} realtItem={realt} />
+                    <Row key={realt.id}>
+                        <Col md={9}>
+                            <RealtItem realtItem={realt} />
+                        </Col>
+                        <Col md={3} className="mt-3">
+                            <Card bg="light">
+                                <CardBody>
+                                    <Row>
+                                        <Col md={9}>
+                                            <div>просмотров </div>
+                                            <div>добавлений в избранное</div>
+                                            <div>копирований ссылки</div>  
+                                        </Col>
+                                        <Col md={3}>
+                                            <div>{realt.views}</div>
+                                            <div>{realt.likes}</div>
+                                            <div>{realt.reposts}</div>
+                                        </Col>
+                                    </Row>
+                                </CardBody>
+                            </Card>
+                        </Col>                  
+                    </Row>               
                 ))}
             </Row>
             <AddRealtModal show={showModal} onHide={() => setShowModal(false)} />

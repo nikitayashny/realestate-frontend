@@ -39,6 +39,10 @@ const NavBar = observer( () => {
                 </NavLink>
                 <Navbar.Toggle 
                     aria-controls="navbar-nav" 
+                    style={{
+                        backgroundColor: '#f8f9fa',
+                        borderColor: '#ced4da' 
+                    }}
                     onClick={() => setCollapsed(!collapsed)}
                 />
                 <Navbar.Collapse id="navbar-nav" className="justify-content-end">
