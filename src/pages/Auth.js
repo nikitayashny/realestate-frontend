@@ -93,7 +93,7 @@ const Auth = observer(() => {
     };
 
     return (
-        <div style={{ position: 'relative' }}>
+        <div style={{ position: 'relative', minHeight: '100vh' }}>
             <div
                 style={{
                     backgroundImage: `url(${authBg})`,

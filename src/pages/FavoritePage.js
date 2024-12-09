@@ -19,7 +19,8 @@ const FavoritePage = observer(() => {
     }, [user.userId, realt]);
 
     return (
-        <Container className="mt-5 mb-5" style={{ minHeight: '74.74vh', background: "white", borderRadius: "20px", padding: "20px"}}>
+        <div style={{minHeight: '100vh'}}>
+        <Container className="mt-5 mb-5" style={{ background: "white", borderRadius: "20px", padding: "20px"}}>
             <h4>Избранное</h4>
         
             <Row className="vh-90 mb-3">
@@ -29,6 +30,7 @@ const FavoritePage = observer(() => {
             </Row>
             <MapFavorite realts={realt.favorites}/>
         </Container>
+        </div>
     );
 });
 

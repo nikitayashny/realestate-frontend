@@ -88,7 +88,8 @@ const NewsPage = observer(() => {
     };
 
     return (
-        <Container className="mt-5 mb-5" style={{ minHeight: '71vh', background: "rgba(255,255,255,1)", borderRadius: "20px", padding: "20px"}}>
+        <div style={{minHeight: '100vh'}}>
+        <Container className="mt-5 mb-5" style={{ background: "rgba(255,255,255,1)", borderRadius: "20px", padding: "20px"}}>
 
             <div className="d-flex justify-content-between align-items-center mb-4">
                 <h4>Новости</h4>
@@ -211,6 +212,7 @@ const NewsPage = observer(() => {
             ))}
           
         </Container>
+        </div>
     );
 });
 

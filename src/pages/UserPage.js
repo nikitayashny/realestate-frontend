@@ -22,8 +22,8 @@ const UserPage = observer(() => {
     }, [id]);
 
     return (
-        
-        <Container className="mt-5 mb-5" style={{ minHeight: '74.74vh', background: "rgba(255,255,255,1)", borderRadius: "20px", padding: "20px"}}>
+        <div style={{minHeight: '100vh'}}>
+        <Container className="mt-5 mb-5" style={{ background: "rgba(255,255,255,1)", borderRadius: "20px", padding: "20px"}}>
             <h4>{user.firstName + ' ' + user.lastName}</h4>
 
             <p>Номер телефона: <span>{user.phoneNumber}</span></p>
@@ -37,6 +37,7 @@ const UserPage = observer(() => {
                 ))}
             </Row>
         </Container>
+        </div>
     );
 });
 

@@ -74,6 +74,7 @@ const RealtPage = observer(() => {
     }
 
     return (
+        <div style={{minHeight: '100vh'}}>
         <Container className="mt-5 mb-5" style={{background: "rgba(255,255,255,1)", borderRadius: "20px", padding: "20px"}}>
             <ToastContainer position="top-center">
                 <Notification
@@ -178,6 +179,7 @@ const RealtPage = observer(() => {
             <Map address={realtItem.country + ', ' + realtItem.city + ', ул.' + realtItem.street + ', ' + realtItem.house}/>
 
         </Container>
+        </div>
     );
 });
 

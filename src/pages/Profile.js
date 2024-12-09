@@ -38,7 +38,8 @@ const Home = observer(() => {
     }, [user.userId, realt]);
 
     return (
-        <Container className="mt-5 mb-5"  style={{ minHeight: '74.74vh', background: "rgba(255,255,255,1)", borderRadius: "20px", padding: "20px"}}>
+        <div style={{minHeight: '100vh'}}>
+        <Container className="mt-5 mb-5"  style={{ background: "rgba(255,255,255,1)", borderRadius: "20px", padding: "20px"}}>
             <div className="d-flex justify-content-between align-items-center">
                 <h4 className="mb-4">{user.userName}</h4>
                 <div className="ms-2">
@@ -83,6 +84,7 @@ const Home = observer(() => {
             <AddRealtModal show={showModal} onHide={() => setShowModal(false)} />
             <UserFilterModal show={showUserFilterModal} onHide={() => setShowUserFilterModal(false)} />
         </Container>
+        </div>
     );
 });
 
