@@ -1,1 +1,9 @@
+version: "2"
 authtoken: 2pIcK3NKIAbkLx6FPHXC9tQQfEX_3NPXeoEujCCJbFZqRF5XJ
+tunnels:
+  server:
+    addr: 8080
+    proto: http
+  api:
+    addr: 3000
+    proto: http

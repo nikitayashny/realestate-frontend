@@ -42,7 +42,7 @@ const AddRealtModal = ({ show, onHide }) => {
             const response = await createRealt(formData)
             console.log('Объявление добавлено:', response);
     
-            fetchRealts(realt.limit, realt.page, realt.selectedType, realt.selectedDealType, 0).then(data => {  
+            fetchRealts(realt.limit, realt.page, realt.selectedType, realt.selectedDealType, realt.roomsCount, realt.maxPrice, realt.sortType, 0).then(data => {  
                 realt.setRealts(data.realts)
                 realt.setTotalCount(data.totalCount)
             })
