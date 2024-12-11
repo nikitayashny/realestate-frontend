@@ -6,7 +6,11 @@ export const fetchNews = async () => {
 }
 
 export const createNews = async (formData) => {
-    const {data} = await $authHost.post('api/news', formData)
+    const {data} = await $authHost.post('api/news', formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    })
     return data
 }
 

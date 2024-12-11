@@ -131,6 +131,9 @@ const NewsPage = observer(() => {
                     <p>{post.anons}</p>
                     {visibleArticles[post.id] && (
                         <div className="mt-2">
+                            <div className="d-flex align-items-center justify-content-center mb-3">
+                                <img style={{width: "80%", objectFit: "cover" }} src={`data:image/jpeg;base64,${post.bytes}`} alt="Изображение загружается..." />
+                            </div>
                             <div>{post.full_text}</div>
                             <div className="mt-3 alert bg-light">
                                 <h4>Комментарии:</h4>

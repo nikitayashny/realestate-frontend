@@ -7,11 +7,16 @@ const AddNewsModal = ({ show, onHide, onSubmit }) => {
     const [fullText, setFullText] = useState('');
 
     const handleSubmit = (event) => {
-        event.preventDefault();
-        const formData = new FormData();
-        formData.append('title', title);
-        formData.append('anons', anons);
-        formData.append('full_text', fullText);
+        event.preventDefault()
+        
+        const formData = new FormData()
+        const formElements = event.target.elements
+        
+        formData.append('title', title)
+        formData.append('anons', anons)
+        formData.append('full_text', fullText)
+        formData.append("file", formElements.file.files[0])
+
         onSubmit(formData);
     };
 
@@ -54,6 +59,10 @@ const AddNewsModal = ({ show, onHide, onSubmit }) => {
                             required 
                         />
                     </Form.Group>
+                    <div className="col">
+                        <label htmlFor="file" className="form-label">Изображение:</label>
+                        <input type="file" className="form-control form-control-sm" id="file" name="file" required />
+                    </div>
                     <Button className='mt-2' variant="dark" type="submit">
                         Добавить
                     </Button>
