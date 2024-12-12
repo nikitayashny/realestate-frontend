@@ -112,7 +112,7 @@ const Auth = observer(() => {
                 className="d-flex justify-content-center align-items-center"
                 style={{ height: "83.947vh" }}
             >
-                <ToastContainer position="bottom-start" className="p-5">
+                <ToastContainer position="top-start" className="p-5">
                     <Notification
                         show={showNotification}
                         message={notificationMessage}
