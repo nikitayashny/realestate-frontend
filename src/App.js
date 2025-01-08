@@ -10,16 +10,17 @@ const App = observer(() => {
     const {realt} = useContext(Context)
     const [loading, setLoading] = useState(true)
 
-    if (loading) {
-        return <Spinner animation={"grow"} />
-    }
+    // if (loading) {
+    //     return <Spinner animation={"grow"} />
+    // }
 
     return (
         
         <BrowserRouter>
 
+            <AppRouter />
+
         </BrowserRouter>
-        
     )
 })
 
