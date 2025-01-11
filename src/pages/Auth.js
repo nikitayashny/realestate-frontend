@@ -28,15 +28,14 @@ const Auth = observer(() => {
 
     const click = async () => {
         try {
-           
+            if (!validateEmail(email)) {
+                alert("некорректный email")
+                return;
+            }
             let data;
             if (isLogin) {
-                data = await login(userName, password);
+                data = await login(email, password);
             } else {
-                if (!validateEmail(email)) {
-                    alert("некорректный email")
-                    return;
-                }
                 data = await registration(userName, password, email);
             }
 
@@ -79,9 +78,9 @@ const Auth = observer(() => {
                                 <>
                                     <Form.Control
                                         className="mt-3"
-                                        placeholder="Введите имя пользователя..."
-                                        value={userName}
-                                        onChange={e => setUserName(e.target.value)}
+                                        placeholder="Введите email..."
+                                        value={email}
+                                        onChange={e => setEmail(e.target.value)}
                                     />
                                     <Form.Control
                                         className="mt-3"
