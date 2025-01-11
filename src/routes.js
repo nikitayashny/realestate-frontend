@@ -1,5 +1,6 @@
 import Home from "./pages/Home"
-import { HOME_ROUTE} from "./utils/consts"
+import Auth from "./pages/Auth"
+import { REGISTRATION_ROUTE, LOGIN_ROUTE, HOME_ROUTE} from "./utils/consts"
 
 export const authRoutes = [
     // {
@@ -24,14 +25,14 @@ export const publicRoutes = [
         path: HOME_ROUTE,
         Component: Home
     },
-    // {
-    //     path: LOGIN_ROUTE,
-    //     Component: Auth
-    // },
-    // {
-    //     path: REGISTRATION_ROUTE,
-    //     Component: Auth
-    // },
+    {
+        path: LOGIN_ROUTE,
+        Component: Auth
+    },
+    {
+        path: REGISTRATION_ROUTE,
+        Component: Auth
+    },
     // {
     //     path: REALT_ROUTE + '/:id',
     //     Component: RealtPage
