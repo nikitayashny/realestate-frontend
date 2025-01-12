@@ -21,4 +21,15 @@ export const oauth2Login = async (credential) => {
     } catch (error) {
         console.error('Ошибка аутентификации с Google', error);
     }
-};
+}
+
+export const check = async () => {
+    try {   
+        const {data} = await $authHost.get('/api/auth/check')
+        localStorage.setItem('token', data.token)
+        return jwtDecode(data.token)
+    }
+    catch (e) {
+        console.log('неавторизован')
+    } 
+}

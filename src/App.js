@@ -4,15 +4,27 @@ import AppRouter from "./components/AppRouter";
 import { observer } from "mobx-react-lite";
 import { Context } from "./index";
 import { Spinner } from "react-bootstrap";
+import { check } from "./http/userAPI";
 
 const App = observer(() => {
     const {user} = useContext(Context)
     const {realt} = useContext(Context)
     const [loading, setLoading] = useState(true)
 
-    // if (loading) {
-    //     return <Spinner animation={"grow"} />
-    // }
+    useEffect(() => {
+        check().then(data => {
+
+            if (data) {
+                user.setIsAuth(true)
+                user.setUserName(data.username)
+            }
+            
+        }).finally(() => setLoading(false))
+    }, [])
+
+    if (loading) {
+        return <Spinner animation={"grow"} />
+    }
 
     return (
         

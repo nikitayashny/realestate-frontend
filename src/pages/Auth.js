@@ -7,8 +7,7 @@ import { observer } from "mobx-react-lite"
 import { Context } from "../index"
 import { useNavigate } from 'react-router-dom'
 import { GoogleLogin } from '@react-oauth/google';
-import axios from 'axios';
-import { jwtDecode } from "jwt-decode"
+import Notification from "../components/Notification";
 
 const Auth = observer(() => {
     const { user } = useContext(Context)
@@ -21,6 +20,9 @@ const Auth = observer(() => {
     const [userName, setUserName] = useState('')
     const [email, setEmail] = useState('')
 
+    const [showNotification, setShowNotification] = useState(false);
+    const [notificationMessage, setNotificationMessage] = useState('');
+
     const validateEmail = (email) => {
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailPattern.test(email);
@@ -29,7 +31,8 @@ const Auth = observer(() => {
     const click = async () => {
         try {
             if (!validateEmail(email)) {
-                alert("некорректный email")
+                setNotificationMessage("Некорректный формат email");
+                setShowNotification(true);
                 return;
             }
             let data;
@@ -40,12 +43,13 @@ const Auth = observer(() => {
             }
 
             user.setIsAuth(true);
-            user.setUser(data);
+            user.setUserName(data);
 
             navigate(HOME_ROUTE);
 
         } catch (e) {
-            alert(e)
+            setNotificationMessage('Неверные данные или нет доступа.');
+            setShowNotification(true);
         }
     }
 
@@ -55,20 +59,30 @@ const Auth = observer(() => {
 
             const data = await oauth2Login(credential)
             user.setIsAuth(true);
-            user.setUser(data);
-
-            console.log(data.userName)
+            user.setUserName(data);
 
             navigate(HOME_ROUTE);
             
         } catch (error) {
-            console.error('Ошибка аутентификации с Google', error);
+            setNotificationMessage('Ошибка аутентификации с Google');
+            setShowNotification(true);
         }
     };
 
     return (
         
         <Container className="d-flex justify-content-center align-items-center vh-100">
+
+                <ToastContainer position="top-start" className="p-5">
+                    <Notification
+                        show={showNotification}
+                        message={notificationMessage}
+                        color='danger'
+                        header='Ошибка'
+                        onClose={() => setShowNotification(false)}
+                    />
+                </ToastContainer>
+
             <Card style={{ width: 500 }} className="p-5">
                     <h2 className="m-auto">
                         {isLogin ? 'Авторизация' : 'Регистрация'}
