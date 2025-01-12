@@ -8,6 +8,7 @@ import { Context } from "../index"
 import { useNavigate } from 'react-router-dom'
 import { GoogleLogin } from '@react-oauth/google';
 import Notification from "../components/Notification";
+import authBg from '../img/auth_bg.jpg';
 
 const Auth = observer(() => {
     const { user } = useContext(Context)
@@ -70,7 +71,21 @@ const Auth = observer(() => {
     };
 
     return (
-        
+        <div style={{ position: 'relative', minHeight: '100vh' }}>
+            <div
+                style={{
+                    backgroundImage: `url(${authBg})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    filter: "grayscale(100%) blur(2px)",
+                    position: 'absolute',    
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    zIndex: 0,
+                }}
+            />
         <Container className="d-flex justify-content-center align-items-center vh-100">
 
                 <ToastContainer position="top-start" className="p-5">
@@ -83,8 +98,8 @@ const Auth = observer(() => {
                     />
                 </ToastContainer>
 
-            <Card style={{ width: 500 }} className="p-5">
-                    <h2 className="m-auto">
+            <Card style={{ width: 500, boxShadow: "0 4px 15px rgba(0, 0, 0, 0.3)" }} className="p-5">
+                    <h2 className="m-auto mb-3">
                         {isLogin ? 'Авторизация' : 'Регистрация'}
                     </h2>
                     <Form className="d-flex flex-column">
@@ -139,17 +154,19 @@ const Auth = observer(() => {
                                 }
                                 <Button
                                     onClick={click}
+                                    variant="dark"
                                 >
                                     {isLogin ? 'Войти' : 'Зарегистрироваться'}
                                 </Button>                             
                             </div>
+                           
                             <GoogleLogin
                                 onSuccess={handleLoginSuccess}
                             />
                         </Form>
                     </Card>
         </Container>
-
+                                </div>
     )
 })
 
