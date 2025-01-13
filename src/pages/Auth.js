@@ -24,6 +24,9 @@ const Auth = observer(() => {
     const [showNotification, setShowNotification] = useState(false);
     const [notificationMessage, setNotificationMessage] = useState('');
 
+    const [showModal, setShowModal] = useState(false);
+    const [confirmationCode, setConfirmationCode] = useState('');
+
     const validateEmail = (email) => {
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailPattern.test(email);
@@ -40,11 +43,13 @@ const Auth = observer(() => {
             if (isLogin) {
                 data = await login(email, password);
             } else {
-                data = await registration(userName, password, email);
+                await registration(userName, password, email);
+                setShowModal(true);
+                return;
             }
 
             user.setIsAuth(true);
-            user.setUserName(data);
+            user.setUserName(data.userName);
 
             navigate(HOME_ROUTE);
 
@@ -60,12 +65,27 @@ const Auth = observer(() => {
 
             const data = await oauth2Login(credential)
             user.setIsAuth(true);
-            user.setUserName(data);
+            user.setUserName(data.userName);
 
             navigate(HOME_ROUTE);
             
         } catch (error) {
             setNotificationMessage('Ошибка аутентификации с Google');
+            setShowNotification(true);
+        }
+    };
+
+    const handleConfirmCode = async () => {
+        try {
+            const data = await confirmRegistration(confirmationCode, userName, password, email);
+            user.setIsAuth(true);
+            user.setUserName(data.userName);
+
+
+            navigate(HOME_ROUTE);
+            setShowModal(false); 
+        } catch (e) {
+            setNotificationMessage('Неверный код подтверждения.');
             setShowNotification(true);
         }
     };
@@ -166,7 +186,30 @@ const Auth = observer(() => {
                         </Form>
                     </Card>
         </Container>
-                                </div>
+
+        <Modal show={showModal} onHide={() => setShowModal(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Код подтверждения</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form.Control
+                        type="text"
+                        placeholder="Введите код подтверждения"
+                        value={confirmationCode}
+                        onChange={e => setConfirmationCode(e.target.value)}
+                    />
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShowModal(false)}>
+                        Закрыть
+                    </Button>
+                    <Button variant="primary" onClick={handleConfirmCode}>
+                        Подтвердить
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+
+        </div>
     )
 })
 
