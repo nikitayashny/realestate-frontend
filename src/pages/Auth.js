@@ -48,8 +48,10 @@ const Auth = observer(() => {
                 return;
             }
 
-            user.setIsAuth(true);
-            user.setUserName(data.userName);
+            user.setIsAuth(true)
+            user.setUserName(data.userName)
+            user.setEmail(data.email)
+            user.setRole(data.role)
 
             navigate(HOME_ROUTE);
 
@@ -64,8 +66,11 @@ const Auth = observer(() => {
             const { credential } = response;
 
             const data = await oauth2Login(credential)
-            user.setIsAuth(true);
-            user.setUserName(data.userName);
+
+            user.setIsAuth(true)
+            user.setUserName(data.userName)
+            user.setEmail(data.email)
+            user.setRole(data.role)
 
             navigate(HOME_ROUTE);
             
@@ -78,9 +83,11 @@ const Auth = observer(() => {
     const handleConfirmCode = async () => {
         try {
             const data = await confirmRegistration(confirmationCode, userName, password, email);
-            user.setIsAuth(true);
-            user.setUserName(data.userName);
-
+            
+            user.setIsAuth(true)
+            user.setUserName(data.userName)
+            user.setEmail(data.email)
+            user.setRole(data.role)
 
             navigate(HOME_ROUTE);
             setShowModal(false); 

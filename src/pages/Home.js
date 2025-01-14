@@ -6,8 +6,21 @@ import { Context } from "..";
 
 const Home = observer(() => {
 
+    const { user } = useContext(Context)
+
     return (
-        <div>Home</div>
+        <div>
+            {user.isAuth 
+            ?
+            <>
+                <div>{user.userName}</div>
+                <div>{user.email}</div>
+                <div>{user.role}</div>
+            </>
+            : <></>
+            }
+            
+        </div>
     )
 })
 

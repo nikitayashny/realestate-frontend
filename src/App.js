@@ -16,7 +16,9 @@ const App = observer(() => {
 
             if (data) {
                 user.setIsAuth(true)
-                user.setUserName(data.username)
+                user.setUserName(data.userName)
+                user.setEmail(data.email)
+                user.setRole(data.role)
             }
             
         }).finally(() => setLoading(false))
