@@ -10,7 +10,7 @@ const Home = observer(() => {
 
     const { user } = useContext(Context)
 
-    // pagination
+    // pagination //
 
     const PAGE_SIZE = 1
 
