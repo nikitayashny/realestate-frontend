@@ -2,23 +2,81 @@ import {makeAutoObservable} from "mobx"
 
 export default class RealtStore {
     constructor() {
-        this._types = []
-        this._dealTypes = []
+        this._page = 1
+        this._totalCount = 0
+        this._roomsCount = 0
+        this._maxPrice = -1
+        this._sortType = 1
+        this._usersRealts = []
+        this._favorites = []
+        this._realts = []
+        this._selectedType = 0
+        this._selectedDealType = 0
         makeAutoObservable(this)
     }
 
-    setTypes(types) {
-        this._types = types
+    setRoomsCount(roomsCount) {
+        this._roomsCount = roomsCount
     }
-    setDealTypes(dealTypes) {
-        this._dealTypes = dealTypes
+    setMaxPrice(maxPrice) {
+        this._maxPrice = maxPrice
+    }
+    setSortType(sortType) {
+        this._sortType = sortType
+    }
+    setUsersRealts(usersRealts) {
+        this._usersRealts = usersRealts
+    }
+    setRealts(realts) {
+        this._realts = realts
+    }
+    setSelectedType(type) {
+        this.setPage(1)
+        this._selectedType = type;
+    }
+    setSelectedDealType(dealType) {
+        this.setPage(1)
+        this._selectedDealType = dealType;
+    }
+    setFavorites(favorites) {
+        this._favorites = favorites
+    }
+    setPage(page) {
+        this._page = page;
+    }
+    setTotalCount(count) {
+        this._totalCount = count;
     }
 
-    get types() {
-        return this._types
+    get roomsCount() {
+        return this._roomsCount
     }
-    get dealTypes() {
-        return this._dealTypes
+    get maxPrice() {
+        return this._maxPrice
     }
-   
+    get sortType() {
+        return this._sortType
+    }
+    get usersRealts() {
+        return this._usersRealts
+    }
+    get realts() {
+        return this._realts
+    }
+    get selectedType() {
+        return this._selectedType
+    }
+    get selectedDealType() {
+        return this._selectedDealType
+    }
+    get favorites() {
+        return this._favorites
+    }
+    get totalCount() {
+        return this._totalCount
+    }
+    get page() {
+        return this._page
+    }
+
 }
