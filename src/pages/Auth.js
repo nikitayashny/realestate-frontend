@@ -52,6 +52,7 @@ const Auth = observer(() => {
             user.setUserName(data.userName)
             user.setEmail(data.email)
             user.setRole(data.role)
+            user.setUserId(data.userId)
 
             navigate(HOME_ROUTE);
 
@@ -71,6 +72,7 @@ const Auth = observer(() => {
             user.setUserName(data.userName)
             user.setEmail(data.email)
             user.setRole(data.role)
+            user.setUserId(data.userId)
 
             navigate(HOME_ROUTE);
             
@@ -88,6 +90,7 @@ const Auth = observer(() => {
             user.setUserName(data.userName)
             user.setEmail(data.email)
             user.setRole(data.role)
+            user.setUserId(data.userId)
 
             navigate(HOME_ROUTE);
             setShowModal(false); 

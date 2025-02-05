@@ -6,6 +6,7 @@ export default class UserStore {
         this._userName = {}
         this._role = {}
         this._email = {}
+        this._userId = {}
         makeAutoObservable(this)
     }
 
@@ -21,6 +22,9 @@ export default class UserStore {
     setEmail(email) {
         this._email = email
     }
+    setUserId(userId) {
+        this._userId = userId
+    }
 
     get isAuth() {
         return this._isAuth
@@ -33,6 +37,9 @@ export default class UserStore {
     }
     get email() {
         return this._email
+    }
+    get userId() {
+        return this._userId
     }
     
     

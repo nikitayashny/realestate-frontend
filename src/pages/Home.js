@@ -14,8 +14,6 @@ const Home = observer(() => {
     const { user } = useContext(Context)
     const { realt } = useContext(Context)
 
-    // pagination //
-
     const PAGE_SIZE = 5
 
     useEffect(() => {
@@ -31,7 +29,6 @@ const Home = observer(() => {
         fetchData()
     }, [realt.page, realt.selectedDealType, realt.selectedType, realt.roomsCount, realt.maxPrice, realt.sortType])
 
-    //
 
     return (
             <Container className="mt-5 mb-5" style={{ background: "rgba(255,255,255,1)", borderRadius: "20px", padding: "20px"}}>
