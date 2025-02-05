@@ -10,6 +10,11 @@ export const fetchOneRealt = async (id) => {
     return data;
 }
 
+export const deleteRealt = async (id) => {
+    const {data} = await $authHost.delete('api/realts/' + id)
+    return data
+}
+
 export const repostRealt = async (id) => {
     await $host.post(`api/realts/repost/${id}`);
 }

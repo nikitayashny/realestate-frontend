@@ -1,11 +1,12 @@
 import { Card, Col, ToastContainer } from "react-bootstrap";
 import {useNavigate} from 'react-router-dom'
 import { REALT_ROUTE } from "../utils/consts";
-import { addToFavorites, deleteFromFavorites, deleteRealt, fetchRealts, fetchFavorites, fetchUsersRealts, viewRealt, repostRealt } from "../http/realtAPI";
+import { addToFavorites, deleteFromFavorites, deleteRealt, fetchRealts, fetchFavorites, viewRealt, repostRealt } from "../http/realtAPI";
 import React, { useContext, useState } from "react";
 import { Context } from "../index";
 import { observer } from "mobx-react-lite";
 import Notification from "../components/Notification";
+import { fetchUsersRealts } from "../http/userAPI";
 
 const RealtCard = observer(({realtItem}) => { 
 
@@ -17,26 +18,29 @@ const RealtCard = observer(({realtItem}) => {
     const [notificationColor, setNotificationColor] = useState('');
     const [notificationHeader, setNotificationHeader] = useState('');
 
+    const PAGE_SIZE = 5
+
     const removeRealt = (event, id) => {
         event.preventDefault()
         event.stopPropagation()
-        // deleteRealt(id)
-        //     .then(() => {
-        //         fetchRealts(realt.limit, realt.page, realt.selectedType, realt.selectedDealType, realt.roomsCount, realt.maxPrice, realt.sortType, 0).then(data => {  
-        //             realt.setRealts(data.realts)
-        //             realt.setTotalCount(data.totalCount)
-        //         })
-        //     })
-        //     .then(() => {
-        //         fetchFavorites(user.userId).then(data => {  
-        //             realt.setFavorites(data)
-        //         })
-        //     })
-        //     .then(() => {
-        //         fetchUsersRealts(user.userId).then(data => {  
-        //             realt.setUsersRealts(data);
-        //         });
-        //     })
+        deleteRealt(id)
+            .then(() => {
+                fetchRealts(realt.page - 1, PAGE_SIZE, realt.selectedDealType, realt.selectedType, realt.roomsCount, realt.maxPrice, realt.sortType)
+                .then(data => {  
+                    realt.setRealts(data.realts)
+                    realt.setTotalCount(data.count)
+                })
+            })
+            // .then(() => {
+            //     fetchFavorites(user.userId).then(data => {  
+            //         realt.setFavorites(data)
+            //     })
+            // })
+            .then(() => {
+                fetchUsersRealts(user.userId).then(data => {  
+                    realt.setUsersRealts(data);
+                });
+            })
     };
 
     const addFavorite = (event, id) => {
@@ -113,8 +117,12 @@ const RealtCard = observer(({realtItem}) => {
                 <div className="col-md-7">
                     <div className="card-body">
                         <h5 className="card-title">{realtItem.name}</h5>
-                        <p className="card-text">{realtItem.dealType.id === 1 ? `${realtItem.price} $/мес.` : realtItem.dealType.id === 2 ? `${realtItem.price} $` : null}</p>
-                        <p className="card-text">{realtItem.type.id === 1 ? `Квартира ${realtItem.area} м²` : realtItem.type.id === 2 ? `Дом ${realtItem.area} м²` : null}</p>
+                        <p className="card-text">{realtItem.dealType.id === 1 ? `${realtItem.price} $/мес.` 
+                                                : realtItem.dealType.id === 2 ? `${realtItem.price} $` 
+                                                : realtItem.dealType.id === 3 ? `${realtItem.price} $/сутки.`
+                                                : null}
+                        </p>
+                        <p className="card-text">{`${realtItem.type.typeName} ${realtItem.area} м²`}</p>
                         <p className="card-text">{`Количество комнат: ${realtItem.roomsCount}`}</p>
                         <p className="card-text">{`${realtItem.country}, г. ${realtItem.city}, ул.${realtItem.street}, д.${realtItem.house}`}</p>
                     </div>
@@ -127,7 +135,7 @@ const RealtCard = observer(({realtItem}) => {
             </div>
 
             <div style={{ position: 'absolute', top: '14px', right: '100px' }}>
-                {realtItem.views} views
+                {realtItem.views} просмотров
             </div>
 
             <div style={{ position: 'absolute', top: '10px', right: '50px' }}>
