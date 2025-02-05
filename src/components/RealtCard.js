@@ -66,8 +66,8 @@ const RealtCard = observer(({realtItem}) => {
     };
 
     const viewAndNavigate = async () => {
-        // viewRealt(realtItem.id);
-        // navigate(REALT_ROUTE + '/' + realtItem.id)
+        viewRealt(realtItem.id);
+        navigate(REALT_ROUTE + '/' + realtItem.id)
     }
 
     const repost = async (event) => {
@@ -118,7 +118,7 @@ const RealtCard = observer(({realtItem}) => {
                         <p className="card-text">{`Количество комнат: ${realtItem.roomsCount}`}</p>
                         <p className="card-text">{`${realtItem.country}, г. ${realtItem.city}, ул.${realtItem.street}, д.${realtItem.house}`}</p>
                     </div>
-                    {((user.isAuth && user.userId === realtItem.user.id)) || user.isAdmin ? (
+                    {((user.isAuth && user.userId === realtItem.user.id)) || (user.role === "ADMIN" || user.role === "SUPER_ADMIN") ? (
                     <div className="text-end m-3">
                         <button onClick={(event) => removeRealt(event, realtItem.id)} className="btn btn-dark">Удалить объявление</button>
                     </div>

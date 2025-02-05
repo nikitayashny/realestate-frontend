@@ -26,7 +26,7 @@ const NavBar = observer( () => {
                     }}
                     to={HOME_ROUTE}
                 >
-                    HomeHub
+                    RealEstate.by
                 </NavLink>
                 <NavLink
                     style={{
@@ -48,7 +48,7 @@ const NavBar = observer( () => {
                 <Navbar.Collapse id="navbar-nav" className="justify-content-end">
                     {user.isAuth ? (
                         <Nav>
-                            {user.isAdmin && (
+                            {(user.role === "ADMIN" || user.role === "SUPER_ADMIN") && (
                                 <Button
                                     variant="outline-light ms-1"
                                     onClick={() => navigate(ADMIN_ROUTE)}

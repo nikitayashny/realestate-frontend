@@ -23,8 +23,6 @@ const App = observer(() => {
                 user.setRole(data.role)
                 user.setUserId(data.userId)
             }
-
-            if (user.setIsAuth) {}
             
         }).finally(() => setLoading(false))
     }, [])
