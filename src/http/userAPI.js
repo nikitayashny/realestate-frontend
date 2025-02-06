@@ -5,10 +5,19 @@ export const fetchUsersRealts = async (id) => {
     const {data} = await $host.get('/api/users/realts/' + id)
     return data;
 }
+
+export const fetchUserFilter = async (id) => {
+    const {data} = await $authHost.get(`api/userfilters`)
+    return data
+}
+
+export const changeUserFilter = async (formData) => {
+    const {data} = await $authHost.post('api/userfilters', formData)
+    return data
+}
  
 export const registration = async (username, password, email) => {
     const {data} = await $host.post('/api/auth/register', {username, password, email})
-    //localStorage.setItem('token', data.token);
     return data
 }
 

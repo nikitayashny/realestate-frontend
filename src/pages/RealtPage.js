@@ -7,7 +7,7 @@ import { USER_ROUTE } from "../utils/consts";
 import { Context } from "..";
 import Notification from "../components/Notification";
 import { Carousel, Image } from 'antd';
-//import Map from "../components/Map"
+import Map from "../components/Map"
 
 const RealtPage = observer(() => {
     const [realtItem, setRealt] = useState({});
@@ -103,22 +103,6 @@ const RealtPage = observer(() => {
                         <></>
                     )}
                 </Carousel>
-                    {/* <Carousel>
-                        {realtItem.images && realtItem.images.length > 0 ? (
-                            realtItem.images.map((image) => (
-                                <Carousel.Item>
-                                    <img
-                                        className="d-block w-100"
-                                        style={{ width: "600px", height: "400px", objectFit: "cover" }}
-                                        src={`data:image/jpeg;base64,${image.bytes}`}
-                                        alt={`Изображение`}
-                                    />
-                                </Carousel.Item>
-                            ))
-                        ) : (
-                            <></>
-                        )}
-                    </Carousel> */}
                 </div>
                 <div className="col-md-6">
                     <Card className="position-relative" bg="light" data-bs-theme="light">
@@ -127,12 +111,13 @@ const RealtPage = observer(() => {
                                 <span>{realtItem.name}</span>
                             </h3>
                             <p className="card-text">
-                                {realtItem.dealType?.id === 1 ? `${realtItem.price} $/мес.` :
-                                    realtItem.dealType?.id === 2 ? `${realtItem.price} $` : null}
+                                {realtItem.dealType?.id === 1 ? `${realtItem.price} $/мес.` 
+                                : realtItem.dealType?.id === 2 ? `${realtItem.price} $`
+                                : realtItem.dealType?.id === 3 ? `${realtItem.price} $/сутки`
+                                : null}
                             </p>
                             <p className="card-text">
-                                {realtItem.type?.id === 1 ? `Квартира ${realtItem.area} м²` :
-                                    realtItem.type?.id === 2 ? `Дом ${realtItem.area} м²` : null}
+                                {`${realtItem.type?.typeName} ${realtItem.area} м²`}
                             </p>
                             <p className="card-text">{`Количество комнат: ${realtItem.roomsCount}`}</p>
                             <p className="card-text">{`${realtItem.country}, г. ${realtItem.city}, ул.${realtItem.street}, д.${realtItem.house}`}</p>
@@ -192,7 +177,7 @@ const RealtPage = observer(() => {
                 </div>
             </div>
             <h5 className="ms-3 mb-3">Местоположение</h5>           
-            {/* <Map address={realtItem.country + ', ' + realtItem.city + ', ул.' + realtItem.street + ', ' + realtItem.house}/> */}
+            <Map address={realtItem.country + ', ' + realtItem.city + ', ул.' + realtItem.street + ', ' + realtItem.house}/>
 
         </Container>
         </div>

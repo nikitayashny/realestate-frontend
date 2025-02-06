@@ -4,6 +4,8 @@ import { Context } from "../index";
 import React, { useContext, useState, useEffect } from "react";
 import { fetchUsersRealts } from "../http/userAPI";
 import RealtCard from "../components/RealtCard";
+import UserFilterModal from "../components/modals/UserFilterModal"
+import AddRealtModal from "../components/modals/AddRealtModal";
 
 const Profile = observer(() => {
     const { user } = useContext(Context)
@@ -42,12 +44,12 @@ const Profile = observer(() => {
             <div className="d-flex justify-content-between align-items-center">
                 <h4 className="mb-4">{user.userName}</h4>
                 <div className="ms-2">
-                    {/* <Button variant="outline-dark" onClick={() => setShowUserFilterModal(true)}>
+                    <Button variant="outline-dark" onClick={() => setShowUserFilterModal(true)}>
                         Мои пожелания
                     </Button>
                     <Button variant="outline-dark" onClick={() => setShowModal(true)} className="ms-2">
                         Добавить объявление
-                    </Button> */}
+                    </Button>
                     <Button variant="dark" onClick={logOut} className="ms-2">Выйти</Button>
                 </div>
             </div>
@@ -80,8 +82,8 @@ const Profile = observer(() => {
                     </Row>               
                 ))}
             </Row>
-            {/* <AddRealtModal show={showModal} onHide={() => setShowModal(false)} />
-            <UserFilterModal show={showUserFilterModal} onHide={() => setShowUserFilterModal(false)} /> */}
+            <AddRealtModal show={showModal} onHide={() => setShowModal(false)} />
+            <UserFilterModal show={showUserFilterModal} onHide={() => setShowUserFilterModal(false)} />
         </Container>
         </div>
     );

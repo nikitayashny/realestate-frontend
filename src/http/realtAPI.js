@@ -1,5 +1,14 @@
 import {$host, $authHost} from './index'
 
+export const createRealt = async (formData) => {
+    const { data } = await $authHost.post('api/realts', formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
+    return data;
+};
+
 export const fetchRealts = async (page, limit, dealTypeId, typeId, roomsCount, maxPrice, sortType) => {
     const { data } = await $host.get('api/realts', { params: {page, limit, dealTypeId, typeId, roomsCount, maxPrice, sortType} })
     return data;
