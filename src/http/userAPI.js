@@ -1,6 +1,11 @@
 import {$host, $authHost} from './index'
 import { jwtDecode } from "jwt-decode"
 
+export const fetchUser = async (id) => {
+    const {data} = await $host.get('api/users/' + id)
+    return data
+}
+
 export const fetchUsersRealts = async (id) => {
     const {data} = await $host.get('/api/users/realts/' + id)
     return data;

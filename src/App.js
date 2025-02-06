@@ -7,6 +7,7 @@ import { Spinner } from "react-bootstrap";
 import { check } from "./http/userAPI";
 import NavBar from "./components/NavBar";
 import authBg from './img/auth_bg.jpg';
+import { fetchFavorites } from "./http/realtAPI";
 
 const App = observer(() => {
     const {user} = useContext(Context)
@@ -22,10 +23,14 @@ const App = observer(() => {
                 user.setEmail(data.email)
                 user.setRole(data.role)
                 user.setUserId(data.userId)
+
+                fetchFavorites().then(data => {  
+                    realt.setFavorites(data);
+                });
             }
             
         }).finally(() => setLoading(false))
-    }, [])
+    })
 
     if (loading) {
         return <Spinner animation={"grow"} />

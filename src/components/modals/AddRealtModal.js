@@ -56,7 +56,7 @@ const AddRealtModal = ({ show, onHide }) => {
             onCancel={onHide}
             footer={null}
             width="80%"
-            style={{ top: 80 }}
+            style={{ top: 0}}
         >
             <h2>Добавление нового объявления</h2>
             <Form className='mt-4' onFinish={handleSubmit} encType="multipart/form-data">
@@ -174,10 +174,11 @@ const AddRealtModal = ({ show, onHide }) => {
                     <Upload
                         multiple
                         fileList={fileList}
+                        listType="picture-card"
                         onChange={handleUploadChange}
                         beforeUpload={() => false}
                     >
-                        <Button icon={<UploadOutlined />}>Добавить изображение</Button>
+                        <UploadOutlined style={{ fontSize: '24px' }} size="large"/>
                     </Upload>
                 </Form.Item>
                 <Form.Item

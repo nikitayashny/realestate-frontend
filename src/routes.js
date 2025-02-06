@@ -2,13 +2,15 @@ import Home from "./pages/Home"
 import Auth from "./pages/Auth"
 import Profile from "./pages/Profile"
 import RealtPage from "./pages/RealtPage"
-import { REGISTRATION_ROUTE, LOGIN_ROUTE, HOME_ROUTE, PROFILE_ROUTE, REALT_ROUTE} from "./utils/consts"
+import UserPage from "./pages/UserPage"
+import FavoritePage from "./pages/FavoritePage"
+import { REGISTRATION_ROUTE, LOGIN_ROUTE, HOME_ROUTE, PROFILE_ROUTE, REALT_ROUTE, USER_ROUTE, FAVORITE_ROUTE} from "./utils/consts"
 
 export const authRoutes = [
-    // {
-    //     path: FAVORITE_ROUTE,
-    //     Component: FavoritePage
-    // },
+    {
+        path: FAVORITE_ROUTE,
+        Component: FavoritePage
+    },
     {
         path: PROFILE_ROUTE,
         Component: Profile
@@ -39,10 +41,10 @@ export const publicRoutes = [
         path: REALT_ROUTE + '/:id',
         Component: RealtPage
     },
-    // {
-    //     path: USER_ROUTE + '/:id',
-    //     Component: UserPage
-    // },
+    {
+        path: USER_ROUTE + '/:id',
+        Component: UserPage
+    },
     // {
     //     path: NEWS_ROUTE,
     //     Component: NewsPage

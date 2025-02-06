@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import { GoogleLogin } from '@react-oauth/google';
 import Notification from "../components/Notification";
 import authBg from '../img/auth_bg.jpg';
+import { fetchFavorites } from "../http/realtAPI"
 
 const Auth = observer(() => {
     const { user } = useContext(Context)
@@ -54,6 +55,10 @@ const Auth = observer(() => {
             user.setRole(data.role)
             user.setUserId(data.userId)
 
+            fetchFavorites().then(data => {  
+                                realt.setFavorites(data);
+                            });
+
             navigate(HOME_ROUTE);
 
         } catch (e) {
@@ -74,6 +79,10 @@ const Auth = observer(() => {
             user.setRole(data.role)
             user.setUserId(data.userId)
 
+            fetchFavorites().then(data => {  
+                                realt.setFavorites(data);
+                            });
+
             navigate(HOME_ROUTE);
             
         } catch (error) {
@@ -91,6 +100,10 @@ const Auth = observer(() => {
             user.setEmail(data.email)
             user.setRole(data.role)
             user.setUserId(data.userId)
+
+            fetchFavorites().then(data => {  
+                                realt.setFavorites(data);
+                            });
 
             navigate(HOME_ROUTE);
             setShowModal(false); 

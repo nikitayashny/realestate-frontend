@@ -31,11 +31,11 @@ const RealtCard = observer(({realtItem}) => {
                     realt.setTotalCount(data.count)
                 })
             })
-            // .then(() => {
-            //     fetchFavorites(user.userId).then(data => {  
-            //         realt.setFavorites(data)
-            //     })
-            // })
+            .then(() => {
+                fetchFavorites().then(data => {  
+                    realt.setFavorites(data)
+                })
+            })
             .then(() => {
                 fetchUsersRealts(user.userId).then(data => {  
                     realt.setUsersRealts(data);
@@ -46,27 +46,25 @@ const RealtCard = observer(({realtItem}) => {
     const addFavorite = (event, id) => {
         event.preventDefault()
         event.stopPropagation()
-        // const params = {
-        //     userId: user.userId,
-        //     realtId: id
-        // };
-        // addToFavorites(params)
-        // .then(data => {  
-        //     realt.setFavorites(data);
-        // });
+
+        addToFavorites(id)
+        .then(() => {
+            fetchFavorites().then(data => {  
+                realt.setFavorites(data)
+            })
+        })
     };
 
     const deleteFavorite = (event, id) => {
         event.preventDefault()
         event.stopPropagation()
-        // const params = {
-        //     userId: user.userId,
-        //     realtId: id
-        // };
-        // deleteFromFavorites(params)
-        // .then(data => {  
-        //     realt.setFavorites(data);
-        // });
+
+        deleteFromFavorites(id)
+        .then(() => {
+            fetchFavorites().then(data => {  
+                realt.setFavorites(data)
+            })
+        })
     };
 
     const viewAndNavigate = async () => {
@@ -148,21 +146,19 @@ const RealtCard = observer(({realtItem}) => {
                 </button>
             </div>
 
-            {/* {user.isAuth
-            ?
-            <div style={{ position: 'absolute', top: '10px', right: '10px' }}>       
-                
-                <button 
-                    onClick={(event) => user.isAuth ? (realt.favorites.some(favorite => favorite.id === realtItem.id) ? deleteFavorite(event, realtItem.id) : addFavorite(event, realtItem.id)) : null}
-                    className="btn" 
-                    style={{ background: 'transparent', border: 'none', cursor: 'pointer' }}
-                >
-                    <i className={`fa${realt.favorites.some(favorite => favorite.id === realtItem.id) ? 's' : 'r'} fa-heart`} style={{ color: realt.favorites.some(favorite => favorite.id === realtItem.id) ? 'red' : 'gray', fontSize: '24px' }}></i>
-                </button>
-            </div>
-            :
-            <></>
-            } */}
+            {user.isAuth && (
+                <div style={{ position: 'absolute', top: '10px', right: '10px' }}>       
+                    <button 
+                        onClick={(event) => (realt.favorites) ? (realt.favorites.some(favorite => favorite.id === realtItem.id) ? deleteFavorite(event, realtItem.id) : addFavorite(event, realtItem.id)) : null}
+                        className="btn" 
+                        style={{ background: 'transparent', border: 'none', cursor: 'pointer' }}
+                    >
+                       {(realt.favorites) 
+                       ? <i className={`fa${realt.favorites.some(favorite => favorite.id === realtItem.id) ? 's' : 'r'} fa-heart`} style={{ color: realt.favorites.some(favorite => favorite.id === realtItem.id) ? 'red' : 'gray', fontSize: '24px' }}></i>          
+                       : null}
+                    </button>
+                </div>
+            )}
 
         </Card>
     </Col>
