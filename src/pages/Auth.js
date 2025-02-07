@@ -59,6 +59,12 @@ const Auth = observer(() => {
                                 realt.setFavorites(data);
                             });
 
+            if (data.role === 'ADMIN' || data.role === "SUPER_ADMIN") {
+                fetchUsers().then(users => {
+                    user.setUsers(users);
+                });
+            }
+
             navigate(HOME_ROUTE);
 
         } catch (e) {
@@ -83,6 +89,12 @@ const Auth = observer(() => {
                                 realt.setFavorites(data);
                             });
 
+            if (data.role === 'ADMIN' || data.role === "SUPER_ADMIN") {
+                fetchUsers().then(users => {
+                    user.setUsers(users);
+                });
+            }
+
             navigate(HOME_ROUTE);
             
         } catch (error) {
@@ -104,6 +116,12 @@ const Auth = observer(() => {
             fetchFavorites().then(data => {  
                                 realt.setFavorites(data);
                             });
+
+            if (data.role === 'ADMIN' || data.role === "SUPER_ADMIN") {
+                fetchUsers().then(users => {
+                    user.setUsers(users);
+                });
+            }
 
             navigate(HOME_ROUTE);
             setShowModal(false); 

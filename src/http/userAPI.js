@@ -1,8 +1,23 @@
 import {$host, $authHost} from './index'
 import { jwtDecode } from "jwt-decode"
 
+export const banUser = async (id) => {
+    const {data} = await $authHost.post('api/admin/users/ban/' + id)
+    return data
+}
+
+export const changeUser = async (id) => {
+    const {data} = await $authHost.post('api/admin/users/change/' + id)
+    return data
+}
+
 export const fetchUser = async (id) => {
     const {data} = await $host.get('api/users/' + id)
+    return data
+}
+
+export const fetchUsers = async () => {
+    const {data} = await $authHost.get('api/admin/users')
     return data
 }
 

@@ -4,7 +4,8 @@ import Profile from "./pages/Profile"
 import RealtPage from "./pages/RealtPage"
 import UserPage from "./pages/UserPage"
 import FavoritePage from "./pages/FavoritePage"
-import { REGISTRATION_ROUTE, LOGIN_ROUTE, HOME_ROUTE, PROFILE_ROUTE, REALT_ROUTE, USER_ROUTE, FAVORITE_ROUTE} from "./utils/consts"
+import Admin from "./pages/Admin"
+import { REGISTRATION_ROUTE, LOGIN_ROUTE, HOME_ROUTE, PROFILE_ROUTE, REALT_ROUTE, USER_ROUTE, FAVORITE_ROUTE, ADMIN_ROUTE} from "./utils/consts"
 
 export const authRoutes = [
     {
@@ -18,10 +19,10 @@ export const authRoutes = [
 ]
 
 export const adminRoutes = [
-    // {
-    //     path: ADMIN_ROUTE,
-    //     Component: Admin
-    // },
+    {
+        path: ADMIN_ROUTE,
+        Component: Admin
+    },
 ]
 
 export const publicRoutes = [

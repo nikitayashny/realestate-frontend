@@ -8,6 +8,7 @@ import { check } from "./http/userAPI";
 import NavBar from "./components/NavBar";
 import authBg from './img/auth_bg.jpg';
 import { fetchFavorites } from "./http/realtAPI";
+import { fetchUsers } from "./http/userAPI";
 
 const App = observer(() => {
     const {user} = useContext(Context)
@@ -27,6 +28,12 @@ const App = observer(() => {
                 fetchFavorites().then(data => {  
                     realt.setFavorites(data);
                 });
+                
+                if ((user.role === 'ADMIN' || user.role === "SUPER_ADMIN")) {
+                    fetchUsers().then(users => {
+                        user.setUsers(users);
+                    });
+                }
             }
             
         }).finally(() => setLoading(false))

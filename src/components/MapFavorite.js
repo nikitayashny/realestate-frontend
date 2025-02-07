@@ -68,7 +68,7 @@ const MapFavorite = ({ realts }) => {
               <div >
                 <div style={{ position: 'relative' }}>
                   <img 
-                    src={`data:image/jpeg;base64,${realt.images[0].bytes}`} 
+                    src={realt.images[0]} 
                     alt={realt.name} 
                     style={{ width: '200px', height: 'auto' }} 
                   />
@@ -84,7 +84,7 @@ const MapFavorite = ({ realts }) => {
                   >
                     { realt.dealType.id === 1 ? <>{realt.price}$/мес.</> 
                     : realt.dealType.id === 2 ? <>{realt.price}$</> 
-                    : realt.dealType.id === 1 ? <>{realt.price}$/сутки</>
+                    : realt.dealType.id === 3 ? <>{realt.price}$/сутки</>
                     : null
                     }
                   </div>
