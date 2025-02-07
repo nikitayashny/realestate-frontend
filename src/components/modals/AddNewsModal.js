@@ -63,7 +63,7 @@ const AddNewsModal = ({ show, onHide, onSubmit }) => {
                         <label htmlFor="file" className="form-label">Изображение:</label>
                         <input type="file" className="form-control form-control-sm" id="file" name="file" required />
                     </div>
-                    <Button className='mt-2' variant="dark" type="submit">
+                    <Button className='mt-3' variant="dark" type="submit">
                         Добавить
                     </Button>
                 </Form>

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react"
-import { Container, Form, Card, Button, ToastContainer, Modal } from "react-bootstrap"
+import { Container, Form, Card, Button, Modal } from "react-bootstrap"
 import { NavLink, useLocation } from "react-router-dom"
 import { LOGIN_ROUTE, REGISTRATION_ROUTE, HOME_ROUTE } from "../utils/consts"
 import { login, registration, fetchUsers, confirmRegistration, oauth2Login } from "../http/userAPI"
@@ -7,7 +7,7 @@ import { observer } from "mobx-react-lite"
 import { Context } from "../index"
 import { useNavigate } from 'react-router-dom'
 import { GoogleLogin } from '@react-oauth/google';
-import Notification from "../components/Notification";
+import { notification } from "antd";
 import authBg from '../img/auth_bg.jpg';
 import { fetchFavorites } from "../http/realtAPI"
 
@@ -22,9 +22,6 @@ const Auth = observer(() => {
     const [userName, setUserName] = useState('')
     const [email, setEmail] = useState('')
 
-    const [showNotification, setShowNotification] = useState(false);
-    const [notificationMessage, setNotificationMessage] = useState('');
-
     const [showModal, setShowModal] = useState(false);
     const [confirmationCode, setConfirmationCode] = useState('');
 
@@ -36,8 +33,11 @@ const Auth = observer(() => {
     const click = async () => {
         try {
             if (!validateEmail(email)) {
-                setNotificationMessage("Некорректный формат email");
-                setShowNotification(true);
+                notification.error({
+                    message: 'Ошибка',
+                    description: 'Некорректный формат email',
+                    placement: 'bottomLeft'
+                });
                 return;
             }
             let data;
@@ -68,8 +68,11 @@ const Auth = observer(() => {
             navigate(HOME_ROUTE);
 
         } catch (e) {
-            setNotificationMessage('Неверные данные или нет доступа.');
-            setShowNotification(true);
+            notification.error({
+                message: 'Ошибка',
+                description: 'Неверные данные или нет доступа.',
+                placement: 'bottomLeft'
+            });
         }
     }
 
@@ -98,8 +101,11 @@ const Auth = observer(() => {
             navigate(HOME_ROUTE);
             
         } catch (error) {
-            setNotificationMessage('Ошибка аутентификации с Google');
-            setShowNotification(true);
+            notification.error({
+                message: 'Ошибка',
+                description: 'Ошибка аутентификации с Google',
+                placement: 'bottomLeft'
+            });
         }
     };
 
@@ -126,8 +132,11 @@ const Auth = observer(() => {
             navigate(HOME_ROUTE);
             setShowModal(false); 
         } catch (e) {
-            setNotificationMessage('Неверный код подтверждения.');
-            setShowNotification(true);
+            notification.error({
+                message: 'Ошибка',
+                description: 'Неверный код подтверждения',
+                placement: 'bottomLeft'
+            });
         }
     };
 
@@ -148,16 +157,6 @@ const Auth = observer(() => {
                 }}
             />
         <Container className="d-flex justify-content-center align-items-center vh-100">
-
-                <ToastContainer position="top-start" className="p-5">
-                    <Notification
-                        show={showNotification}
-                        message={notificationMessage}
-                        color='danger'
-                        header='Ошибка'
-                        onClose={() => setShowNotification(false)}
-                    />
-                </ToastContainer>
 
             <Card style={{ width: 500, boxShadow: "0 4px 15px rgba(0, 0, 0, 0.3)" }} className="p-5">
                     <h2 className="m-auto mb-3">

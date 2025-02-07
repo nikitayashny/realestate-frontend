@@ -1,22 +1,18 @@
-import { Card, Col, ToastContainer } from "react-bootstrap";
+import { Card, Col } from "react-bootstrap";
 import {useNavigate} from 'react-router-dom'
 import { REALT_ROUTE } from "../utils/consts";
 import { addToFavorites, deleteFromFavorites, deleteRealt, fetchRealts, fetchFavorites, viewRealt, repostRealt } from "../http/realtAPI";
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Context } from "../index";
 import { observer } from "mobx-react-lite";
-import Notification from "../components/Notification";
 import { fetchUsersRealts } from "../http/userAPI";
+import { notification } from "antd";
 
 const RealtCard = observer(({realtItem}) => { 
 
     const navigate = useNavigate()
     const {realt} = useContext(Context)
     const {user} = useContext(Context)
-    const [showNotification, setShowNotification] = useState(false);
-    const [notificationMessage, setNotificationMessage] = useState('');
-    const [notificationColor, setNotificationColor] = useState('');
-    const [notificationHeader, setNotificationHeader] = useState('');
 
     const PAGE_SIZE = 5
 
@@ -73,32 +69,30 @@ const RealtCard = observer(({realtItem}) => {
     }
 
     const repost = async (event) => {
-        event.preventDefault()
-        event.stopPropagation()
-
+        event.preventDefault();
+        event.stopPropagation();
         const currentUrl = window.location.href;
         const baseUrl = new URL(currentUrl).origin;
         const link = `${baseUrl}/realt/${realtItem.id}`;
 
         try {
-            navigator.clipboard.writeText(link);
-            setNotificationMessage('Ссылка скопирована в буфер обмена')
-            setNotificationColor('success')
-            setNotificationHeader('Успешно')
-            setShowNotification(true)
+            await navigator.clipboard.writeText(link);
+            notification.success({
+                message: 'Успешно',
+                description: 'Ссылка скопирована в буфер обмена',
+            });
         } catch (err) {
-            setNotificationMessage('Не удалось скопировать ссылку')
-            setNotificationColor('danger')
-            setNotificationHeader('Ошибка')
-            setShowNotification(true)
+            notification.error({
+                message: 'Ошибка',
+                description: 'Не удалось скопировать ссылку',
+            });
         }
-
-        await repostRealt(realtItem.id)
-    }
+        await repostRealt(realtItem.id);
+    };
     
     return (
         <Col md={12}  className="mt-3" onClick={() => viewAndNavigate()}>
-            <ToastContainer position="center">
+            {/* <ToastContainer position="center">
                 <Notification
                     show={showNotification}
                     message={notificationMessage}
@@ -106,7 +100,7 @@ const RealtCard = observer(({realtItem}) => {
                     header={notificationHeader}
                     onClose={() => setShowNotification(false)}
                 />
-            </ToastContainer>
+            </ToastContainer> */}
             <Card style={{ position: 'relative', cursor: 'pointer'}} bg="light">
                 <div className="row g-0">
                     <div className="col-md-5">
