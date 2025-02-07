@@ -5,7 +5,8 @@ import RealtPage from "./pages/RealtPage"
 import UserPage from "./pages/UserPage"
 import FavoritePage from "./pages/FavoritePage"
 import Admin from "./pages/Admin"
-import { REGISTRATION_ROUTE, LOGIN_ROUTE, HOME_ROUTE, PROFILE_ROUTE, REALT_ROUTE, USER_ROUTE, FAVORITE_ROUTE, ADMIN_ROUTE} from "./utils/consts"
+import NewsPage from "./pages/NewsPage"
+import { REGISTRATION_ROUTE, LOGIN_ROUTE, HOME_ROUTE, PROFILE_ROUTE, REALT_ROUTE, USER_ROUTE, FAVORITE_ROUTE, ADMIN_ROUTE, NEWS_ROUTE} from "./utils/consts"
 
 export const authRoutes = [
     {
@@ -46,8 +47,8 @@ export const publicRoutes = [
         path: USER_ROUTE + '/:id',
         Component: UserPage
     },
-    // {
-    //     path: NEWS_ROUTE,
-    //     Component: NewsPage
-    // },
+    {
+        path: NEWS_ROUTE,
+        Component: NewsPage
+    },
 ]

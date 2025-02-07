@@ -20,6 +20,7 @@ const Profile = observer(() => {
         user.setRole(null)
         user.setEmail(null)
         user.setUserId(null)
+        user.setUsers(null)
         realt.setUsersRealts(null)
         realt.setFavorites(null)
         realt.setSelectedType(0)

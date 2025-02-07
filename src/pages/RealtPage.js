@@ -8,6 +8,7 @@ import { Context } from "..";
 import Notification from "../components/Notification";
 import { Carousel, Image } from 'antd';
 import Map from "../components/Map"
+import { fetchFavorites } from "../http/realtAPI";
 
 const RealtPage = observer(() => {
     const [realtItem, setRealt] = useState({});
@@ -26,27 +27,23 @@ const RealtPage = observer(() => {
     const addFavorite = (event, id) => {
         event.preventDefault()
         event.stopPropagation()
-        // const params = {
-        //     userId: user.userId,
-        //     realtId: id
-        // };
-        // addToFavorites(params)
-        // .then(data => {  
-        //     realt.setFavorites(data);
-        // });
+        addToFavorites(id)
+                .then(() => {
+                    fetchFavorites().then(data => {  
+                        realt.setFavorites(data)
+                    })
+                })
     };
 
     const deleteFavorite = (event, id) => {
         event.preventDefault()
         event.stopPropagation()
-        // const params = {
-        //     userId: user.userId,
-        //     realtId: id
-        // };
-        // deleteFromFavorites(params)
-        // .then(data => {  
-        //     realt.setFavorites(data);
-        // });
+        deleteFromFavorites(id)
+                .then(() => {
+                    fetchFavorites().then(data => {  
+                        realt.setFavorites(data)
+                    })
+                })
     };
 
     const repost = async (event) => {
@@ -145,20 +142,19 @@ const RealtPage = observer(() => {
                                 </button>
                             </div>
                             
-                            {/* {user.isAuth
-                            ?
-                            <div style={{ position: 'absolute', top: '10px', right: '10px' }}>
-                                <button 
-                                    onClick={(event) => user.isAuth ? (realt.favorites.some(favorite => favorite.id === realtItem.id) ? deleteFavorite(event, realtItem.id) : addFavorite(event, realtItem.id)) : null}
-                                    className="btn" 
-                                    style={{ background: 'transparent', border: 'none', cursor: 'pointer' }}
-                                >
-                                    <i className={`fa${realt.favorites.some(favorite => favorite.id === realtItem.id) ? 's' : 'r'} fa-heart`} style={{ color: realt.favorites.some(favorite => favorite.id === realtItem.id) ? 'red' : 'gray', fontSize: '24px' }}></i>
-                                </button>
-                            </div>
-                            :
-                            <></>
-                            } */}
+                            {user.isAuth && (
+                                <div style={{ position: 'absolute', top: '10px', right: '10px' }}>       
+                                    <button 
+                                        onClick={(event) => (realt.favorites) ? (realt.favorites.some(favorite => favorite.id === realtItem.id) ? deleteFavorite(event, realtItem.id) : addFavorite(event, realtItem.id)) : null}
+                                        className="btn" 
+                                        style={{ background: 'transparent', border: 'none', cursor: 'pointer' }}
+                                    >
+                                    {(realt.favorites) 
+                                    ? <i className={`fa${realt.favorites.some(favorite => favorite.id === realtItem.id) ? 's' : 'r'} fa-heart`} style={{ color: realt.favorites.some(favorite => favorite.id === realtItem.id) ? 'red' : 'gray', fontSize: '24px' }}></i>          
+                                    : null}
+                                    </button>
+                                </div>
+                            )}
 
                         </div>
                     </Card>
