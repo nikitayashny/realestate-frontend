@@ -8,6 +8,7 @@ export const REALT_ROUTE = '/realt'
 export const PROFILE_ROUTE = '/profile'
 export const USER_ROUTE = '/user'
 export const NEWS_ROUTE = '/news'
+export const CHAT_ROUTE = '/chat'
 // colors
 export const DARK_GREY = '#212529' // #5d5c61
 export const LIGHT_YELLOW = '#b1a296'

@@ -84,7 +84,7 @@ const Admin = observer(() => {
                                 }   
                             </td>
                             <td>
-                                {user.id !== thisUserId && user.role !== 'SUPER_ADMIN' && (user.role !== thisUserRole)
+                                {user.id !== thisUserId && thisUserRole === 'SUPER_ADMIN'
                                 ?
                                     <button onClick={(event) => change(event, user.id)} className="btn btn-warning btn-sm">Изменить роль</button>  
                                 :

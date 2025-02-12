@@ -4,6 +4,7 @@ import { createRoot } from 'react-dom/client';
 import UserStore from './store/UserStore';
 import RealtStore from './store/RealtStore';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import ChatStore from './store/ChatStore';
 
 export const Context = createContext(null)
 
@@ -13,7 +14,8 @@ createRoot(document.getElementById('root')).render(
     <GoogleOAuthProvider clientId={CLIENT_ID}>
         <Context.Provider value={{
             user: new UserStore(),
-            realt: new RealtStore()
+            realt: new RealtStore(),
+            chat: new ChatStore()
         }}>
             <App />
         </Context.Provider>
