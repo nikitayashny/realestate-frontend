@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import { Context } from "..";
 import { observer } from "mobx-react-lite";
 import { Container, Form, Button, ListGroup, Alert, Spinner } from "react-bootstrap";
@@ -17,14 +17,18 @@ const Chat = observer(() => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [unreadMessagesCount, setUnreadMessagesCount] = useState({});
+
+  const messagesEndRef = useRef(null);
 
   useEffect(() => {
+    connect()
     loadUsers();
-
-    return () => {
-      disconnect();
-    };
   }, []);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   const loadUsers = async () => {
     try {
@@ -43,7 +47,7 @@ const Chat = observer(() => {
       webSocketFactory: () => socket,
       onConnect: (frame) => {
         console.log("Connected: " + frame);
-        //if (selectedUser ? selectedUser : false) {
+        // if (selectedUser) {
           subscribeToMessages(client);
         //}
       },
@@ -76,23 +80,30 @@ const Chat = observer(() => {
 
   const onMessageReceived = (msg) => {
     const notification = JSON.parse(msg.body);
-  
     const receivedMessageId = notification.id;
-  
+
     findChatMessage(receivedMessageId).then((message) => {
       setMessages((prevMessages) => [...prevMessages, message]);
+
+      if (message.senderId !== thisUserId) {
+        setUnreadMessagesCount((prev) => ({
+          ...prev,
+          [message.senderId]: (prev[message.senderId] || 0) + 1,
+        }));
+      }
     });
+
+    
   };
 
   const selectUser = async (user) => {
     setSelectedUser(user);
+    setUnreadMessagesCount((prev) => ({ ...prev, [user.id]: 0 }));
     try {
       const chatMessages = await findChatMessages(thisUserId, user.id);
       setMessages(chatMessages);
-
-      disconnect(); 
-      connect(); 
-      
+      disconnect();
+      connect();
     } catch (err) {
       setError("Не удалось загрузить сообщения");
     }
@@ -114,56 +125,86 @@ const Chat = observer(() => {
         body: JSON.stringify(message),
       });
 
-      const newMessages = [...messages];
-      newMessages.push(message);
-      setMessages(newMessages);
+      setMessages((prevMessages) => [...prevMessages, message]);
       setNewMessage("");
     }
   };
 
-  return (
-    <Container className="mt-5 mb-5" style={{ background: "rgba(255,255,255,1)", borderRadius: "20px", padding: "20px"}}>
-      <h4>Пользователи</h4>
-      {loading ? (
-        <Spinner animation="border" />
-      ) : error ? (
-        <Alert variant="danger">{error}</Alert>
-      ) : (
-        <ListGroup className="mb-3">
-          {users.map((user) => (
-            <ListGroup.Item 
-              key={user.id} 
-              action 
-              active={selectedUser && selectedUser.id === user.id}
-              onClick={() => selectUser(user)}
-            >
-              {user.username}
-            </ListGroup.Item>
-          ))}
-        </ListGroup>
-      )}
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
-      <h4>Сообщения</h4>
-      <ListGroup>
-        {messages.map((msg, index) => (
-          <ListGroup.Item key={index}>
-            <strong>{msg.senderName}: </strong>{msg.content}
-          </ListGroup.Item>
-        ))}
-      </ListGroup>
-      <Form>
-        <Form.Group controlId="messageInput">
-          <Form.Control
-            type="text"
-            placeholder="Введите сообщение..."
-            value={newMessage}
-            onChange={(e) => setNewMessage(e.target.value)}
-          />
-        </Form.Group>
-        <Button variant="primary" onClick={sendMessage} disabled={!selectedUser || newMessage.trim() === ""}>
-          Отправить
-        </Button>
-      </Form>
+  return (
+    <Container className="mt-5 mb-5" style={{ height: "80vh", background: "rgba(255,255,255,1)", borderRadius: "20px", padding: "20px" }}>
+      <div className="d-flex" style={{ height: "100%" }}>
+        <div className="col-4" style={{ borderRight: "1px solid #ccc", padding: "10px", overflowY: "auto", height: "100%" }}>
+          {loading ? (
+            <Spinner animation="border" />
+          ) : error ? (
+            <Alert variant="danger">{error}</Alert>
+          ) : (
+            <ListGroup className="mb-3">
+              {users.map((user) => (
+                user.id !== thisUserId ? (
+                  <ListGroup.Item
+                    key={user.id}
+                    action
+                    active={selectedUser && selectedUser.id === user.id}
+                    onClick={() => selectUser(user)}
+                  >
+                    {user.username} {unreadMessagesCount[user.id] > 0 && <span style={{ color: 'red' }}>NEW</span>}
+                  </ListGroup.Item>
+                ) : null
+              ))}
+            </ListGroup>
+          )}
+        </div>
+
+        <div className="col-8" style={{ height: "100%", display: "flex", flexDirection: "column" }}>
+          {selectedUser ? (
+            <>
+              <div style={{ flex: 1, overflowY: "auto" }}>
+                <ListGroup>
+                  {messages.map((msg, index) => (
+                    <ListGroup.Item
+                      key={msg}
+                      style={{
+                        display: "inline-block",
+                        maxWidth: "70%",
+                        textAlign: msg.senderId === thisUserId ? "right" : "left",
+                        backgroundColor: msg.senderId === thisUserId ? "#e1f5fe" : "#ffffff",
+                        border: "1px solid #ccc",
+                        borderRadius: "10px",
+                        padding: "10px",
+                        margin: "5px 0",
+                        alignSelf: msg.senderId === thisUserId ? "flex-end" : "flex-start"
+                      }}
+                    >
+                      <strong>{msg.senderName}: </strong>{msg.content}
+                    </ListGroup.Item>
+                  ))}
+                </ListGroup>
+                <div ref={messagesEndRef} />
+              </div>
+              <Form style={{ display: "flex", alignItems: "center" }}>
+                <Form.Group controlId="messageInput" style={{ flex: 1, marginRight: "10px" }}>
+                  <Form.Control
+                    type="text"
+                    placeholder="Введите сообщение..."
+                    value={newMessage}
+                    onChange={(e) => setNewMessage(e.target.value)}
+                  />
+                </Form.Group>
+                <Button variant="primary" onClick={sendMessage} disabled={!selectedUser || newMessage.trim() === ""}>
+                  Отправить
+                </Button>
+              </Form>
+            </>
+          ) : (
+            <Alert variant="info">Выберите пользователя для начала чата.</Alert>
+          )}
+        </div>
+      </div>
     </Container>
   );
 });
