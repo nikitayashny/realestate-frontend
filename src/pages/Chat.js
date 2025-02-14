@@ -4,7 +4,7 @@ import { observer } from "mobx-react-lite";
 import { Container, Form, Button, ListGroup, Alert, Spinner } from "react-bootstrap";
 import { Client } from '@stomp/stompjs';
 import SockJS from "sockjs-client";
-import { findChatMessages, findChatMessage } from "../http/chatAPI";
+import { findChatMessages, findChatMessage, countNewMessages } from "../http/chatAPI";
 import { fetchUsers } from "../http/userAPI";
 
 const Chat = observer(() => {
@@ -34,6 +34,14 @@ const Chat = observer(() => {
     try {
       const userList = await fetchUsers();
       setUsers(userList);
+      userList.map((contact) => {
+        countNewMessages(contact.id, thisUserId).then((count) => {
+          setUnreadMessagesCount((prev) => ({
+            ...prev,
+            [contact.id]: (prev[contact.id] || 0) + count,
+          }));
+        })
+      })
       setLoading(false);
     } catch (err) {
       setError("Не удалось загрузить пользователей");
@@ -51,6 +59,7 @@ const Chat = observer(() => {
           subscribeToMessages(client);
         //}
       },
+
       onWebSocketError: (error) => {
         console.error("WebSocket error:", error);
         setError("Ошибка соединения с сервером");
@@ -81,9 +90,11 @@ const Chat = observer(() => {
   const onMessageReceived = (msg) => {
     const notification = JSON.parse(msg.body);
     const receivedMessageId = notification.id;
-
+    
     findChatMessage(receivedMessageId).then((message) => {
-      setMessages((prevMessages) => [...prevMessages, message]);
+      
+        setMessages((prevMessages) => [...prevMessages, message]);
+      
 
       if (message.senderId !== thisUserId) {
         setUnreadMessagesCount((prev) => ({
@@ -102,8 +113,8 @@ const Chat = observer(() => {
     try {
       const chatMessages = await findChatMessages(thisUserId, user.id);
       setMessages(chatMessages);
-      disconnect();
-      connect();
+      // disconnect();
+      // connect();
     } catch (err) {
       setError("Не удалось загрузить сообщения");
     }
