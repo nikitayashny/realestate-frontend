@@ -5,7 +5,7 @@ import { Container, Form, Button, ListGroup, Alert, Spinner } from "react-bootst
 import { Client } from '@stomp/stompjs';
 import SockJS from "sockjs-client";
 import { findChatMessages, findChatMessage, countNewMessages } from "../http/chatAPI";
-import { fetchUsers } from "../http/userAPI";
+import { fetchUserChats, fetchUsers } from "../http/userAPI";
 
 const Chat = observer(() => {
   const { user } = useContext(Context);
@@ -32,10 +32,10 @@ const Chat = observer(() => {
 
   const loadUsers = async () => {
     try {
-      const userList = await fetchUsers();
+      const userList = await fetchUserChats();
       setUsers(userList);
       userList.map((contact) => {
-        countNewMessages(contact.id, thisUserId).then((count) => {
+        countNewMessages(contact.id, thisUserId).then((count) => {  
           setUnreadMessagesCount((prev) => ({
             ...prev,
             [contact.id]: (prev[contact.id] || 0) + count,
@@ -73,11 +73,11 @@ const Chat = observer(() => {
     setStompClient(client);
   };
 
-  const disconnect = () => {
-    if (stompClient) {
-      stompClient.deactivate();
-    }
-  };
+  // const disconnect = () => {
+  //   if (stompClient) {
+  //     stompClient.deactivate();
+  //   }
+  // };
 
   const subscribeToMessages = (client) => {
     console.log(`Подписка на сообщения для пользователя с ID: ${thisUserId}`);
@@ -175,25 +175,39 @@ const Chat = observer(() => {
           {selectedUser ? (
             <>
               <div style={{ flex: 1, overflowY: "auto" }}>
-                <ListGroup>
-                  {messages.map((msg, index) => (
-                    <ListGroup.Item
-                      key={msg}
-                      style={{
-                        display: "inline-block",
-                        maxWidth: "70%",
-                        textAlign: msg.senderId === thisUserId ? "right" : "left",
-                        backgroundColor: msg.senderId === thisUserId ? "#e1f5fe" : "#ffffff",
-                        border: "1px solid #ccc",
-                        borderRadius: "10px",
-                        padding: "10px",
-                        margin: "5px 0",
-                        alignSelf: msg.senderId === thisUserId ? "flex-end" : "flex-start"
-                      }}
-                    >
-                      <strong>{msg.senderName}: </strong>{msg.content}
-                    </ListGroup.Item>
-                  ))}
+              <ListGroup>
+                  {messages
+                    .slice()
+                    .sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp))
+                    .map((msg, index) => {
+                      const messageDate = new Date(msg.timestamp);
+                      const today = new Date();
+                      const isToday = messageDate.toDateString() === today.toDateString();
+
+                      return (
+                        <ListGroup.Item
+                          key={index}
+                          style={{
+                            display: "inline-block",
+                            maxWidth: "70%",
+                            textAlign: msg.senderId === thisUserId ? "right" : "left",
+                            backgroundColor: msg.senderId === thisUserId ? "#e1f5fe" : "#ffffff",
+                            border: "1px solid #ccc",
+                            borderRadius: "10px",
+                            padding: "10px",
+                            margin: "5px 0",
+                            alignSelf: msg.senderId === thisUserId ? "flex-end" : "flex-start"
+                          }}
+                        >
+                          <strong>{user.userName != msg.senderName && msg.senderName  + ":"} </strong>{msg.content}
+                          <div style={{ textAlign: 'right', fontSize: '0.8em', color: '#888' }}>
+                            {isToday 
+                              ? messageDate.toLocaleTimeString() 
+                              : messageDate.toLocaleDateString() + ' ' + messageDate.toLocaleTimeString()}
+                          </div>
+                        </ListGroup.Item>
+                      );
+                    })}
                 </ListGroup>
                 <div ref={messagesEndRef} />
               </div>

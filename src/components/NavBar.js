@@ -4,7 +4,7 @@ import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import Container from 'react-bootstrap/Container'
 import { NavLink } from "react-router-dom";
-import { ADMIN_ROUTE, FAVORITE_ROUTE, LOGIN_ROUTE, HOME_ROUTE, PROFILE_ROUTE, NEWS_ROUTE } from "../utils/consts";
+import { ADMIN_ROUTE, FAVORITE_ROUTE, LOGIN_ROUTE, HOME_ROUTE, PROFILE_ROUTE, NEWS_ROUTE, CHAT_ROUTE } from "../utils/consts";
 import Button from "react-bootstrap/Button";
 import { observer } from "mobx-react-lite";
 import {useNavigate} from 'react-router-dom'
@@ -57,6 +57,13 @@ const NavBar = observer( () => {
                                     {!collapsed ? 'Панель администратора' : <i className="fa fa-gear"></i>}
                                 </Button>
                             )}
+                            <Button
+                                variant="outline-light ms-1"
+                                onClick={() => navigate(CHAT_ROUTE)}
+                                className="mr-2"
+                            >
+                                {!collapsed ? 'Чаты' : <i className="fa fa-comment"></i>}
+                            </Button>
                             <Button
                                 variant="outline-light ms-1"
                                 onClick={() => navigate(FAVORITE_ROUTE)}

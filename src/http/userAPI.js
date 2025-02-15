@@ -11,6 +11,11 @@ export const changeUser = async (id) => {
     return data
 }
 
+export const fetchUserChats = async () => {
+    const data = await $authHost.get('api/users/chats')
+    return data.data
+}
+
 export const fetchUser = async (id) => {
     const {data} = await $host.get('api/users/' + id)
     return data
