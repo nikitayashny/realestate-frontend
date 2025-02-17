@@ -126,7 +126,7 @@ const Chat = observer(() => {
         senderId: thisUserId,
         recipientId: selectedUser.id,
         senderName: user.userName,
-        recipientName: selectedUser.userName,
+        recipientName: selectedUser.username,
         content: newMessage,
         timestamp: new Date(),
       };
