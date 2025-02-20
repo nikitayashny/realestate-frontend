@@ -7,7 +7,10 @@ import FavoritePage from "./pages/FavoritePage"
 import Admin from "./pages/Admin"
 import NewsPage from "./pages/NewsPage"
 import Chat from "./pages/Chat"
-import { REGISTRATION_ROUTE, LOGIN_ROUTE, HOME_ROUTE, PROFILE_ROUTE, REALT_ROUTE, USER_ROUTE, FAVORITE_ROUTE, ADMIN_ROUTE, NEWS_ROUTE, CHAT_ROUTE} from "./utils/consts"
+import SuccessPayment from "./pages/SuccessPayment"
+import CancelPayment from "./pages/CancelPayment"
+
+import { REGISTRATION_ROUTE, LOGIN_ROUTE, HOME_ROUTE, PROFILE_ROUTE, REALT_ROUTE, USER_ROUTE, FAVORITE_ROUTE, ADMIN_ROUTE, NEWS_ROUTE, CHAT_ROUTE, SUCCESS_ROUTE, CANCEL_ROUTE} from "./utils/consts"
 
 export const authRoutes = [
     {
@@ -56,4 +59,12 @@ export const publicRoutes = [
         path: NEWS_ROUTE,
         Component: NewsPage
     },
+    {
+        path: SUCCESS_ROUTE,
+        Component: SuccessPayment
+    },
+    {
+        path: CANCEL_ROUTE,
+        Component: CancelPayment
+    }
 ]
