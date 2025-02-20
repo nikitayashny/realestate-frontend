@@ -1,6 +1,11 @@
 import {$host, $authHost} from './index'
 import { jwtDecode } from "jwt-decode"
 
+export const getSubscription = async () => {
+    const {data} = await $authHost.get('/subscription')
+    return data
+}
+
 export const banUser = async (id) => {
     const {data} = await $authHost.post('api/admin/users/ban/' + id)
     return data

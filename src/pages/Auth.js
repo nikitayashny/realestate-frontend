@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react"
 import { Container, Form, Card, Button, Modal } from "react-bootstrap"
 import { NavLink, useLocation } from "react-router-dom"
 import { LOGIN_ROUTE, REGISTRATION_ROUTE, HOME_ROUTE } from "../utils/consts"
-import { login, registration, fetchUsers, confirmRegistration, oauth2Login } from "../http/userAPI"
+import { login, registration, fetchUsers, confirmRegistration, oauth2Login, getSubscription } from "../http/userAPI"
 import { observer } from "mobx-react-lite"
 import { Context } from "../index"
 import { useNavigate } from 'react-router-dom'
@@ -59,6 +59,10 @@ const Auth = observer(() => {
                                 realt.setFavorites(data);
                             });
 
+            getSubscription().then(data => {
+                                user.setSubscription(data);
+                            })
+
             if (data.role === 'ADMIN' || data.role === "SUPER_ADMIN") {
                 fetchUsers().then(users => {
                     user.setUsers(users);
@@ -92,6 +96,10 @@ const Auth = observer(() => {
                                 realt.setFavorites(data);
                             });
 
+            getSubscription().then(data => {
+                                user.setSubscription(data);
+                            })
+
             if (data.role === 'ADMIN' || data.role === "SUPER_ADMIN") {
                 fetchUsers().then(users => {
                     user.setUsers(users);
@@ -122,6 +130,10 @@ const Auth = observer(() => {
             fetchFavorites().then(data => {  
                                 realt.setFavorites(data);
                             });
+
+            getSubscription().then(data => {
+                                user.setSubscription(data);
+                            })
 
             if (data.role === 'ADMIN' || data.role === "SUPER_ADMIN") {
                 fetchUsers().then(users => {

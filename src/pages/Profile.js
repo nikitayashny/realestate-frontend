@@ -21,6 +21,7 @@ const Profile = observer(() => {
         user.setEmail(null)
         user.setUserId(null)
         user.setUsers(null)
+        user.setSubscription(null)
         realt.setUsersRealts(null)
         realt.setFavorites(null)
         realt.setSelectedType(0)

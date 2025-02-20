@@ -4,7 +4,7 @@ import AppRouter from "./components/AppRouter";
 import { observer } from "mobx-react-lite";
 import { Context } from "./index";
 import { Spinner } from "react-bootstrap";
-import { check } from "./http/userAPI";
+import { check, getSubscription } from "./http/userAPI";
 import NavBar from "./components/NavBar";
 import authBg from './img/auth_bg.jpg';
 import { fetchFavorites } from "./http/realtAPI";
@@ -29,6 +29,10 @@ const App = observer(() => {
                     realt.setFavorites(data);
                 });
                 
+                getSubscription().then(data => {
+                    user.setSubscription(data);
+                })
+
                 if ((user.role === 'ADMIN' || user.role === "SUPER_ADMIN")) {
                     fetchUsers().then(users => {
                         user.setUsers(users);
