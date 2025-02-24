@@ -28,7 +28,7 @@ const UserPage = observer(() => {
     }, [id]);
 
     useEffect(() => {
-        const socket = new SockJS("http://localhost:8080/ws");
+        const socket = new SockJS("https://localhost:8443/ws");
         const stompClient = new Client({
             webSocketFactory: () => socket,
             onWebSocketError: (error) => {
