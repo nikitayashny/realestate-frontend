@@ -37,7 +37,7 @@ const AddRealtModal = ({ show, onHide }) => {
             const response = await createRealt(formData);
             console.log('Объявление добавлено:', response);
 
-            fetchRealts(realt.page - 1, PAGE_SIZE, realt.selectedDealType, realt.selectedType, realt.roomsCount, realt.maxPrice, realt.sortType).then(data => {
+            fetchRealts(realt.page - 1, PAGE_SIZE, realt.selectedDealType, realt.selectedType, realt.roomsCount, realt.maxPrice, realt.sortType, realt.repair, realt.floor, realt.city, realt.minArea).then(data => {
                 realt.setRealts(data.realts);
                 realt.setTotalCount(data.count);
             });
@@ -87,6 +87,30 @@ const AddRealtModal = ({ show, onHide }) => {
                                 <Option value="2">Продажа</Option>
                                 <Option value="3">Посуточно</Option>
                             </Select>
+                        </Form.Item>
+                    </Col>
+                </Row>
+                <Row gutter={16}>
+                    <Col span={12}>
+                        <Form.Item
+                            label="Наличие ремонта:"
+                            name="repair"
+                            rules={[{ required: true, message: 'Выберите тип ремонта' }]}
+                        >
+                            <Select placeholder="Выберите тип недвижимости">
+                                <Option value="1">Без ремонта</Option>
+                                <Option value="2">Старый ремонт</Option>
+                                <Option value="3">Новый ремонт</Option>
+                            </Select>
+                        </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                        <Form.Item
+                            label="Этаж:"
+                            name="floor"
+                            rules={[{ required: true, message: 'Введите номер этажа' }]}
+                        >
+                            <Input type="number" />
                         </Form.Item>
                     </Col>
                 </Row>

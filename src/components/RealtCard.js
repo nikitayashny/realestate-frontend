@@ -21,7 +21,7 @@ const RealtCard = observer(({realtItem}) => {
         event.stopPropagation()
         deleteRealt(id)
             .then(() => {
-                fetchRealts(realt.page - 1, PAGE_SIZE, realt.selectedDealType, realt.selectedType, realt.roomsCount, realt.maxPrice, realt.sortType)
+                fetchRealts(realt.page - 1, PAGE_SIZE, realt.selectedDealType, realt.selectedType, realt.roomsCount, realt.maxPrice, realt.sortType, realt.repair, realt.floor, realt.city, realt.minArea)
                 .then(data => {  
                     realt.setRealts(data.realts)
                     realt.setTotalCount(data.count)

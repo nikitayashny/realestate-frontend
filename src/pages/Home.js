@@ -19,7 +19,7 @@ const Home = observer(() => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await fetchRealts(realt.page - 1, PAGE_SIZE, realt.selectedDealType, realt.selectedType, realt.roomsCount, realt.maxPrice, realt.sortType)
+                const res = await fetchRealts(realt.page - 1, PAGE_SIZE, realt.selectedDealType, realt.selectedType, realt.roomsCount, realt.maxPrice, realt.sortType, realt.repair, realt.floor, realt.city, realt.minArea)
                 realt.setRealts(res.realts)
                 realt.setTotalCount(res.count)
             } catch (error) {
@@ -27,7 +27,7 @@ const Home = observer(() => {
             }
         }
         fetchData()
-    }, [realt.page, realt.selectedDealType, realt.selectedType, realt.roomsCount, realt.maxPrice, realt.sortType])
+    }, [realt.page, realt.selectedDealType, realt.selectedType, realt.roomsCount, realt.maxPrice, realt.sortType, realt.repair, realt.floor, realt.city, realt.minArea])
 
 
     return (

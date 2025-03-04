@@ -12,9 +12,25 @@ export default class RealtStore {
         this._realts = []
         this._selectedType = 0
         this._selectedDealType = 0
+        this._repair = 0
+        this._floor = 0
+        this._city = ''
+        this._minArea = 0
         makeAutoObservable(this)
     }
 
+    setRepair(repair) {
+        this._repair = repair
+    }
+    setFloor(floor) {
+        this._floor = floor
+    }
+    setCity(city) {
+        this._city = city
+    }
+    setMinArea(minArea) {
+        this._minArea = minArea
+    }
     setRoomsCount(roomsCount) {
         this._roomsCount = roomsCount
     }
@@ -48,6 +64,19 @@ export default class RealtStore {
         this._totalCount = count;
     }
 
+
+    get repair() {
+        return this._repair
+    }
+    get floor() {
+        return this._floor
+    }
+    get city() {
+        return this._city
+    }
+    get minArea() {
+        return this._minArea
+    }
     get roomsCount() {
         return this._roomsCount
     }

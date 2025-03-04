@@ -8,6 +8,10 @@ const FilterComponent = () => {
     const [selectedType, setSelectedType] = useState(realt.selectedType);
     const [roomsCount, setRoomsCount] = useState(realt.roomsCount)
     const [maxPrice, setMaxPrice] = useState(realt.maxPrice)
+    const [repair, setRepair] = useState(realt.repair)
+    const [floor, setFloor] = useState(realt.floor)
+    const [minArea, setMinArea] = useState(realt.minArea)
+    const [city, setCity] = useState(realt.city)
 
     const handlePriceChange = (event) => {
         const value = event.target.value;
@@ -19,6 +23,35 @@ const FilterComponent = () => {
         }
     }
 
+    const handleFloorChange = (event) => {
+        const value = event.target.value;
+        if (value === '') {
+            setFloor(0);
+        } else {
+            const numericValue = Number(value);
+            setFloor(numericValue);
+        }
+    }
+
+    const handleMinAreaChange = (event) => {
+        const value = event.target.value;
+        if (value === '') {
+            setMinArea(0);
+        } else {
+            const numericValue = Number(value);
+            setMinArea(numericValue);
+        }
+    }
+
+    const handleCityChange = (event) => {
+        const value = event.target.value;
+        if (value === '') {
+            setCity('');
+        } else {
+            setCity(value);
+        }
+    }
+
     const handlePriceBlur = (event) => {
         const value = event.target.value;
         if (value === '') {
@@ -26,6 +59,32 @@ const FilterComponent = () => {
         } else {
             const numericValue = Number(value);
             realt.setMaxPrice(numericValue);
+        }
+    }
+    const handleFloorBlur = (event) => {
+        const value = event.target.value;
+        if (value === '') {
+            realt.setFloor(0);
+        } else {
+            const numericValue = Number(value);
+            realt.setFloor(numericValue);
+        }
+    }
+    const handleMinAreaBlur = (event) => {
+        const value = event.target.value;
+        if (value === '') {
+            realt.setMinArea(0);
+        } else {
+            const numericValue = Number(value);
+            realt.setMinArea(numericValue);
+        }
+    }
+    const handleCityBlur = (event) => {
+        const value = event.target.value;
+        if (value === '') {
+            realt.setCity('');
+        } else {
+            realt.setCity(value);
         }
     }
 
@@ -41,6 +100,39 @@ const FilterComponent = () => {
         }
     };
 
+    const handleFloorKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            const value = floor; 
+            if (value === '') {
+                realt.setFloor(0);
+            } else {
+                const numericValue = Number(value);
+                realt.setFloor(numericValue);
+            }
+        }
+    };
+    const handleMinAreaKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            const value = minArea; 
+            if (value === '') {
+                realt.setMinArea(0);
+            } else {
+                const numericValue = Number(value);
+                realt.setMinArea(numericValue);
+            }
+        }
+    };
+    const handleCityKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            const value = city; 
+            if (value === '') {
+                realt.setCity('');
+            } else {
+                realt.setCity(value);
+            }
+        }
+    };
+
     useEffect(() => {
         if (realt.maxPrice === -1) {
             setMaxPrice('');
@@ -48,6 +140,30 @@ const FilterComponent = () => {
             setMaxPrice(realt.maxPrice);
         }
     }, [realt.maxPrice]);
+
+    useEffect(() => {
+        if (realt.floor === 0) {
+            setFloor('');
+        } else {
+            setFloor(realt.floor);
+        }
+    }, [realt.floor]);
+
+    useEffect(() => {
+        if (realt.minArea === 0) {
+            setMinArea('');
+        } else {
+            setMinArea(realt.minArea);
+        }
+    }, [realt.minArea]);
+    
+    useEffect(() => {
+        if (realt.city === '') {
+            setCity('');
+        } else {
+            setCity(realt.city);
+        }
+    }, [realt.city]);
 
     const baseFilterStyle = {
         padding: '5px',
@@ -139,6 +255,88 @@ const FilterComponent = () => {
                             onKeyDown={handlePriceKeyDown}
                         />
                         
+                    </Col>
+                </Row>
+                <div className='mt-2'></div>
+                <Row>
+                    <Col md={3}>
+                        <p>Наличие ремонта</p>
+                        <select
+                            value={repair}
+                            onChange={(e) => {
+                                const value = parseInt(e.target.value);
+                                setRepair(value);
+                                realt.setRepair(value);
+                            }}
+                            style={baseFilterStyle}
+                        >
+                            <option value={0}>Любой</option>
+                            <option value={1}>Без ремонта</option>
+                            <option value={2}>Старый ремонт</option>
+                            <option value={3}>Новый ремонт</option>
+                        </select>
+                    </Col>
+                    <Col md={3}>
+                        <p>Город</p>
+                        
+                        <input
+                            style={{
+                                padding: '5px',
+                                border: '2px solid #ccc',
+                                borderRadius: '4px',
+                                cursor: 'pointer',
+                                width: '100%',
+                            }}
+                            type='text'
+                            name="city"
+                            id="city"
+                            value={city} 
+                            onChange={handleCityChange}
+                            onBlur={handleCityBlur}
+                            onKeyDown={handleCityKeyDown}
+                        />
+                    </Col>
+                    <Col md={3}>
+                        <p>Желаемый этаж</p>
+                        
+                        <input
+                            style={{
+                                padding: '5px',
+                                border: '2px solid #ccc',
+                                borderRadius: '4px',
+                                cursor: 'pointer',
+                                width: '100%',
+                            }}
+                            type="number"
+                            name="floor"
+                            id="floor"
+                            min="0"
+                            value={floor === 0 ? '' : floor} 
+                            onChange={handleFloorChange}
+                            onBlur={handleFloorBlur}
+                            onKeyDown={handleFloorKeyDown}
+                        />
+                    </Col>
+                    <Col md={3}>
+                        <p>Минимальная площадь</p>
+                        
+                        <input
+                            style={{
+                                padding: '5px',
+                                border: '2px solid #ccc',
+                                borderRadius: '4px',
+                                cursor: 'pointer',
+                                width: '100%',
+                            }}
+                            type="number"
+                            name="minArea"
+                            id="minArea"
+                            min="0"
+                            value={minArea === 0 ? '' : minArea} 
+                            onChange={handleMinAreaChange}
+                            onBlur={handleMinAreaBlur}
+                            onKeyDown={handleMinAreaKeyDown}
+                        />
                     </Col>
                 </Row>
                 

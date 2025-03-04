@@ -117,6 +117,13 @@ const RealtPage = observer(() => {
                                 {`${realtItem.type?.typeName} ${realtItem.area} м²`}
                             </p>
                             <p className="card-text">{`Количество комнат: ${realtItem.roomsCount}`}</p>
+                            <p className="card-text">{`Этаж: ${realtItem.floor ? realtItem.floor : 'Не указано'}`}</p>
+                            <p className="card-text">
+                                {realtItem.repair === 1 ? 'Без ремонта' 
+                                : realtItem.repair === 2 ? 'Старый ремонт'
+                                : realtItem.repair === 3 ? 'Новый ремонт'
+                                : null}
+                            </p>
                             <p className="card-text">{`${realtItem.country}, г. ${realtItem.city}, ул.${realtItem.street}, д.${realtItem.house}`}</p>
                             <p className="card-text">
                                 {'Автор: '}
