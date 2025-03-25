@@ -92,19 +92,15 @@ const RealtCard = observer(({realtItem}) => {
     
     return (
         <Col md={12}  className="mt-3" onClick={() => viewAndNavigate()}>
-            {/* <ToastContainer position="center">
-                <Notification
-                    show={showNotification}
-                    message={notificationMessage}
-                    color={notificationColor}
-                    header={notificationHeader}
-                    onClose={() => setShowNotification(false)}
-                />
-            </ToastContainer> */}
             <Card style={{ position: 'relative', cursor: 'pointer'}} bg="light">
                 <div className="row g-0">
                     <div className="col-md-5">
-                        <img style={{ height: "280px", width: "100%", objectFit: "cover" }} src={realtItem.images[0]} alt="Изображение загружается..." />
+                        {realtItem.images[0]
+                        ?
+                            <img style={{ height: "280px", width: "100%", objectFit: "cover" }} src={realtItem.images[0]} alt="Изображение загружается..." />
+                        : 
+                        <></>
+                        }
                     </div>
                 <div className="col-md-7">
                     <div className="card-body">

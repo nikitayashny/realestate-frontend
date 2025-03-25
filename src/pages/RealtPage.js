@@ -167,16 +167,21 @@ const RealtPage = observer(() => {
                     </Card>
                 </div>
                 <div className="mb-4 mt-4">
-                    <Card bg="light" data-bs-theme="light">
-                        <div className="card-body">
-                            <div className="col-md-12">
-                                <h5 className="card-title">Описание:</h5>
-                                <p className="card-text">
-                                    <span>{realtItem.article}</span>
-                                </p>
+                    {realtItem.article != "undefined"
+                    ?
+                        <Card bg="light" data-bs-theme="light">
+                            <div className="card-body">
+                                <div className="col-md-12">
+                                    <h5 className="card-title">Описание:</h5>
+                                    <p className="card-text">
+                                        <span>{realtItem.article}</span>
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                    </Card>
+                        </Card>
+                    :
+                        <></>    
+                    }
                 </div>
             </div>
             <h5 className="ms-3 mb-3">Местоположение</h5>           

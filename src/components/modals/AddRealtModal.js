@@ -181,7 +181,7 @@ const AddRealtModal = ({ show, onHide }) => {
                             name="house"
                             rules={[{ required: true, message: 'Введите номер дома' }]}
                         >
-                            <Input type="number" />
+                            <Input />
                         </Form.Item>
                     </Col>
                     <Col span={12}>

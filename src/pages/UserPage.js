@@ -28,20 +28,22 @@ const UserPage = observer(() => {
     }, [id]);
 
     useEffect(() => {
-        const socket = new SockJS("https://localhost:8443/ws");
-        const stompClient = new Client({
-            webSocketFactory: () => socket,
-            onWebSocketError: (error) => {
-                console.error("WebSocket error:", error);
-            },
-        });
-        
-        stompClient.activate();
-        setClient(stompClient);
+        if (user.isAuth) {
+            const socket = new SockJS("https://localhost:8443/ws");
+            const stompClient = new Client({
+                webSocketFactory: () => socket,
+                onWebSocketError: (error) => {
+                    console.error("WebSocket error:", error);
+                },
+            });
+            
+            stompClient.activate();
+            setClient(stompClient);
 
-        return () => {
-            stompClient.deactivate();
-        };
+            return () => {
+                stompClient.deactivate();
+            };
+        }
     }, []);
 
     const handleSendMessage = () => {
@@ -73,11 +75,15 @@ const UserPage = observer(() => {
         <Container className="mt-5 mb-5" style={{ background: "rgba(255,255,255,1)", borderRadius: "20px", padding: "20px"}}>
             <div className="d-flex justify-content-between align-items-center">
                 <h4 className="mb-4">{userProfile.username}</h4>
+                {user.isAuth 
+                ?
                 <div className="ms-2">
                     <Button variant="outline-dark" className="ms-2" onClick={() => setShowModal(true)}>
                         Написать
                     </Button>
                 </div>
+                : 
+                null}
             </div>
 
             <p>Email: <span>{userProfile.email}</span></p>
