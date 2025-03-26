@@ -12,6 +12,7 @@ const FilterComponent = () => {
     const [floor, setFloor] = useState(realt.floor)
     const [minArea, setMinArea] = useState(realt.minArea)
     const [city, setCity] = useState(realt.city)
+    const [street, setStreet] = useState(realt.street)
 
     const handlePriceChange = (event) => {
         const value = event.target.value;
@@ -52,6 +53,15 @@ const FilterComponent = () => {
         }
     }
 
+    const handleStreetChange = (event) => {
+        const value = event.target.value;
+        if (value === '') {
+            setStreet('');
+        } else {
+            setStreet(value);
+        }
+    }
+
     const handlePriceBlur = (event) => {
         const value = event.target.value;
         if (value === '') {
@@ -85,6 +95,15 @@ const FilterComponent = () => {
             realt.setCity('');
         } else {
             realt.setCity(value);
+        }
+    }
+
+    const handleStreetBlur = (event) => {
+        const value = event.target.value;
+        if (value === '') {
+            realt.setStreet('');
+        } else {
+            realt.setStreet(value);
         }
     }
 
@@ -132,6 +151,16 @@ const FilterComponent = () => {
             }
         }
     };
+    const handleStreetKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            const value = street; 
+            if (value === '') {
+                realt.setStreet('');
+            } else {
+                realt.setStreet(value);
+            }
+        }
+    };
 
     useEffect(() => {
         if (realt.maxPrice === -1) {
@@ -165,6 +194,14 @@ const FilterComponent = () => {
         }
     }, [realt.city]);
 
+    useEffect(() => {
+        if (realt.street === '') {
+            setStreet('');
+        } else {
+            setStreet(realt.street);
+        }
+    }, [realt.street]);
+
     const baseFilterStyle = {
         padding: '5px',
         border: '2px solid #ccc',
@@ -179,7 +216,7 @@ const FilterComponent = () => {
                 <Card.Title>Фильтры</Card.Title>
                 <hr></hr>
                 <Row>
-                    <Col md={3}>
+                    <Col md={4}>
                         <p>Тип сделки</p>
                         <select
                             value={selectedDealType}
@@ -196,7 +233,7 @@ const FilterComponent = () => {
                             <option value={3}>Посуточно</option>
                         </select>
                     </Col>
-                    <Col md={3}>
+                    <Col md={4}>
                         <p>Тип недвижимости</p>
                         <select
                             value={selectedType}
@@ -215,7 +252,7 @@ const FilterComponent = () => {
                             <option value={5}>Торговое помещение</option>
                         </select>
                     </Col>
-                    <Col md={3}>
+                    <Col md={4}>
                         <p>Количество комнат</p>
                         <select
                             value={roomsCount}
@@ -234,7 +271,11 @@ const FilterComponent = () => {
                             <option value={5}>Более 4 комнат</option>
                         </select>
                     </Col>
-                    <Col md={3}>
+                    
+                </Row>
+                <div className='mt-2'></div>
+                <Row>
+                <Col md={4}>
                         <p>Максимальная цена</p>
                         
                         <input
@@ -256,10 +297,7 @@ const FilterComponent = () => {
                         />
                         
                     </Col>
-                </Row>
-                <div className='mt-2'></div>
-                <Row>
-                    <Col md={3}>
+                    <Col md={4}>
                         <p>Наличие ремонта</p>
                         <select
                             value={repair}
@@ -275,49 +313,8 @@ const FilterComponent = () => {
                             <option value={2}>Старый ремонт</option>
                             <option value={3}>Новый ремонт</option>
                         </select>
-                    </Col>
-                    <Col md={3}>
-                        <p>Город</p>
-                        
-                        <input
-                            style={{
-                                padding: '5px',
-                                border: '2px solid #ccc',
-                                borderRadius: '4px',
-                                cursor: 'pointer',
-                                width: '100%',
-                            }}
-                            type='text'
-                            name="city"
-                            id="city"
-                            value={city} 
-                            onChange={handleCityChange}
-                            onBlur={handleCityBlur}
-                            onKeyDown={handleCityKeyDown}
-                        />
-                    </Col>
-                    <Col md={3}>
-                        <p>Желаемый этаж</p>
-                        
-                        <input
-                            style={{
-                                padding: '5px',
-                                border: '2px solid #ccc',
-                                borderRadius: '4px',
-                                cursor: 'pointer',
-                                width: '100%',
-                            }}
-                            type="number"
-                            name="floor"
-                            id="floor"
-                            min="0"
-                            value={floor === 0 ? '' : floor} 
-                            onChange={handleFloorChange}
-                            onBlur={handleFloorBlur}
-                            onKeyDown={handleFloorKeyDown}
-                        />
-                    </Col>
-                    <Col md={3}>
+                    </Col>          
+                    <Col md={4}>
                         <p>Минимальная площадь</p>
                         
                         <input
@@ -338,6 +335,71 @@ const FilterComponent = () => {
                             onKeyDown={handleMinAreaKeyDown}
                         />
                     </Col>
+                </Row>
+                <div className='mt-2'></div>
+                <Row>
+                <Col md={4}>
+                        <p>Город</p>
+                        
+                        <input
+                            style={{
+                                padding: '5px',
+                                border: '2px solid #ccc',
+                                borderRadius: '4px',
+                                cursor: 'pointer',
+                                width: '100%',
+                            }}
+                            type='text'
+                            name="city"
+                            id="city"
+                            value={city} 
+                            onChange={handleCityChange}
+                            onBlur={handleCityBlur}
+                            onKeyDown={handleCityKeyDown}
+                        />
+                    </Col>
+                    <Col md={4}>
+                        <p>Улица</p>
+                        
+                        <input
+                            style={{
+                                padding: '5px',
+                                border: '2px solid #ccc',
+                                borderRadius: '4px',
+                                cursor: 'pointer',
+                                width: '100%',
+                            }}
+                            type='text'
+                            name="street"
+                            id="street"
+                            value={street} 
+                            onChange={handleStreetChange}
+                            onBlur={handleStreetBlur}
+                            onKeyDown={handleStreetKeyDown}
+                        />
+                    </Col>  
+                    <Col md={4}>
+                        <p>Желаемый этаж</p>
+                        
+                        <input
+                            style={{
+                                padding: '5px',
+                                border: '2px solid #ccc',
+                                borderRadius: '4px',
+                                cursor: 'pointer',
+                                width: '100%',
+                            }}
+                            type="number"
+                            name="floor"
+                            id="floor"
+                            min="0"
+                            value={floor === 0 ? '' : floor} 
+                            onChange={handleFloorChange}
+                            onBlur={handleFloorBlur}
+                            onKeyDown={handleFloorKeyDown}
+                        />
+                    </Col>
+                    
                 </Row>
                 
             </Card.Body>

@@ -29,8 +29,8 @@ export const fetchFavorites = async () => {
     return data
 }
 
-export const fetchRealts = async (page, limit, dealTypeId, typeId, roomsCount, maxPrice, sortType, repair, floor, city, minArea) => {
-    const { data } = await $host.get('api/realts', { params: {page, limit, dealTypeId, typeId, roomsCount, maxPrice, sortType, repair, floor, city, minArea} })
+export const fetchRealts = async (page, limit, dealTypeId, typeId, roomsCount, maxPrice, sortType, repair, floor, city, minArea, street) => {
+    const { data } = await $host.get('api/realts', { params: {page, limit, dealTypeId, typeId, roomsCount, maxPrice, sortType, repair, floor, city, minArea, street} })
     return data;
 }
 

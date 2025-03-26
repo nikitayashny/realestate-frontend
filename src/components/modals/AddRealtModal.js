@@ -37,7 +37,7 @@ const AddRealtModal = ({ show, onHide }) => {
             const response = await createRealt(formData);
             console.log('Объявление добавлено:', response);
 
-            fetchRealts(realt.page - 1, PAGE_SIZE, realt.selectedDealType, realt.selectedType, realt.roomsCount, realt.maxPrice, realt.sortType, realt.repair, realt.floor, realt.city, realt.minArea).then(data => {
+            fetchRealts(realt.page - 1, PAGE_SIZE, realt.selectedDealType, realt.selectedType, realt.roomsCount, realt.maxPrice, realt.sortType, realt.repair, realt.floor, realt.city, realt.minArea, realt.street).then(data => {
                 realt.setRealts(data.realts);
                 realt.setTotalCount(data.count);
             });

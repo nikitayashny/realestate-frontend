@@ -32,6 +32,11 @@ const Profile = observer(() => {
         realt.setMaxPrice(-1)
         realt.setSortType(1)
         realt.setPage(1)
+        realt.setStreet('')
+        realt.setCity('')
+        realt.setMinArea(0)
+        realt.setFloor(0)
+        realt.setRepair(0)
     };
     
     useEffect(() => {

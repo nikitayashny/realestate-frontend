@@ -15,6 +15,7 @@ export default class RealtStore {
         this._repair = 0
         this._floor = 0
         this._city = ''
+        this._street = ''
         this._minArea = 0
         makeAutoObservable(this)
     }
@@ -27,6 +28,9 @@ export default class RealtStore {
     }
     setCity(city) {
         this._city = city
+    }
+    setStreet(street) {
+        this._street = street
     }
     setMinArea(minArea) {
         this._minArea = minArea
@@ -73,6 +77,9 @@ export default class RealtStore {
     }
     get city() {
         return this._city
+    }
+    get street() {
+        return this._street
     }
     get minArea() {
         return this._minArea
