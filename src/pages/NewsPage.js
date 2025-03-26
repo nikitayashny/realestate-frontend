@@ -5,6 +5,7 @@ import { fetchNews, deleteNews, createNews } from "../http/newsAPI";
 import { Context } from "..";
 import { createComment, deleteComment } from "../http/commentAPI";
 import AddNewsModal from "../components/modals/AddNewsModal";
+import { USER_ROUTE } from "../utils/consts";
 
 const NewsPage = observer(() => {
     const [showModal, setShowModal] = useState(false); 
@@ -141,7 +142,7 @@ const NewsPage = observer(() => {
                                     post.comments.map(comment => (
                                         <div key={comment.id} >                                            
                                             <div className="d-flex justify-content-between align-items-start">
-                                                <strong>{comment.user.username}</strong>   
+                                                <strong><a href={USER_ROUTE + '/' + comment.user.id}>{comment.user.username}</a></strong>   
                                                 <p>
                                                 {(() => {
                                                     const dateOfCreated = comment.dateOfCreated;
