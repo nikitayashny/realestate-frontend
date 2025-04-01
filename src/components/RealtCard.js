@@ -105,9 +105,9 @@ const RealtCard = observer(({realtItem}) => {
                 <div className="col-md-7">
                     <div className="card-body">
                         <h5 className="card-title">{realtItem.name}</h5>
-                        <p className="card-text">{realtItem.dealType.id === 1 ? `${realtItem.price} $/мес.` 
-                                                : realtItem.dealType.id === 2 ? `${realtItem.price} $` 
-                                                : realtItem.dealType.id === 3 ? `${realtItem.price} $/сутки.`
+                        <p className="card-text">{realtItem.dealType.id === 1 ? `${realtItem.price} BYN/мес.` 
+                                                : realtItem.dealType.id === 2 ? `${realtItem.price} BYN` 
+                                                : realtItem.dealType.id === 3 ? `${realtItem.price} BYN/сутки.`
                                                 : null}
                         </p>
                         <p className="card-text">{`${realtItem.type.typeName} ${realtItem.area} м²`}</p>

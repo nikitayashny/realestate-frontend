@@ -108,9 +108,9 @@ const RealtPage = observer(() => {
                                 <span>{realtItem.name}</span>
                             </h3>
                             <p className="card-text">
-                                {realtItem.dealType?.id === 1 ? `${realtItem.price} $/мес.` 
-                                : realtItem.dealType?.id === 2 ? `${realtItem.price} $`
-                                : realtItem.dealType?.id === 3 ? `${realtItem.price} $/сутки`
+                                {realtItem.dealType?.id === 1 ? `${realtItem.price} BYN/мес.` 
+                                : realtItem.dealType?.id === 2 ? `${realtItem.price} BYN`
+                                : realtItem.dealType?.id === 3 ? `${realtItem.price} BYN/сутки`
                                 : null}
                             </p>
                             <p className="card-text">

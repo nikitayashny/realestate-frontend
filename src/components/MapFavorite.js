@@ -82,9 +82,9 @@ const MapFavorite = ({ realts }) => {
                       borderRadius: '5px'
                     }}
                   >
-                    { realt.dealType.id === 1 ? <>{realt.price}$/мес.</> 
-                    : realt.dealType.id === 2 ? <>{realt.price}$</> 
-                    : realt.dealType.id === 3 ? <>{realt.price}$/сутки</>
+                    { realt.dealType.id === 1 ? <>{realt.price}BYN/мес.</> 
+                    : realt.dealType.id === 2 ? <>{realt.price}BYN</> 
+                    : realt.dealType.id === 3 ? <>{realt.price}BYN/сутки</>
                     : null
                     }
                   </div>
