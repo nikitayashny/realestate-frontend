@@ -9,6 +9,7 @@ import NavBar from "./components/NavBar";
 import authBg from './img/auth_bg.jpg';
 import { fetchFavorites } from "./http/realtAPI";
 import { fetchUsers } from "./http/userAPI";
+import Footer from "./components/Footer";
 
 const App = observer(() => {
     const {user} = useContext(Context)
@@ -70,6 +71,7 @@ const App = observer(() => {
                     />
                     <AppRouter />
                 </div>
+                <Footer />
             </div>
 
         </BrowserRouter>

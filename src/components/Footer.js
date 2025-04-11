@@ -6,7 +6,7 @@ const Footer =  () => {
         <div className="container">
             <footer className="d-flex justify-content-between py-3">
                     <div className="d-flex align-items-center">
-                        <a href="/" style={{color: "white"}} className="text-decoration-none"> HomeHub</a>
+                        <a href="/" style={{color: "white"}} className="text-decoration-none"> RealEstate</a>
                         <span style={{color: "white"}}>© 2024 Company, Inc</span>
                     </div>
                     <ul className="nav">
